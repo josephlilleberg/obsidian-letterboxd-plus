@@ -1,0 +1,436 @@
+{
+  "nosferatu-2024.md": {
+    "frontmatter": {
+      "cssclasses": [
+        "hidefilename",
+        "letterboxd"
+      ],
+      "date_added": "2025-06-28T23:44:10.902",
+      "last_updated": "2025-06-29T16:30:47.533",
+      "last_synced": "2025-06-29T16:30:47.533",
+      "film_id": 426063,
+      "film_title": "Nosferatu",
+      "film_tagline": "Succumb to the darkness.",
+      "film_overview": "A gothic tale of obsession between a haunted young woman and the terrifying vampire infatuated with her, causing untold horror in its wake.",
+      "imdb_id": "tt5040012",
+      "release_date": "2024-12-25",
+      "release_year": "2024",
+      "genres": [
+        "Drama",
+        "Horror",
+        "Fantasy"
+      ],
+      "runtime": 133,
+      "original_language": "en",
+      "homepage": "https://www.focusfeatures.com/nosferatu",
+      "collections": [],
+      "watched": true,
+      "watch_date": "2025-06-28T23:44:28.401",
+      "rewatch_enabled": false,
+      "rewatch_dates": [
+        "2025-06-28T23:44:36.685",
+        "2025-06-28T23:44:40.988"
+      ],
+      "favorite": false,
+      "favorite_date": null,
+      "like": true,
+      "like_date": "2025-06-28T23:48:50.618",
+      "rating": 3,
+      "rating_date": "2025-06-28T23:44:21.889",
+      "lists": [
+        {
+          "title": "Horror",
+          "path": "Letterboxd+/Core/Films/Lists/horror.md"
+        }
+      ],
+      "review": "ghj",
+      "review_date": "2025-06-28T23:50:48.870",
+      "quotes": [
+        {
+          "quote": "ok\n",
+          "character": "l",
+          "actor": null,
+          "timestamp": null
+        }
+      ],
+      "banner": "https://image.tmdb.org/t/p/original//fYnEbgoNCxW9kL0IgOgtJb9JTBU.jpg",
+      "poster": "https://image.tmdb.org/t/p/w1280/5qGIxdEO841C0tdY8vOdLoRVrr0.jpg",
+      "edit": true
+    },
+    "type": "film",
+    "list": false
+  },
+  "kill-bill-vol.-1-2003.md": {
+    "frontmatter": {
+      "cssclasses": [
+        "hidefilename",
+        "letterboxd"
+      ],
+      "date_added": "2025-06-28T23:57:26.053",
+      "last_updated": "2025-06-29T16:30:47.196",
+      "last_synced": "2025-06-29T16:30:47.196",
+      "film_id": 24,
+      "film_title": "Kill Bill Vol. 1",
+      "film_tagline": "A Roaring Rampage of Revenge",
+      "film_overview": "An assassin is shot by her ruthless employer, Bill, and other members of their assassination circle – but she lives to plot her vengeance.",
+      "imdb_id": "tt0266697",
+      "release_date": "2003-10-10",
+      "release_year": "2003",
+      "genres": [
+        "Action",
+        "Crime"
+      ],
+      "runtime": 111,
+      "original_language": "en",
+      "homepage": "http://www.miramax.com/movie/kill-bill-volume-1",
+      "collections": [],
+      "watched": true,
+      "watch_date": "2025-06-29T00:42:26.811",
+      "rewatch_enabled": false,
+      "rewatch_dates": [],
+      "favorite": true,
+      "favorite_date": "2025-06-29T00:46:39.925",
+      "like": true,
+      "like_date": "2025-06-29T00:46:16.959",
+      "rating": 4,
+      "rating_date": "2025-06-29T00:42:23.214",
+      "lists": [],
+      "review": "",
+      "review_date": null,
+      "quotes": [],
+      "banner": "https://image.tmdb.org/t/p/original//p3WiF8qYS7Qp17YRYgrFh7gf9P9.jpg",
+      "poster": "https://image.tmdb.org/t/p/w1280/v7TaX8kXMXs5yFFGR41guUDNcnB.jpg"
+    },
+    "type": "film",
+    "list": false
+  },
+  "horror.md": {
+    "frontmatter": {
+      "title": "Horror",
+      "description": "Scary",
+      "created_on": "2025-06-28T23:48:07.554",
+      "updated": "2025-06-28T23:48:07.554",
+      "sortOption": "Film Name",
+      "sortOrder": "asc",
+      "enableFilters": false,
+      "filterStatus": "All",
+      "filterDecade": "Any",
+      "filterYear": "Any",
+      "filterRewatchStatus": "All",
+      "filterSearchQuery": "",
+      "filterRatingMin": null,
+      "filterRatingMax": null,
+      "filterLimitResults": 200,
+      "genres_list": [],
+      "selected": [],
+      "cssclasses": [
+        "cards",
+        "cards-cols-8",
+        "cards-cover",
+        "hidefilename",
+        "letterboxd"
+      ]
+    },
+    "type": "film",
+    "list": true
+  },
+  "invincible-2021.md": {
+    "frontmatter": {
+      "cssclasses": [
+        "hidefilename",
+        "letterboxd"
+      ],
+      "date_added": "2025-06-29T00:11:17.930",
+      "last_updated": "2025-06-29T02:27:43.561",
+      "last_synced": "2025-06-29T02:27:43.561",
+      "series_id": 95557,
+      "series_name": "INVINCIBLE",
+      "series_tagline": "Almost there.",
+      "series_overview": "Mark Grayson is a normal teenager except for the fact that his father is the most powerful superhero on the planet. Shortly after his seventeenth birthday, Mark begins to develop powers of his own and enters into his father’s tutelage.",
+      "release_date": "2021-03-25",
+      "release_year": "2021",
+      "genres": [
+        "Animation",
+        "Sci-Fi & Fantasy",
+        "Action & Adventure",
+        "Drama"
+      ],
+      "original_language": "en",
+      "homepage": "https://www.amazon.com/dp/B08WJP55PR",
+      "favorite": false,
+      "favorite_date": null,
+      "like": false,
+      "like_date": null,
+      "rating": null,
+      "rating_date": null,
+      "status": "Watchlist",
+      "series_logged": false,
+      "watch_season": 1,
+      "watch_episode": 1,
+      "watch_season_finale": false,
+      "watch_dates": [],
+      "rewatch_toggle": false,
+      "rewatch_session_active": false,
+      "rewatch_session_season_start": null,
+      "rewatch_session_episode_start": null,
+      "rewatch_season": 1,
+      "rewatch_episode": 1,
+      "rewatch_season_finale": false,
+      "rewatch_dates": [],
+      "season_breakdown": [
+        8,
+        8,
+        8
+      ],
+      "season_air_dates": [
+        "2021-03-25",
+        "2023-11-02",
+        "2025-02-06"
+      ],
+      "lists": [
+        {
+          "title": "test",
+          "path": "Letterboxd+/Core/Series/Lists/test.md"
+        },
+        {
+          "title": "l2",
+          "path": "Letterboxd+/Core/Series/Lists/l2.md"
+        }
+      ],
+      "review": "",
+      "reviewEdit": false,
+      "review_date": null,
+      "quote_track_current_episode": false,
+      "quote_content": null,
+      "quote_season": null,
+      "quote_episode": null,
+      "quote_author": null,
+      "banner": "https://image.tmdb.org/t/p/original//dfmPbyeZZSz3bekeESvMJaH91gS.jpg",
+      "poster": "https://image.tmdb.org/t/p/w1280/jBn4LWlgdsf6xIUYhYBwpctBVsj.jpg"
+    },
+    "type": "series",
+    "list": false
+  },
+  "breaking-bad-2008.md": {
+    "frontmatter": {
+      "cssclasses": [
+        "hidefilename",
+        "letterboxd"
+      ],
+      "date_added": "2025-06-29T00:12:25.036",
+      "last_updated": "2025-06-29T02:27:43.304",
+      "last_synced": "2025-06-29T02:27:43.304",
+      "series_id": 1396,
+      "series_name": "Breaking Bad",
+      "series_tagline": "Change the equation.",
+      "series_overview": "Walter White, a New Mexico chemistry teacher, is diagnosed with Stage III cancer and given a prognosis of only two years left to live. He becomes filled with a sense of fearlessness and an unrelenting desire to secure his family's financial future at any cost as he enters the dangerous world of drugs and crime.",
+      "release_date": "2008-01-20",
+      "release_year": "2008",
+      "genres": [
+        "Drama",
+        "Crime"
+      ],
+      "original_language": "en",
+      "homepage": "https://www.sonypictures.com/tv/breakingbad",
+      "favorite": true,
+      "favorite_date": "2025-06-29T01:38:28.994",
+      "like": true,
+      "like_date": "2025-06-29T01:38:42.898",
+      "rating": null,
+      "rating_date": null,
+      "status": "Watching",
+      "series_logged": false,
+      "watch_season": 1,
+      "watch_episode": 1,
+      "watch_season_finale": false,
+      "watch_dates": [
+        [
+          "2025-06-29T01:42:07.063",
+          "2025-06-29T01:42:07.581",
+          "2025-06-29T01:42:10.997"
+        ]
+      ],
+      "rewatch_toggle": false,
+      "rewatch_session_active": false,
+      "rewatch_session_season_start": null,
+      "rewatch_session_episode_start": null,
+      "rewatch_season": 1,
+      "rewatch_episode": 1,
+      "rewatch_season_finale": false,
+      "rewatch_dates": [],
+      "season_breakdown": [
+        7,
+        13,
+        13,
+        13,
+        16
+      ],
+      "season_air_dates": [
+        "2008-01-20",
+        "2009-03-08",
+        "2010-03-21",
+        "2011-07-17",
+        "2012-07-15"
+      ],
+      "lists": [],
+      "review": "",
+      "reviewEdit": false,
+      "review_date": null,
+      "quote_track_current_episode": false,
+      "quote_content": null,
+      "quote_season": null,
+      "quote_episode": null,
+      "quote_author": null,
+      "banner": "https://image.tmdb.org/t/p/original//gc8PfyTqzqltKPW3X0cIVUGmagz.jpg",
+      "poster": "https://image.tmdb.org/t/p/w1280/ztkUQFLlC19CCMYHW9o1zWhJRNq.jpg"
+    },
+    "type": "series",
+    "list": false
+  },
+  "1000-lb-sisters-2020.md": {
+    "frontmatter": {
+      "cssclasses": [
+        "hidefilename",
+        "letterboxd"
+      ],
+      "date_added": "2025-06-29T00:12:35.405",
+      "last_updated": "2025-06-29T11:07:36.345",
+      "last_synced": "2025-06-29T02:27:43.045",
+      "series_id": 98410,
+      "series_name": "1000-lb Sisters",
+      "series_tagline": "",
+      "series_overview": "The Slaton sisters averaging over a thousand pounds, have always depended on each other for support. Now in their 30s, Amy wants to have children, but cannot due to her weight, while her elder sister Tammy is near bedridden.",
+      "release_date": "2020-01-01",
+      "release_year": "2020",
+      "genres": [
+        "Reality"
+      ],
+      "original_language": "en",
+      "homepage": "https://www.tlc.com/tv-shows/1000-lb-sisters/",
+      "favorite": false,
+      "favorite_date": null,
+      "like": true,
+      "like_date": "2025-06-29T00:53:02.946",
+      "rating": null,
+      "rating_date": null,
+      "status": "On Hold",
+      "series_logged": false,
+      "watch_season": 1,
+      "watch_episode": 1,
+      "watch_season_finale": false,
+      "watch_dates": [
+        [
+          "2025-06-29T01:41:50.107",
+          "2025-06-29T01:41:50.775",
+          "2025-06-29T01:41:50.949",
+          "2025-06-29T01:41:51.081",
+          "2025-06-29T02:44:47.963"
+        ]
+      ],
+      "rewatch_toggle": false,
+      "rewatch_session_active": false,
+      "rewatch_session_season_start": null,
+      "rewatch_session_episode_start": null,
+      "rewatch_season": 1,
+      "rewatch_episode": 1,
+      "rewatch_season_finale": false,
+      "rewatch_dates": [],
+      "season_breakdown": [
+        6,
+        10,
+        12,
+        10,
+        9,
+        11,
+        9
+      ],
+      "season_air_dates": [
+        "2020-01-01",
+        "2021-01-04",
+        "2021-11-15",
+        "2023-01-17",
+        "2023-12-12",
+        "2024-10-08",
+        "2025-04-15"
+      ],
+      "lists": [
+        {
+          "title": "test",
+          "path": "Letterboxd+/Core/Series/Lists/test.md"
+        }
+      ],
+      "reviewEdit": false,
+      "review_date": null,
+      "quote_track_current_episode": false,
+      "quote_content": null,
+      "quote_season": null,
+      "quote_episode": null,
+      "quote_author": null,
+      "banner": "https://image.tmdb.org/t/p/original//7pnUFf3QxPp4m3U9jP7CdD7xFtd.jpg",
+      "poster": "https://image.tmdb.org/t/p/w1280/xEp6ZqJp6dRP6CAz2mZ6QPRj52b.jpg",
+      "edit": false
+    },
+    "type": "series",
+    "list": false
+  },
+  "test.md": {
+    "frontmatter": {
+      "title": "test",
+      "description": "uj",
+      "created_on": "2025-06-29T00:11:42.885",
+      "updated": "2025-06-29T00:11:42.885",
+      "sortOption": "Series Name",
+      "sortOrder": "asc",
+      "enableFilters": false,
+      "filterStatus": "All",
+      "filterDecade": "Any",
+      "filterYear": "Any",
+      "filterRewatchStatus": "All",
+      "filterSearchQuery": "",
+      "filterRatingMin": null,
+      "filterRatingMax": null,
+      "filterLimitResults": 200,
+      "genres_list": [],
+      "selected": [],
+      "cssclasses": [
+        "cards",
+        "cards-cols-8",
+        "cards-cover",
+        "hidefilename",
+        "letterboxd"
+      ]
+    },
+    "type": "series",
+    "list": true
+  },
+  "l2.md": {
+    "frontmatter": {
+      "title": "l2",
+      "description": "...",
+      "created_on": "2025-06-29T00:12:50.162",
+      "updated": "2025-06-29T00:12:50.162",
+      "sortOption": "Series Name",
+      "sortOrder": "asc",
+      "enableFilters": false,
+      "filterStatus": "All",
+      "filterDecade": "Any",
+      "filterYear": "Any",
+      "filterRewatchStatus": "All",
+      "filterSearchQuery": "",
+      "filterRatingMin": null,
+      "filterRatingMax": null,
+      "filterLimitResults": 200,
+      "genres_list": [],
+      "selected": [],
+      "cssclasses": [
+        "cards",
+        "cards-cols-8",
+        "cards-cover",
+        "hidefilename",
+        "letterboxd"
+      ]
+    },
+    "type": "series",
+    "list": true
+  }
+}

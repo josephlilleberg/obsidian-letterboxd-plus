@@ -1,0 +1,2081 @@
+
+.letterboxd {
+  /* Hide Properties in Reading Mode */
+  --metadata-display-reading: none; 
+
+  /* Card-related variables */
+  --cards-min-width: 180px;
+  --cards-max-width: 1fr;
+  --cards-mobile-width: 120px;
+  --cards-image-height: 400px;
+  --cards-padding: 1.2em;
+  --cards-image-fit: contain;
+  --cards-background: transparent;
+  --cards-border-width: 1px;
+  --cards-aspect-ratio: auto;
+  --cards-columns: repeat(auto-fit, minmax(var(--cards-min-width), var(--cards-max-width))); 
+
+  /* Letterbox-related variables*/
+  --letterboxd-poster-width: clamp(60px, 10vw, 120px);
+  --letterboxd-poster-height: calc(var(--letterboxd-poster-width) * 1.5); /* Maintain 2:3 aspect ratio */
+  --letterboxd-diary-mobile-height: 65px;
+  --letterboxd-diary-desktop-height: 125px;
+  --letterboxd-delete-button: #ef233c;
+}
+
+/* ================================= */
+/*          General CSS              */
+/* ================================= */
+
+/* Default (desktop): one line */
+.last-synced {
+  font-size: 0.8em;
+  color: var(--text-muted);
+  margin-bottom: 0.5em;
+  display: flex;
+  gap: 0.25em;
+  flex-wrap: nowrap;
+}
+
+/* Mobile: two lines */
+.is-mobile .last-synced {
+  display: block;
+  text-align: center;
+}
+
+.is-mobile .synced-label,
+.is-mobile .synced-date {
+  display: block;
+}
+
+
+/* ----------- Template Dividers ----------- */
+.letterboxd .section-divider {
+  border-top: 1.5px dotted var(--text-faint);
+  height: 0;
+  margin: 2em 0; /* Optional: adds spacing above and below */
+}
+
+.letterboxd .log-section-divider {
+  border-top: 1.5px dashed var(--text-faint);
+  height: 0;
+  margin: 2em 0; /* Optional: adds spacing above and below */
+}
+
+/* ----------- Misc. ----------- */
+.letterboxd .section-divider {
+  border-top: 1.5px dotted var(--text-faint);
+  height: 0;
+  margin: 2em 0; /* Optional: adds spacing above and below */
+}
+
+.letterboxd .log-section-divider {
+  border-top: 1.5px dashed var(--text-faint);
+  height: 0;
+  margin: 2em 0; /* Optional: adds spacing above and below */
+}
+
+.modal .modal-content p {
+  text-align: center;
+}
+
+.modal .modal-button-container {
+  display: flex;
+  justify-content: center; 
+  align-items: center;    
+}
+
+.meta-info-footer {
+  font-size: 12px;
+  text-align: center;
+  color: var(--text-faint);
+  font-style: italic;           /* Optional: emphasizes it as secondary info */
+  margin-top: 8px;              /* Adds spacing above, if needed */
+  user-select: none;            /* Optional: prevents accidental text selection */
+}
+
+.mb-row {
+    display: flex;
+    gap: .5rem;
+    align-items: flex-start;
+}
+
+.modal-title {
+  text-align: center;
+}
+
+.yesNoPromptButtonContainer {
+  display: flex;
+  flex-direction: row-reverse;
+}
+
+.yesNoPromptButtonContainer button {
+  padding: 0 40px;
+}
+
+.mb-button-group-inline {
+  display: flex;
+  justify-content: flex-start; /* or space-between */
+  gap: 8px; /* optional spacing */
+}
+
+.center-button {
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mb-button.center-button button {
+  background-color: var(--letterboxd-delete-button);
+}
+
+/* Hide the js-engine info-rerun button completely */
+div.js-engine-execution-stats-button {
+  display: none !important;
+}
+
+/* ================================= */
+/*          Core Letterboxd          */
+/* ================================= */
+
+.letterboxd .mb-view-type-text {
+  padding: 10px 18px;
+  box-shadow: inset 0 0.5px 0.5px 0.5px rgba(255, 255, 255, 0.09), 0 2px 4px 0 rgba(0, 0, 0, .15), 0 1px 1.5px 0 rgba(0, 0, 0, .1), 0 1px 2px 0 rgba(0, 0, 0, .2), 0 0 0 0 transparent;
+  font-size: 13px;
+  font-weight: 400;
+  border-radius: 4px;
+  background-color: var(--interactive-normal);
+}
+
+/* Hide filename in file */
+.letterboxd.hidefilename .inline-title {
+    display: none;
+}
+
+/* Center Headers */
+.markdown-preview-view h1,
+.markdown-preview-view h2,
+.markdown-preview-view h3,
+.markdown-preview-view h4,
+.markdown-preview-view h5,
+.markdown-preview-view h6 {
+    text-align: center;
+    pointer-events: none;
+}
+
+/* Center Container */
+div[data-callout-metadata*="center"].callout > .callout-content {
+  display: flex;
+  justify-content: center;
+}
+
+.mb-card:has(.mb-input-type-multiSelect) {
+  border: none;
+}
+
+.letterboxd-hide-mb-inline-list-add .mb-inline-list-add {
+  display: none;
+}
+
+
+
+
+.letterboxd .letterboxd-navbar .mb-button-inner {
+  padding: 10.5px 7.5px;
+  font-size: 14px;
+  padding: var(--cg-nt-item-padding-y) var(--cg-nt-item-padding-x);
+  color: var(--cg-nt-item-text-color);
+  gap: 0 0.5em;
+  height: 100%;
+
+}
+
+/* Forces 4 columns on mobile */
+@media (max-width: 768px) {
+    .letterboxd .dataview tbody {
+        grid-template-columns: repeat(4, 1fr) !important; 
+    }
+}
+
+/* =========================== */
+/*          Cards              */
+/* =========================== */
+
+@media (max-width: 400pt) {
+  body {
+    --cards-min-width: var(--cards-mobile-width);
+  }
+
+  .letterboxd.cards table.dataview tbody > tr > td:not(:first-child) {
+    font-size: 80%;
+  }
+}
+
+.letterboxd.cards.table-100 table.dataview tbody,
+.table-100 .letterboxd.cards table.dataview tbody {
+  padding: 0.25rem 0.75rem;
+}
+
+.letterboxd.cards table.dataview {
+  --table-width: 100%;
+  --table-edge-cell-padding-first: calc(var(--cards-padding) / 2);
+  --table-edge-cell-padding-last: calc(var(--cards-padding) / 2);
+  --table-cell-padding: calc(var(--cards-padding) / 3) calc(var(--cards-padding) / 2);
+  line-height: 1.3;
+}
+
+.letterboxd.cards table.dataview tbody {
+  padding: 0.5rem 0;
+  display: grid;
+  grid-template-columns: var(--cards-columns);
+  grid-column-gap: 0.75rem;
+  grid-row-gap: 0.75rem;
+}
+
+.letterboxd.cards table.dataview > tbody > tr {
+  background-color: var(--cards-background);
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+  border: none;
+  border-radius: 6px;
+  overflow: hidden;
+  transition: box-shadow 0.15s linear;
+  max-width: var(--cards-max-width);
+  height: auto;
+}
+
+.letterboxd.cards table.dataview tbody > tr > td:first-child {
+  font-weight: var(--bold-weight);
+  border: none;
+}
+
+.letterboxd.cards table.dataview tbody > tr > td:first-child a {
+  display: block;
+}
+
+.letterboxd.cards table.dataview tbody > tr > td:last-child {
+  border: none;
+}
+
+.letterboxd.cards table.dataview tbody > tr > td:not(:first-child) {
+  font-size: calc(var(--table-text-size) * .9);
+  color: var(--text-muted);
+}
+
+.letterboxd.cards table.dataview tbody > tr > td > * {
+  padding: calc(var(--cards-padding) / 3) 0;
+}
+
+.letterboxd.cards table.dataview tbody > tr > td:not(:last-child):not(:first-child) {
+  padding: 4px 0;
+  border-bottom: 1px solid var(--background-modifier-border);
+  width: calc(100% - var(--cards-padding));
+  margin: 0 calc(var(--cards-padding) / 2);
+}
+
+.letterboxd.cards table.dataview tbody > tr > td a {
+  text-decoration: none;
+}
+
+.letterboxd.cards table.dataview tbody > tr > td > button {
+  width: 100%;
+  margin: calc(var(--cards-padding) / 2) 0;
+}
+
+.letterboxd.cards table.dataview tbody > tr > td:last-child > button {
+  margin-bottom: calc(var(--cards-padding) / 6);
+}
+
+.letterboxd.cards table.dataview tbody > tr > td > ul {
+  width: 100%;
+  padding: 0.25em 0 !important;
+  margin: 0 auto !important;
+}
+
+.letterboxd.cards table.dataview tbody > tr > td:has(img) {
+  padding: 0 !important;
+  background-color: var(--background-secondary);
+  display: block;
+  margin: 0;
+  width: 100%;
+}
+
+.letterboxd.cards table.dataview tbody > tr > td img {
+  aspect-ratio: var(--cards-aspect-ratio);
+  width: 100%;
+  object-fit: var(--cards-image-fit);
+  max-height: var(--cards-image-height);
+  background-color: var(--background-secondary);
+  vertical-align: bottom;
+}
+
+.markdown-source-view.mod-cm6.letterboxd.cards .dataview.table-view-table > tbody > tr > td,
+.trim-cols .letterboxd.cards table.dataview tbody > tr > td {
+  white-space: normal;
+}
+
+.links-int-on .letterboxd.cards table {
+  --link-decoration: none;
+}
+
+/* Block button */
+.markdown-source-view.mod-cm6.letterboxd.cards .edit-block-button {
+  top: -1px;
+  right: 28px;
+  opacity: 1;
+}
+
+/* ------------------- */
+/* Helper classes */
+.letterboxd.cards.letterboxd.cards-16-9 {
+  --cards-aspect-ratio: 16/9;
+}
+
+.letterboxd.cards.letterboxd.cards-1-1 {
+  --cards-aspect-ratio: 1/1;
+}
+
+.letterboxd.cards.letterboxd.cards-2-1 {
+  --cards-aspect-ratio: 2/1;
+}
+
+.letterboxd.cards.letterboxd.cards-2-3 {
+  --cards-aspect-ratio: 2/3;
+}
+
+.letterboxd.cards.letterboxd.cards-cols-1 {
+  --cards-columns: repeat(1, minmax(0, 1fr));
+}
+
+.letterboxd.cards.letterboxd.cards-cols-2 {
+  --cards-columns: repeat(2, minmax(0, 1fr));
+}
+
+.letterboxd.cards.letterboxd.cards-cover {
+  --cards-image-fit: cover;
+}
+
+.letterboxd.cards.letterboxd.cards-align-bottom table.dataview tbody > tr > td:last-child {
+  margin-top: auto;
+}
+
+@media (min-width: 400pt) {
+  .letterboxd.cards-cols-3 {
+    --cards-columns: repeat(3, minmax(0, 1fr));
+  }
+
+  .letterboxd.cards-cols-4 {
+    --cards-columns: repeat(4, minmax(0, 1fr));
+  }
+
+  .letterboxd.cards-cols-5 {
+    --cards-columns: repeat(5, minmax(0, 1fr));
+  }
+
+  .letterboxd.cards-cols-6 {
+    --cards-columns: repeat(6, minmax(0, 1fr));
+  }
+
+  .letterboxd.cards-cols-7 {
+    --cards-columns: repeat(7, minmax(0, 1fr));
+  }
+
+  .letterboxd.cards-cols-8 {
+    --cards-columns: repeat(8, minmax(0, 1fr));
+  }
+}
+
+/* =========================== */
+/*       Dataview Panel        */
+/* =========================== */
+
+.letterboxd {
+  --file-line-width: 60rem;
+}
+
+.letterboxd .external-link {
+  background-image: none;
+  padding-right: 0px;
+}
+
+.letterboxd .divider {
+  width: 100%;
+  height: 1px;
+  margin: 8px 0;
+  background-color: var(--text-faint);
+}
+
+
+/* Dataview Layout */
+.letterboxd table.dataview tbody > tr > td:has(img),
+.letterboxd table.dataview tbody > tr > td img {
+  border: none;
+  border-radius: 8px;
+  box-shadow: none;
+  background-color: transparent;
+}
+
+.letterboxd table.dataview thead {
+  display: none;
+}
+
+.dataview .table-view-tbody td {
+  box-shadow: none;
+  border: none;
+}
+
+.select-image-icon,
+.set-banner-icon-button {
+  display: none;
+}
+
+/* Card Container */
+div[data-callout*="blank"].callout > .callout-content {
+  display: flex;
+  justify-content: center;
+}
+
+div[data-callout*="blank"].callout > .callout-content img {
+  max-width: 400px;
+}
+
+div[data-callout*="blank"].callout .callout-content code {
+  display: flex;
+  justify-content: center;
+  gap: 8px;
+}
+
+
+
+/* =========================== */
+/*          Filtering          */
+/* =========================== */
+
+.letterboxd .rating-input.mb-input-type-number input[type='number'] {
+  width: 50px;
+}
+
+.letterboxd .limit-results-input.mb-input-type-number input[type='number'] {
+  width: 5 p0px;
+}
+
+
+/* Hide mobile date input on desktop */
+:not(.is-mobile) .filter-date-mobile {
+    display: none !important;
+}
+
+/* Hide desktop date input on mobile */
+.is-mobile .filter-date-desktop {
+    display: none !important;
+}
+
+/* ==================================== */
+/*         Film & Series Template       */
+/* ==================================== */
+
+/* Mobile Banners */
+.is-mobile .film-banner,
+.is-mobile .series-banner {
+  display: none;
+}
+
+/* Like & Homepage */
+.letterboxd .mb-view-type-text.favorite-toggle-view > p,
+.letterboxd .mb-view-type-text.like-toggle-view > p {
+  min-width: 50px;
+  display: inline-block;
+  justify-content: center;
+  text-align: center;
+}
+
+/* IMDB & Home Page Buttons */
+.letterboxd .mb-button.homepage-button > button:hover,
+.letterboxd .mb-button.imdb-button > button:hover {
+  cursor: pointer;
+}
+
+/* ----------- IMDB & Homepage Buttons ----------- */
+.mb-view-wrapper p:has(.imdb-button),
+.mb-view-wrapper p:has(.homepage-button) {
+  display: flex;
+  gap: .5em;
+  align-items: flex-start;
+}
+
+.letterboxd .mb-button.imdb-button > button {
+    background-color: rgba(218,183,66,1);
+    font-weight: 800;
+    color: var(--text-on-accent-inverted);
+}
+
+.letterboxd .mb-button.homepage-button > button {
+    background-color: var(--background-primary);
+    font-weight: 800;
+    color: var(--text-normal);
+    border: .25px solid var(--text-normal);
+
+}
+
+/* Genres */
+.letterboxd .mb-inline-list .mb-inline-list-item,
+.letterboxd .mb-inline-list .mb-inline-list-add {
+  margin: 4px;
+}
+
+/* Watch & Rewatch Containers*/
+.letterboxd-film-watch-history-container,
+.letterboxd-series-watch-history-container {
+  display: flex;
+  flex-direction: columns;
+  gap: 4px;
+}
+
+.letterboxd-film-watch-history-container div ,
+.letterboxd-series-watch-history-container div {
+    display: flex;
+    justify-content: center; /* Center horizontally */
+    align-items: center; /* Center vertically */
+    box-shadow: inset 0 0.5px 0.5px 0.5px rgba(255, 255, 255, 0.09), 
+                0 2px 4px 0 rgba(0, 0, 0, .15), 
+                0 1px 1.5px 0 rgba(0, 0, 0, .1), 
+                0 1px 2px 0 rgba(0, 0, 0, .2), 
+                0 0 0 0 transparent;
+    font-size: 13px;
+    font-weight: 400;
+    padding: 8px 18px;
+    border-radius: 4px;
+    background-color: var(--interactive-normal);
+}
+
+.letterboxd-film-watch-history-container svg,
+.letterboxd-series-watch-history-container svg {
+    display: block; /* Ensures SVG behaves like a block element */
+    margin: auto; /* Centers the SVG horizontally inside the div */
+}
+
+.letterboxd-genre-container {
+  display: flex;
+  flex-wrap: wrap; /* allows wrapping */
+  gap: 4px;
+  max-width: 100%; /* prevents overflow */
+  overflow-x: auto; /* optional: adds horizontal scroll if needed */
+  padding: 4px 0; /* some breathing room */
+}
+
+.letterboxd-genre-container div {
+  border: var(--mb-border-width) solid var(--background-modifier-border);
+  border-radius: var(--mb-border-radius);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap; /* prevents genre names from breaking mid-word */
+  gap: var(--size-4-2);
+  padding-inline: var(--size-4-2);
+  padding-block: var(--size-4-1);
+  font-size: var(--font-ui-medium);
+  vertical-align: bottom;
+  user-select: none;
+  background-color: var(--background-secondary); /* makes it stand out slightly */
+}
+
+.letterboxd-genre-container svg {
+    display: block; /* Ensures SVG behaves like a block element */
+    margin: auto; /* Centers the SVG horizontally inside the div */
+}
+
+/* Quotes */
+.letterboxd .quote-season-episode-input.mb-input-type-number input[type='number'] {
+  width: 140px;
+}
+
+.is-mobile .letterboxd .quote-season-episode-input.mb-input-type-number input[type='number'] {
+  width: 90px;
+  font-size: 12px;
+}
+
+.letterboxd .quote-toggle-text.mb-view-type-text p {
+  width: 120px;
+  justify-content: center;
+  text-align: center;
+}
+
+/* Time Slider Modal */
+.setting-item-control {
+  width: 100%;
+}
+
+.time-modal-slider {
+  width: 100% !important; /* ensure it overrides any default */
+  box-sizing: border-box;
+}
+
+.time-modal-display {
+  margin-top: 10px;
+  font-weight: bold;
+}
+
+.time-modal-buttons {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 20px;
+}
+
+.time-submit-btn,
+.time-skip-btn {
+  padding: 6px 12px;
+  font-weight: 500;
+}
+
+/* ---- Letterboxd Lists ---- */
+.letterboxd-lists-buttons {
+  display: flex;
+  flex-direction: row;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-top: 1rem; 
+}
+
+.letterboxd .mb-button.filled-icon > button svg {
+  fill: currentColor;
+  stroke: none;
+}
+
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+/*          Modals              */
+/* ~~~~~~~~~~~~~~~~~~~~~~~~~~~~ */
+
+/* ---- Date Picker Modal ----*/
+.date-picker-container,
+.date-picker-buttons {
+  display: flex;
+  justify-content: center;   /* Center all dropdowns horizontally */
+  gap: 1rem;                  /* Space between each dropdown */
+  margin-bottom: 1rem;
+}
+
+.date-dropdown-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;       /* Center label and dropdown inside each wrapper */
+  text-align: center;        /* Ensure label text is centered */
+}
+
+.date-dropdown-wrapper label {
+  margin-bottom: 8px;
+}
+
+/* ---- Time Picker Modal ---- */
+
+.time-picker-container {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  gap: 0.75em;
+  flex-wrap: wrap;
+  margin-bottom: 1em;
+}
+
+.time-dropdown-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  font-weight: 600;
+  font-size: 0.85em;
+}
+
+.time-dropdown-wrapper select {
+  width: 72px;
+  padding: 6px 8px;
+  font-size: 1em;
+  border-radius: 6px;
+  border: 1px solid var(--background-modifier-border);
+  background-color: var(--background-primary);
+  color: var(--text-normal);
+  margin-top: 8px;
+}
+
+.time-picker-buttons {
+  display: flex;
+  justify-content: center; 
+  align-items: center; 
+  gap: 0.5em;
+  margin-top: 1em;
+}
+
+.time-picker-buttons button {
+  padding: 6px 14px;
+  font-size: 0.9em;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.time-picker-buttons .mod-cta {
+  background-color: var(--interactive-accent);
+  color: var(--text-on-accent);
+}
+
+/* ---- Season/Episode Modal ----- */
+.season-episode-container {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: flex-end;
+  flex-wrap: nowrap;
+  margin-bottom: 1rem;
+}
+
+/* Wrapper for each dropdown + label */
+.season-episode-dropdown-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex: 0 1 auto;
+  min-width: 100px;
+}
+
+/* Styling for labels above each dropdown */
+.season-episode-dropdown-wrapper label {
+  margin-bottom: 0.4rem;
+  font-weight: 600;
+  text-align: center;
+}
+
+/* Optional: Fixed width for consistency */
+.season-episode-dropdown-wrapper select {
+  width: 80px;
+}
+
+/* Buttons beneath dropdowns */
+.season-episode-buttons {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+/* =========================== */
+/*            Diary            */
+/* =========================== */
+
+.letterboxd-diary-mobile-rating,
+.letterboxd-diary-desktop-rating {
+  color: var(--interactive-accent);
+  pointer-events: none;
+}
+
+.letterboxd-films-diary-icon-favorite {
+  fill: rgba(255, 195, 0, 1);
+  stroke: rgba(255, 195, 0, 1);
+}
+
+.letterboxd-films-diary-icon-like,
+.letterboxd-series-diary-icon-like {
+  fill: rgba(220, 47, 2, 1);
+  stroke: rgba(220, 47, 2, 1);
+}
+
+.letterboxd-films-diary-icon-not-like,
+.letterboxd-series-diary-icon-not-like {
+  fill: rgba(119,136,153,1);
+  stroke: rgba(119,136,153,1);
+}
+
+/* ----------- Mobile ----------- */
+
+.letterboxd-diary-mobile-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: var(--letterboxd-diary-mobile-height);
+}
+
+.dataview tbody tr td:has(span):has(.letterboxd-diary-mobile-wrapper) {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.letterboxd-diary-mobile-content-wrapper {
+  display: flex;
+  justify-content: center;
+  height: var(--letterboxd-diary-mobile-height);
+  flex-direction: column;
+  gap: 1px;
+}
+
+.letterboxd-diary-date-seperator {
+  position: relative;
+  z-index: 1;
+  height: 20px;
+  display: flex;
+}
+
+.letterboxd-diary-date-content {
+  position: absolute; 
+  z-index: 2; 
+  font-size: 12px;
+  font-weight: 600; 
+  padding-bottom: 8px;
+}
+
+
+.letterboxd-diary-mobile-day {
+  border: 1px solid var(--interactive-accent);
+  padding: 8px 16px;
+  border-radius: 8px;
+}
+
+.letterboxd-diary-poster-mobile {
+  width: 35px; !important
+}
+
+.letterboxd-diary-mobile-content-row {
+  display: flex;
+  flex-direction: row;
+  gap: 4px;
+  white-space: wrap;
+}
+
+.theme-light .letterboxd-diary-mobile-title {
+    color: black !important;
+}
+
+.theme-dark .letterboxd-diary-mobile-title {
+    color: white !important;
+}
+
+.letterboxd-diary-mobile-title {
+  font-size: 12px;
+  white-space: wrap;
+  text-decoration: none !important;
+}
+
+.letterboxd-diary-mobile-title:hover{
+  font-size: 12px;
+  white-space: wrap;
+  text-decoration: none !important;
+  color: var(--interactive-accent) !important;
+}
+
+.letterboxd-diary-mobile-releaseYear {
+  padding-top: 1px;
+  font-size: 10px;
+  color: rgba(255,255,255, .6);
+}
+
+.letterboxd-series-diary-mobile-rating svg,
+.letterboxd-diary-mobile-rating svg {
+  width: 12x;
+  height: 12px;
+}
+
+.theme-dark.is-mobile .dataview:has(.letterboxd-diary-mobile-wrapper) tbody tr {
+  border-bottom: .75px solid rgba(255,255,255,.2);
+}
+
+.theme-light.is-mobile .dataview:has(.letterboxd-diary-mobile-wrapper) tbody tr {
+  border-bottom: .75px solid rgba(0,0,0,.2);
+}
+
+/* ----------- Desktop ----------- */
+
+.letterboxd-diary-desktop-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: var(--letterboxd-diary-desktop-height);
+
+}
+
+.letterboxd table.dataview tbody tr td:has(span):has(.film-diary-desktop-wrapper) {
+  padding-left: 0;
+  padding-right: 0;
+}
+
+.letterboxd-diary-desktop-content-wrapper {
+  display: flex;
+  justify-content: center;
+  height: var(--letterboxd-diary-desktop-height);
+  flex-direction: column;
+  gap: 4px;
+}
+
+.letterboxd-diary-desktop-month-year-wrapper {
+  color: white;
+  height: 120px;
+  padding: 8px 20px;
+  border-radius: 8px;
+  position: relative;
+  display: flex;
+}
+
+.letterboxd-diary-desktop-month-year-content {
+  gap: 4px;
+}
+
+.letterboxd-dairy-desktop-month {
+  font-size: 20px;
+  font-weight: 400;
+}
+
+.letterboxd-dairy-desktop-year {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.stacked-div {
+  position: absolute; /* Allows precise placement */
+  width: 100%; /* Ensure the divs stretch to the container's width */
+  height: 56px; /* Adjust as needed */
+  background-color: rgba(119,136,153,1); /* For demonstration purposes */
+  text-align: center;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 6px -1px rgb(0 0 0 / 0.1), 0 2px 4px -2px rgb(0 0 0 / 0.1);
+  transform: translateY(var(--y-offset));
+  left: 0;
+  top: 25%;
+  border: 1px solid #345;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  border: 1px solid #345;
+}
+
+.letterboxd-diary-desktop-month-year-wrapper .stacked-div:nth-child(1) {
+  --y-offset: -2px;
+}
+
+.letterboxd-diary-desktop-month-year-wrapper .stacked-div:nth-child(2) {
+  --y-offset: -4px; /* Shift downward */
+}
+
+.letterboxd-diary-desktop-month-year-wrapper .stacked-div:nth-child(3) {
+  --y-offset: -6px; /* Shift further downward */
+}
+
+.letterboxd-films-diary-desktop-day {
+  color: rgba(119,136,153,1);
+  font-size: 24px;
+  font-weight: 400;
+  pointer-events: none;
+}
+
+.letterboxd-diary-poster-desktop {
+  width: 80px;
+}
+
+.theme-light .letterboxd-diary-desktop-title {
+    color: black !important;
+}
+
+.theme-dark .letterboxd-diary-desktop-title {
+    color: white !important;
+}
+
+.letterboxd-diary-desktop-title {
+  font-weight: 400;
+  font-size: 16px;
+  white-space: wrap;
+  text-decoration: none !important;
+}
+
+.letterboxd-diary-desktop-title:hover{
+  font-size: 16px;
+  font-weight: 400;
+  white-space: wrap;
+  text-decoration: none !important;
+  color: var(--interactive-accent) !important;
+}
+
+.letterboxd-diary-desktop-releaseYear {
+  pointer-events: none;
+  font-weight: 400;
+  font-size: 18px;
+}
+
+
+.letterboxd-diary-desktop-rating-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+  height: var(--letterboxd-diary-desktop-height);
+  pointer-events: none;
+}
+
+
+.film-diary-desktop-rating svg {
+  width: 18px;
+  height: 18px;
+}
+
+.letterboxd .dataview thead th {
+    text-align: center;
+}
+
+/* ---------- Fonts ---------- */
+
+
+
+/* =================================== */
+/*           Films & Series            */
+/* =================================== */
+
+.letterboxd .markdown-rendered p {
+  margin-block-end: .1em;
+  margin-block-start: 0;
+}
+
+.letterboxd-films-films-icon-favorite:not(.is-mobile)
+.letterboxd-films-films-icon-like:not(.is-mobile),
+.letterboxd-films-films-icon-base:not(.is-mobile),
+.letterboxd-series-series-icon-favorite:not(.is-mobile)
+.letterboxd-series-series-icon-like:not(.is-mobile),
+.letterboxd-series-series-icon-base:not(.is-mobile) {
+  margin-bottom: 0px;
+}
+
+.series-overview-label {
+  font-style: italic;
+}
+
+/* --------------------------- */
+/*            Mobile           */
+/* --------------------------- */
+
+.is-mobile .letterboxd-films-films-mobile-rating svg,
+.is-mobile .letterboxd-series-series-mobile-rating svg
+ {
+    color: var(--interactive-accent);
+    width: 3vw; /* Scales based on viewport width */
+    height: auto; /* Maintains aspect ratio */
+    max-width: 18px; /* Prevents excessive scaling */
+    max-height: 18px;
+    flex-shrink: 1; /* Allows shrinking to avoid overflow */
+}
+
+.is-mobile .letterboxd-films-films-mobile-like svg,
+.is-mobile .letterboxd-series-series-mobile-like svg
+ {
+    color: var(--interactive-accent);
+    width: 3vw; /* Scales based on viewport width */
+    height: auto; /* Maintains aspect ratio */
+    max-width: 20px; /* Prevents excessive scaling */
+    max-height: 20px;
+    flex-shrink: 1; /* Allows shrinking to avoid overflow */
+    margin-top: 6px;
+}
+
+.letterboxd-films-films-mobile-wrapper,
+.letterboxd-series-series-mobile-wrapper {
+  display: flex;
+  flex-direction: row; /* Keeps elements in a row */
+  align-items: center; /* Aligns them properly */
+  gap: 4px; /* Keeps spacing */
+  min-width: 0; /* Allows shrinking inside flex container */
+  justify-content: center;
+}
+
+.letterboxd-films-films-mobile-rating,
+.letterboxd-series-series-mobile-rating {
+  display: flex;
+  align-items: center; /* Ensures the rating icon aligns properly */
+  justify-content: center; /* Centers content */
+  min-width: 0; /* Allows shrinking */
+  flex-shrink: 1; /* Prevents overflow */
+}
+
+
+/* --------------------------- */
+/*            Desktop          */
+/* --------------------------- */
+
+.letterboxd-films-films-desktop-rating:not(.is-mobile) svg,
+.letterboxd-series-series-desktop-rating:not(.is-mobile) svg {
+    color: var(--interactive-accent);
+    width: 1.5vw; /* Scales based on viewport width */
+    height: auto; /* Maintains aspect ratio */
+    max-width: 14px; /* Prevents excessive scaling */
+    max-height: 14px;
+    flex-shrink: 1; /* Allows shrinking to avoid overflow */
+}
+
+.letterboxd-films-films-desktop-like:not(.is-mobile) svg,
+.letterboxd-series-series-desktop-like:not(.is-mobile) svg {
+  color: var(--interactive-accent);
+    width: 1.5vw; /* Scales based on viewport width */
+    height: auto; /* Maintains aspect ratio */
+    max-width: 16px; /* Prevents excessive scaling */
+    max-height: 16px;
+    flex-shrink: 1; /* Allows shrinking to avoid overflow */
+    margin-top: 4px;
+}
+
+.letterboxd-films-films-desktop-wrapper,
+.letterboxd-series-series-desktop-wrapper {
+  display: flex;
+  flex-direction: row; /* Keeps elements in a row */
+  align-items: center; /* Aligns them properly */
+  gap: 4px; /* Keeps spacing */
+  min-width: 0; /* Allows shrinking inside flex container */
+  justify-content: center;
+}
+
+.letterboxd-films-films-desktop-rating,
+.letterboxd-series-series-desktop-rating {
+  display: flex;
+  align-items: center; /* Ensures the rating icon aligns properly */
+  justify-content: center; /* Centers content */
+  min-width: 0; /* Allows shrinking */
+  flex-shrink: 1; /* Prevents overflow */
+}
+
+.letterboxd-series-series-icon-mobile-like-favorite {
+
+}
+
+.letterboxd-series-series-icon-desktop-like-favorite {
+
+}
+
+.letterboxd-films-films-icon-favorite,
+.letterboxd-series-series-icon-favorite {
+  fill: rgba(255, 195, 0, 1);
+  stroke: rgba(255, 195, 0, 1);
+}
+
+.letterboxd-films-films-icon-like,
+.letterboxd-series-series-icon-like {
+  fill: rgba(220, 47, 2, 1);
+  stroke: rgba(220, 47, 2, 1);
+}
+
+.letterboxd-films-films-icon-base,
+.letterboxd-series-series-icon-base {
+  fill: rgba(119,136,153,1);
+  stroke: rgba(119,136,153,1);
+}
+
+
+/* =========================== */
+/*           Profile           */
+/* =========================== */
+
+
+/* ---------- More Activity ---------- */
+
+.profile-link,
+.profile-non-link {
+  font-size: 16px;
+  font-weight: 700;
+  text-decoration: none;
+  color: var(--text-muted);
+}
+
+.profile-link:hover {
+  text-decoration: none;
+  color: var(--text-normal);
+}
+
+.more-activity-link {
+  font-size: 16px;
+  font-weight: 400;
+  text-decoration: none;
+  color: var(--text-muted);
+}
+
+.more-activity-link:hover {
+  text-decoration: none;
+  color: var(--text-normal);
+}
+
+/* ---------- Ratings Chart & Recent Activity ---------- */
+.is-mobile div[data-callout-metadata*="letterboxd-mobile-hide"].callout > .callout-content {
+  display: none;
+}
+
+/* ---------- Ratings Chart ---------- */
+
+div[data-callout-metadata*="activity-chart-position"].callout {
+  display: flex;
+  flex-direction: rows;
+  justify-content: end;
+}
+
+.letterboxd-film-chart-height,
+.letterboxd-series-chart-height {
+  height: 225px;
+}
+
+.is-mobile .letterboxd-film-chart-height,
+.is-mobile .letterboxd-series-chart-height {
+  height: 150px;
+}
+
+@media (min-width: 768px) {
+  .letterboxd-desktop-hidden {
+    display: none;
+  }
+}
+
+/* ---------- Recent Activity ---------- */
+
+.letterboxd.cards table.dataview tbody > tr > td ul > li {
+  list-style-type:none;
+  margin-inline-start: 1ch;
+  margin-inline-end: 1ch
+}
+
+.letterboxd.cards .films-profile-activity-table table.dataview tbody > tr > td:first-child a,
+.letterboxd.cards .series-profile-activity-table table.dataview tbody > tr > td:first-child a {
+      display: inline; }
+
+.letterboxd.cards .films-profile-activity-table table.dataview tbody,
+.letterboxd.cards .series-profile-activity-table table.dataview tbody {
+  display: flex !important;
+  grid-row-gap: .2rem;
+  flex-direction: column;
+}
+
+.letterboxd.cards .films-profile-activity-table table.dataview tbody tr,
+.letterboxd.cards .series-profile-activity-table table.dataview tbody tr {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  border-radius: 0px;
+  gap: 0;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1) !important;
+  padding: 2px 0px;
+}
+
+.letterboxd.cards .films-profile-activity-table .table-view-table td,
+.letterboxd.cards .series-profile-activity-table .table-view-table td {
+  padding-top: 1px;
+}
+
+.letterboxd.cards .films-profile-activity-table-item,
+.letterboxd.cards .series-profile-activity-table-item {
+  display: grid;
+  grid-template-columns: 9fr 1fr;
+}
+
+.letterboxd.cards .films-profile-activity-table-item-content,
+.letterboxd.cards .series-profile-activity-table-item-content {
+  font-size: .85em;
+  line-height: 1.2;
+}
+
+.letterboxd.cards .films-profile-activity-table-item-date,
+.letterboxd.cards .series-profile-activity-table-item-date {
+  display: flex;
+  align-items: center;
+  justify-content: end;
+  color: rgba(255, 255, 255, .4);
+  font-weight: 300;
+}
+
+
+
+/* ---------- Stats ---------- */
+
+:where(.letterboxd) table.dataview tbody:has(.letterboxd-films-menu-item),
+:where(.letterboxd) table.dataview tbody:has(.letterboxd-series-menu-item) {
+  grid-template-columns: repeat(1, 1fr) !important;
+}
+
+.letterboxd-films-menu-item,
+.letterboxd-series-menu-item {
+  width: 100%;
+  display: flex;
+  flex-direction: columns;
+  justify-content: space-between;
+}
+
+.letterboxd-films-menu-item-text,
+.letterboxd-series-menu-item-text {
+  font-size: 12px;
+  font-weight: 400;
+}
+
+.letterboxd-films-menu-item-bracket,
+.letterboxd-series-menu-item-bracket {
+  font-size: 16px;
+}
+
+/* ---------- Fonts ---------- */
+
+.theme-light .more-activity-link,
+.theme-light .letterboxd-films-menu-item-text,
+.theme-light .letterboxd-series-menu-item-text,
+.theme-light .letterboxd-films-menu-item-data,
+.theme-light .letterboxd-series-menu-item-data {
+  color: var(--text-muted);
+}
+
+.theme-dark .more-activity-link,
+.theme-dark .letterboxd-films-menu-item-text,
+.theme-dark .letterboxd-series-menu-item-text,
+.theme-dark .letterboxd-films-menu-item-data,
+.theme-dark .letterboxd-series-menu-item-data {
+  color: var(--text-muted);
+}
+
+.letterboxd-films-menu-item-data,
+.letterboxd-series-menu-item-data {
+  font-size: 11px;
+}
+
+.letterboxd-series-menu-item-data-stats {
+  font-weight: 800;
+}
+
+/* ============================ */
+/*           Activity           */
+/* ============================ */
+
+.activity-row-wrapper {
+  color: var(--text-muted);
+  display: inline;
+}
+
+.activity-item-title {
+    font-weight: bold;
+    text-decoration: none;
+    color: var(--text-accent)
+}
+
+.activity-item-title-link {
+  text-decoration: none !important;
+}
+
+.activity-item-rating  {
+    font-weight: bold;
+    color: var(--text-normal)
+}
+
+.activity-item-date {
+    display: block;
+    text-align: right;
+    padding-right: 10px;
+    font-size: 12px;
+    font-weight: 200;
+}
+
+.letterboxd .table-view-table td,
+.series-tracking .table-view-table td {
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+.table-view-table tr {
+    border-bottom: 1px solid var(--text-faint);
+}
+
+.table-view-table tr:last-child {
+    border-bottom: none;
+}
+
+.table-view-table td {
+    padding: 8px 12px;
+    vertical-align: middle;
+}
+
+.activity-item-progress,
+.activity-item-rating  {
+    font-weight: bold;
+    color: var(--text-normal)
+}
+
+
+/* ---------- Fonts ---------- */
+
+.film-activity-item,
+.series-activity-item,
+.film-activity-item,
+.series-activity-item {
+  color: var(--text-muted);
+}
+
+/* ============================ */
+/*           List Suggester     */
+/* ============================ */
+
+.mb-input-type-listSuggester {
+    display: flex;
+    flex-direction: column-reverse;
+    gap: 8px;
+    align-items: flex-start;
+}
+
+.mb-list-items {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+}
+
+.mb-list-item {
+    text-align: center;
+    font-size: 12px;
+    border: 1px solid rgba(255, 255, 255, .2);
+}
+
+.mb-list-items span {
+    border-radius: 5px;
+    white-space: nowrap;
+}
+
+.mb-list-input {
+    display: flex;
+    width: auto;
+}
+
+.mb-list-input button {
+    padding: 5px 10px;
+    text-align: center;
+    white-space: nowrap;
+}
+
+
+/* ============================ */
+/*           Reviews            */
+/* ============================ */
+
+/* ------------- Wrapper for Reviews --------------*/
+
+.letterboxd-films-reviews-wrapper,
+.letterboxd-series-reviews-wrapper {
+  display: flex;
+  flex-direction: row;
+  padding-bottom: .2em;
+  column-gap: 20px;
+  width: 100%;
+}
+
+/* ------------- Header and Info Wrapper --------------*/
+
+.letterboxd-films-reviews-header-wrapper,
+.letterboxd-series-reviews-header-wrapper,
+.letterboxd-films-reviews-info-wrapper,
+.letterboxd-series-reviews-info-wrapper {
+  display: flex;
+  flex-direction: row;
+  align-items: flex-start;
+}
+
+/* ------------- Image --------------*/
+
+.letterboxd-films-reviews-poster,
+.letterboxd-series-reviews-poster {
+  width: 76px;
+  height: 111px; /* Automatically adjust height to maintain aspect ratio */
+  min-width: 76px;
+  min-height: 111px;
+}
+
+.letterboxd-films-reviews-poster img {
+  border-radius: 4px; /* Adjust the radius as desired */
+}
+
+
+/* ------------- Title & Year --------------*/
+
+.letterboxd-films-reviews-header-wrapper,
+.letterboxd-series-reviews-header-wrapper {
+  gap: 12px;
+  width: 100%;
+}
+
+.letterboxd-films-review-title:not(.is-mobile),
+.letterboxd-series-review-title:not(.is-mobile) {
+  font-weight: 800;
+  font-size: 24px;
+}
+
+.is-mobile .letterboxd-films-review-title,
+.is-mobile .letterboxd-series-review-title {
+  font-weight: 600;
+  font-size: 16px;
+}
+
+.letterboxd-films-review-year:not(.is-mobile),
+.letterboxd-series-review-year:not(.is-mobile) {
+  font-size: 16px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, .5);
+}
+
+.is-mobile .letterboxd-films-review-year,
+.is-mobile .letterboxd-series-review-year {
+  font-size: 14px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, .5);
+}
+
+/* ------------- Rating & Watched --------------*/
+
+.letterboxd-films-reviews-info-wrapper,
+.letterboxd-series-reviews-info-wrapper {
+  gap: 8px;
+}
+
+.letterboxd-films-reviews-rating:not(.is-mobile) svg,
+.letterboxd-series-reviews-rating:not(.is-mobile) svg {
+  color: var(--interactive-accent);
+  width: 1.5vw; /* Scales based on viewport width */
+  height: auto; /* Maintains aspect ratio */
+  max-width: 14px; /* Prevents excessive scaling */
+  max-height: 14px;
+  flex-shrink: 1; /* Allows shrinking to avoid overflow */
+}
+
+.is-mobile .letterboxd-films-reviews-rating svg,
+.is-mobile .letterboxd-series-reviews-rating svg {
+  color: var(--interactive-accent);
+  width: 2.5vw; /* Scales based on viewport width */
+  height: auto; /* Maintains aspect ratio */
+  max-width: 16px; /* Prevents excessive scaling */
+  max-height: 16px;
+  flex-shrink: 1; /* Allows shrinking to avoid overflow */
+}
+
+.letterboxd-films-reviews-watched,
+.letterboxd-series-reviews-watched {
+  color: rgba(255, 255, 255, .5);
+  font-size: 13px;
+}
+
+/* HTML */
+
+.letterboxd-films-reviews-review > *:first-child {
+  margin-top: 0;
+}
+
+/* ------------- Content --------------*/
+
+.letterboxd-films-reviews-content,
+.letterboxd-series-reviews-content {
+  font-size: 14px;
+}
+
+.is-mobile .letterboxd-films-reviews-content,
+.is-mobile .letterboxd-series-reviews-content {
+  font-size: 12px;
+}
+
+.letterboxd-films-reviews-content,
+.letterboxd-series-reviews-content {
+  word-wrap: break-word;  /* Break words that are too long to fit the container */
+  overflow-wrap: break-word; /* Ensure that long words are broken to fit the container */
+  white-space: normal;  /* Allow the text to wrap onto multiple lines */
+  word-break: break-word; /* Break words if necessary */
+  max-width: 100%;  /* Ensure the content doesn't overflow horizontally */
+}
+
+.letterboxd-films-reviews-content:not(.is-mobile),
+.letterboxd-series-reviews-content:not(.is-mobile) {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.is-mobile .letterboxd-films-reviews-content,
+.is-mobile .letterboxd-series-reviews-content {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+
+/* ============================ */
+/*            Lists             */
+/* ============================ */
+
+.no-decoration,
+.no-decoration:hover {
+    text-decoration: none;
+    color: inherit; /* Keeps the text color consistent */
+}
+
+/* --------------------------- */
+/*            Desktop          */
+/* --------------------------- */
+
+.letterboxd-films-lists-item-container-desktop,
+.letterboxd-series-lists-item-container-desktop {
+    display: flex;
+    align-items: stretch; /* Makes sure the container expands with the content */
+    padding: 5px 5px;
+}
+
+/* Film Posters */
+.letterboxd-films-lists-item-poster-container-desktop,
+.letterboxd-series-lists-item-poster-container-desktop {
+    width: 50%;
+    display: flex;
+    justify-content: center;
+    position: relative;
+    align-items: center; /* Center images inside */
+    height: var(--letterboxd-poster-height);
+}
+
+.letterboxd-films-lists-item-content-container-desktop,
+.letterboxd-series-lists-item-content-container-desktop {
+    width: 50%;
+}
+
+.letterboxd-films-lists-item-poster-wrapper-desktop,
+.letterboxd-series-lists-item-poster-wrapper-desktop {
+    display: flex;
+    flex-direction: rows;
+    gap: 10px; /* Adds spacing between images */
+    position: relative;
+}
+
+.letterboxd-films-lists-item-poster-container-desktop img,
+.letterboxd-series-lists-item-poster-container-desktop img {
+  width: var(--letterboxd-poster-width);
+  height: var(--letterboxd-poster-height);
+  object-fit: cover;
+  opacity: 1 !important;
+  border: .8px solid rgba(255, 255, 255, .8);
+  border-radius: 8px;
+  box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+}
+
+.letterboxd-films-lists-item-poster-container-desktop img:nth-child(1),
+.letterboxd-series-lists-item-poster-container-desktop img:nth-child(1) {
+  visibility: hidden;
+}
+
+.letterboxd-films-lists-item-poster-container-desktop img:nth-child(2),
+.letterboxd-series-lists-item-poster-container-desktop img:nth-child(2) {
+  position: absolute;
+  right: calc(var(--letterboxd-poster-width) * 1.5);
+  z-index: 5;
+}
+
+.letterboxd-films-lists-item-poster-container-desktop img:nth-child(3),
+.letterboxd-series-lists-item-poster-container-desktop img:nth-child(3) {
+  position: absolute;
+  right: calc(var(--letterboxd-poster-width) * .75);
+  z-index: 4;
+}
+
+.letterboxd-films-lists-item-poster-container-desktop img:nth-child(4),
+.letterboxd-series-lists-item-poster-container-desktop img:nth-child(4) {
+  position: absolute;
+  z-index: 3;
+}
+
+.letterboxd-films-lists-item-poster-container-desktop img:nth-child(5),
+.letterboxd-series-lists-item-poster-container-desktop img:nth-child(5) {
+  position: absolute;
+  left: calc(var(--letterboxd-poster-width) * .75);
+  z-index: 2;
+}
+
+.letterboxd-films-lists-item-poster-container-desktop img:nth-child(6),
+.letterboxd-series-lists-item-poster-container-desktop img:nth-child(6) {
+  position: absolute;
+  left: calc(var(--letterboxd-poster-width) * 1.5);
+  z-index: 1;
+}
+
+.letterboxd-films-lists-item-content-container-desktop,
+.letterboxd-series-lists-item-content-container-desktop {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.letterboxd-films-lists-item-content-title-desktop,
+.letterboxd-series-lists-item-content-title-desktop {
+  font-weight: 600;
+  font-size: 22px;
+}
+
+.letterboxd-films-lists-item-content-details-desktop,
+.letterboxd-series-lists-item-content-details-desktop {
+  font-size: 14px;
+  font-weight: 300;
+  color: rgba(255, 255, 255, .6);
+}
+
+.letterboxd-films-lists-item-content-description-desktop,
+.letterboxd-series-lists-item-content-description-desktop {
+    font-size: 16px;
+    word-wrap: break-word; /* Ensures long words break to fit */
+    overflow-wrap: break-word; /* Ensures text wraps inside the container */
+    white-space: normal; /* Allows wrapping */
+    max-width: 100%; /* Ensures it doesn't exceed container width */
+}
+
+/* --------------------------- */
+/*            Mobile           */
+/* --------------------------- */
+
+.letterboxd-films-lists-item-container-mobile,
+.letterboxd-series-lists-item-container-mobile {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+  padding: 6px 0;
+}
+
+.letterboxd-films-lists-item-content-mobile,
+.letterboxd-series-lists-item-content-mobile {
+  display: flex;
+  flex-direction: rows;
+  justify-content: space-between;
+}
+
+.letterboxd-films-lists-item-content-title-mobile,
+.letterboxd-series-lists-item-content-title-mobile {
+  font-weight: 600;
+  font-size: 18px;
+}
+
+.letterboxd-films-lists-item-content-count-mobile,
+.letterboxd-series-lists-item-content-count-mobile {
+  font-size: 12px;
+  color: rgba(255, 255, 255, .6);
+}
+
+.letterboxd-films-lists-item-posters-mobile,
+.letterboxd-series-lists-item-posters-mobile {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+}
+
+.letterboxd-films-lists-item-posters-mobile img,
+.letterboxd-series-lists-item-posters-mobile img {
+    width: 100%;
+    height: auto; /* Maintains aspect ratio */
+}
+
+.letterboxd-films-lists-item-description-mobile,
+.letterboxd-series-lists-item-description-mobile {
+  font-size: 12px;
+    word-wrap: break-word; /* Ensures long words break to fit */
+    overflow-wrap: break-word; /* Ensures text wraps inside the container */
+    white-space: normal; /* Allows wrapping */
+    max-width: 100%; /* Ensures it doesn't exceed container width */
+}
+
+/* ============================ */
+/*            Quotes            */
+/* ============================ */
+
+.letterboxd-quotes-item-wrapper:not(.is-mobile) {
+  display: flex;
+  width: 100%;
+}
+
+.letterboxd-quotes-quotes-poster {
+    width: 96px; /* Default width */
+    height: auto; /* Maintain aspect ratio */
+    object-fit: cover; /* Ensure the image fills the space while maintaining its aspect */
+}
+
+.letterboxd-quotes-wrapper {
+  display: flex;
+  flex-direction: column;
+  padding: 8px 0;
+  margin: 0 8px;
+  align-items: flex-start;
+  width: 100%;
+}
+
+.letterboxd-quotes-content-wrapper {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  margin: 0 8px;
+  height: 100%;
+}
+
+.letterboxd-quotes-date {
+  display: flex;
+  font-size: 12px;
+  justify-content: flex-end;
+  width: 100%;
+  color: var(--text-accent);
+}
+
+.letterboxd-quotes-content {
+  font-size: 15px;
+}
+
+.letterboxd-quotes-attribution {
+  font-size: 14px;
+}
+
+.letterboxd-series-diary-mobile-rating {
+  display: flex;
+  flex-direction: row;
+}
+
+.letterboxd-series-diary-mobile-rating,
+.letterboxd-series-diary-desktop-rating {
+    color: var(--interactive-accent);
+    pointer-events: none;
+}
+
+.letterboxd-series-diary-mobile-season,
+.letterboxd-series-diary-desktop-season {
+    color: var(--text-faint);
+    margin-top: 4px;
+    font-size: 13px;
+    pointer-events: none;
+}
+
+.letterboxd-films-quote-icon-like,
+.letterboxd-series-quote-icon-like {
+    fill: rgba(220, 47, 2, 1);
+    stroke: rgba(220, 47, 2, 1);
+}
+
+.letterboxd-films-quote-icon-not-like,
+.letterboxd-series-quote-icon-not-like {
+    fill: rgba(119,136,153,1);
+    stroke: rgba(119,136,153,1);
+}
+
+/* ----------- Mobile ----------- */
+
+.letterboxd-series-diary-mobile-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: var(--letterboxd-diary-mobile-height);
+}
+
+.dataview tbody tr td:has(span):has(.letterboxd-series-diary-mobile-wrapper) {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.letterboxd-series-diary-mobile-content-wrapper {
+    display: flex;
+    justify-content: center;
+    height: var(--letterboxd-diary-mobile-height);
+    flex-direction: column;
+    gap: 1px;
+}
+
+.letterboxd-series-diary-date-seperator {
+    position: relative;
+    z-index: 1;
+    height: 20px;
+    display: flex;
+}
+
+
+.dataview tbody tr td:has(span):has(.letterboxd-series-diary-date-content) {
+  width: 126px;
+}
+
+.letterboxd-series-diary-date-content {
+    font-size: 12px;
+    font-weight: 600;
+}
+
+.letterboxd-series-diary-mobile-day {
+    border: 1px solid var(--interactive-accent);
+    padding: 8px 16px;
+    border-radius: 8px;
+}
+
+.letterboxd-series-diary-poster-mobile {
+    width: 35px !important;
+}
+
+.letterboxd-series-diary-mobile-content-row {
+    display: flex;
+    flex-direction: row;
+    gap: 4px;
+    white-space: wrap;
+    padding-bottom: 4px;
+}
+
+.theme-light .letterboxd-series-diary-mobile-title {
+    color: black !important;
+}
+
+.theme-dark .letterboxd-series-diary-mobile-title {
+    color: white !important;
+}
+
+.letterboxd-series-diary-mobile-title {
+    font-size: 12px;
+    white-space: wrap;
+    text-decoration: none !important;
+}
+
+.letterboxd-series-diary-mobile-title:hover{
+    font-size: 12px;
+    white-space: wrap;
+    text-decoration: none !important;
+    color: var(--interactive-accent) !important;
+}
+
+.letterboxd-series-diary-mobile-releaseYear {
+    padding-top: 1px;
+    font-size: 10px;
+    color: rgba(255,255,255, .6);
+}
+
+/* ----------- Desktop ----------- */
+
+.letterboxd-series-diary-desktop-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: var(--letterboxd-diary-desktop-height);
+}
+
+.dataview tbody tr td:has(span):has(.film-diary-desktop-wrapper) {
+    padding-left: 0;
+    padding-right: 0;
+}
+
+.letterboxd-diary-desktop-content-wrapper {
+    display: flex;
+    justify-content: center;
+    height: var(--letterboxd-diary-desktop-height);
+    flex-direction: column;
+    gap: 4px;
+}
+
+.letterboxd-series-diary-desktop-month-year-wrapper {
+    color: white;
+    height: 120px;
+    padding: 8px 20px;
+    border-radius: 8px;
+    position: relative;
+    display: flex;
+}
+
+.letterboxd-series-diary-desktop-month-year-content {
+    gap: 4px;
+}
+
+.letterboxd-series-dairy-desktop-month {
+    font-size: 20px;
+    font-weight: 400;
+}
+
+.letterboxd-series-dairy-desktop-year {
+    font-size: 12px;
+    font-weight: 400;
+}
+
+.stacked-div {
+    position: absolute;
+    width: 100%;
+    height: 56px;
+    background-color: rgba(119,136,153,1);
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    transform: translateY(var(--y-offset));
+    left: 0;
+    top: 25%;
+    border: 1px solid #345;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.letterboxd-series-diary-desktop-month-year-wrapper .stacked-div:nth-child(1) {
+    --y-offset: -2px;
+}
+
+.letterboxd-series-diary-desktop-month-year-wrapper .stacked-div:nth-child(2) {
+    --y-offset: -4px;
+}
+
+.letterboxd-series-diary-desktop-month-year-wrapper .stacked-div:nth-child(3) {
+    --y-offset: -6px;
+}
+
+.letterboxd-series-diary-desktop-day {
+    color: rgba(119,136,153,1);
+    font-size: 24px;
+    font-weight: 400;
+    pointer-events: none;
+}
+
+.letterboxd-series-diary-poster-desktop {
+    width: 80px;
+}
+
+.theme-light .letterboxd-series-diary-desktop-title {
+    color: black !important;
+}
+
+.theme-dark .letterboxd-series-diary-desktop-title {
+    color: white !important;
+}
+
+.letterboxd-series-diary-desktop-title {
+    font-weight: 400;
+    font-size: 16px;
+    white-space: wrap;
+    text-decoration: none !important;
+}
+
+.letterboxd-series-diary-desktop-title:hover{
+    font-size: 16px;
+    font-weight: 400;
+    white-space: wrap;
+    text-decoration: none !important;
+    color: var(--interactive-accent) !important;
+}
+
+.letterboxd-series-diary-desktop-rating-wrapper {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    height: var(--letterboxd-diary-desktop-height);
+    pointer-events: none;
+}
+
+.film-diary-desktop-rating svg {
+    width: 18px;
+    height: 18px;
+}
+
+/* =================================== */
+/*                Logs                 */
+/* =================================== */
+
+.letterboxd-log-page {
+  --metadata-display-reading: none; 
+}
+
+.letterboxd-log-page .inline-title {
+  display: none;
+}
+
+.log-header {
+  font-size: 28px;
+  font-weight: 700;
+  text-align: center;
+}
+
+.log-info {
+  font-weight: 300;
+  text-align: center;
+}
+
+
+
