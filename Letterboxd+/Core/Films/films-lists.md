@@ -262,9 +262,6 @@ if (metadata.filterSearchQuery) {
 // Sorting
 const sortOrder = metadata.sortOrder;
 
-console.log('pages: ', pages)
-console.log('collections: ', collections)
-
 if (metadata.sortOption === 'Activity') {
     pages = pages.sort(l => l.updated, sortOrder)
 } else if (metadata.sortOption === 'Title') {

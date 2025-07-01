@@ -151,9 +151,6 @@ export async function tmdbKeyFileExists(basePath) {
   return !!file
 }
 
-
-
-
 // =====================================================
 // 🔍 TMDB Requests
 // =====================================================
@@ -847,7 +844,6 @@ export async function getAvailableListsByType(basePath, type, currentLists = [])
   return availableLists;
 }
 
-
 // =====================================================
 // 📤 Import & Export Utilities
 // =====================================================
@@ -998,7 +994,6 @@ export async function addSeriesToLibrary(basePath, id, apiKey, openAfterCreate =
   }
 }
 
-
 /**
  * Exports frontmatter metadata from film and series notes into a single JSON file.
  * Includes both main items and list entries.
@@ -1068,7 +1063,6 @@ export async function exportLibrary(basePath) {
         new Notice("Error saving JSON file: " + err.message);
     }
 }
-
 
 /**
  * Finds and returns a list of folder paths matching the `letterboxd-*-utc` naming pattern

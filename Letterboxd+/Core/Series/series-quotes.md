@@ -441,7 +441,6 @@ if (metadata.filterLimitResults) {
 }
 
 let quote_items = []
-console.log(pages)
 if (pages) {
     pages.forEach((page, index) => {
         page.quotes.forEach((quote, index) => {
