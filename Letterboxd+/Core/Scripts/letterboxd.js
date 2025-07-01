@@ -5,7 +5,9 @@
 //
 // 📁 API Key Management
 // ─────────────────────────────────────────────────────
+// - createTmdbKeyFile
 // - getApiKey
+// - tmdbKeyFileExists
 //
 
 //
@@ -61,6 +63,7 @@
 // - addFilmToLibrary
 // - exportLibrary
 // - fetchLetterboxdExportFolders
+// - fetchLetterboxdPlusJsonExports
 // - generateLetterboxdPlusJsonPath
 // - importLibrary
 // - parseCSV
@@ -91,6 +94,27 @@
 // =====================================================
 
 /**
+ * Creates the TMDB API key JSON file at the specified path.
+ * @param {string} basePath - Root path within the vault where the file should be created.
+ * @param {string} key - The TMDB API key to store in the file.
+ * @returns {Promise<TFile>} - The created file.
+ */
+export async function createTmdbKeyFile(basePath, key) {
+  const path = `${basePath}/Core/Scripts/tmdb_key.json`;
+
+  console.log('ha')
+
+  const placeholder = {
+    apiKey: key
+  };
+
+  const jsonContent = JSON.stringify(placeholder, null, 2);
+
+  // Create the new file
+  const newFile = await app.vault.create(path, jsonContent);
+}
+
+/**
  * Retrieves an API key from a local secrets file in the vault.
  * @param {string} secretFilePath - Path to the secrets JSON file in the vault.
  * @param {string} apiKeyName - Key name to retrieve from the secrets file.
@@ -115,6 +139,19 @@ export async function getApiKey(secretFilePath, apiKeyName) {
     throw err;
   }
 }
+
+/**
+ * Checks whether the TMDB API key file exists at the specified base path.
+ * @param {string} basePath - Root folder path where the key file is expected.
+ * @returns {Promise<boolean>} - True if the file exists, false otherwise.
+ */
+export async function tmdbKeyFileExists(basePath) {
+  const path = `${basePath}/Core/Scripts/tmdb_key.json`;
+  const file = app.vault.getAbstractFileByPath(path);
+  return !!file
+}
+
+
 
 
 // =====================================================
@@ -971,6 +1008,13 @@ export async function addSeriesToLibrary(basePath, id, apiKey, openAfterCreate =
  */
 export async function exportLibrary(basePath) {
 
+    const exportFolderPath = `${basePath}/Core/Scripts/letterboxd-plus-exports`;
+    const exportFolder = await app.vault.getAbstractFileByPath(exportFolderPath);
+
+    if (!exportFolder) {
+       await app.vault.createFolder(exportFolderPath);
+    }
+
     const outputJsonPath = await generateLetterboxdPlusJsonPath(basePath);
 
     const metadataCache = app.metadataCache;
@@ -1025,6 +1069,7 @@ export async function exportLibrary(basePath) {
     }
 }
 
+
 /**
  * Finds and returns a list of folder paths matching the `letterboxd-*-utc` naming pattern
  * under the Scripts directory, excluding subfolders.
@@ -1063,6 +1108,36 @@ export async function fetchLetterboxdExportFolders(basePath) {
 }
 
 /**
+ * Finds and returns a list of JSON file paths matching the
+ * `letterboxd-plus-YYYY-MM-DD-HH-MM-utc.json` naming pattern
+ * under the Scripts directory.
+ *
+ * @param {string} basePath - The base path to your media vault.
+ * @returns {Promise<string[]|undefined>} Array of matching JSON file paths or undefined if none found.
+ */
+export async function fetchLetterboxdPlusJsonExports(basePath) {
+  const scriptsPath = `${basePath}/Core/Scripts/letterboxd-plus-exports`;
+
+  // Regex pattern for files like: letterboxd-plus-2025-06-20-03-21-utc.json
+  const pattern = /^letterboxd-plus-\d{4}-\d{2}-\d{2}-\d{2}-\d{2}-utc\.json$/;
+
+  const matchingJsonFiles = app.vault
+    .getFiles()
+    .filter(file => {
+      return file.path.startsWith(scriptsPath) &&
+             pattern.test(file.name);
+    })
+    .map(file => file.path);
+
+  if (matchingJsonFiles.length === 0) {
+    new Notice("No matching Letterboxd JSON exports found.");
+    return;
+  }
+
+  return matchingJsonFiles;
+}
+
+/**
  * Generates a timestamped file path for a Letterboxd Plus export JSON.
  *
  * Format: letterboxd-plus-YYYY-MM-DD-HH-MM-utc.json
@@ -1081,7 +1156,7 @@ export async function generateLetterboxdPlusJsonPath(basePath) {
   const minutes = pad(now.getUTCMinutes());
 
   const timestamp = `${year}-${month}-${day}-${hours}-${minutes}-utc`;
-  return `${basePath}/Core/Scripts/letterboxd-plus-${timestamp}.json`;
+  return `${basePath}/Core/Scripts/letterboxd-plus-exports/letterboxd-plus-${timestamp}.json`;
 }
 
 /**
@@ -1560,37 +1635,5 @@ export function getFormattedLocalDateTime() {
   const milliseconds = String(date.getMilliseconds()).padStart(3, '0');
 
   return `${year}-${month}-${day}T${hours}:${minutes}:${seconds}.${milliseconds}`;
-}
-
-// --- 
-
-/**
- * Finds and returns a list of JSON file paths matching the
- * `letterboxd-plus-YYYY-MM-DD-HH-MM-utc.json` naming pattern
- * under the Scripts directory.
- *
- * @param {string} basePath - The base path to your media vault.
- * @returns {Promise<string[]|undefined>} Array of matching JSON file paths or undefined if none found.
- */
-export async function fetchLetterboxdPlusJsonExports(basePath) {
-  const scriptsPath = `${basePath}/Core/Scripts`;
-
-  // Regex pattern for files like: letterboxd-plus-2025-06-20-03-21-utc.json
-  const pattern = /^letterboxd-plus-\d{4}-\d{2}-\d{2}-\d{2}-\d{2}-utc\.json$/;
-
-  const matchingJsonFiles = app.vault
-    .getFiles()
-    .filter(file => {
-      return file.path.startsWith(scriptsPath) &&
-             pattern.test(file.name);
-    })
-    .map(file => file.path);
-
-  if (matchingJsonFiles.length === 0) {
-    new Notice("No matching Letterboxd JSON exports found.");
-    return;
-  }
-
-  return matchingJsonFiles;
 }
 

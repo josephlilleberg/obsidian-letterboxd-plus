@@ -575,14 +575,10 @@ const button = mb.createButtonMountable(context.file.path, {
 
             // ───── Script & Secrets Paths ─────
             const scriptPath = basePath + "/Core/Scripts/letterboxd.js";
-            const secretsPath = basePath + "/Core/Scripts/api_keys.json";
 
             // ───── Load External Dependencies ─────
             const lib = await engine.importJs(scriptPath);
             if (!lib) return new Notice("Failed to load core script.");
-
-            const tmdbKey = await lib.getApiKey(secretsPath, 'tmdb');
-            if (!tmdbKey) return new Notice("TMDB API key not found.");
 
             // ───── Metadata ─────
             const file = app.workspace.getActiveFile();

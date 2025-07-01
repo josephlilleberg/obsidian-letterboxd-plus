@@ -105,21 +105,32 @@ const button = mb.createButtonMountable(context.file.path, {
                     }
 
                     const basePath = getParentPath(context.file.path, "Letterboxd+");
-                    if (!basePath) return error("Could not resolve Letterboxd+ path.");
+                    if (!basePath) return new Notice("Could not resolve Letterboxd+ path.");
 
+                    // ───── Ensure Letterboxd+ Script ─────
                     const scriptPath = basePath + "/Core/Scripts/letterboxd.js"
-                    const secretsPath = basePath + "/Core/Scripts/api_keys.json";
-
                     const lib = await engine.importJs(scriptPath);
-                    const tmdbKey = await lib.getApiKey(secretsPath, 'tmdb');
+                    if (!lib) return new Notice("Failed to load core script.");
+
+                    // ───── Ensure TMDB API Key ─────
+                    if (!(await lib.tmdbKeyFileExists(basePath))) {
+                        const apiKey = await engine.prompt.text({ title: 'Enter Your TMDB API Key', content: 'This is required to fetch film and series data from TMDB.\\nYour key will be stored locally and never shared.', placeholder: 'Paste your TMDB key here...' });
+
+                        if (!apiKey) return new Notice("TMDB API key is required to continue. Please enter a valid key to enable film and series data fetching.");
+                        
+                        await lib.createTmdbKeyFile(basePath, apiKey)
+                    }
+
+                    const secretsPath = basePath + "/Core/Scripts/tmdb_key.json";
+                    const tmdbKey = await lib.getApiKey(secretsPath, 'apiKey');
 
                     // ───── Prompt for Film ─────
                     const query = await engine.prompt.text({ title: 'Film to log?', placeholder: 'Film name...' });
-                    if (!query) return error("No query entered for film.");
+                    if (!query) return new Notice("No query entered for film.");
 
                     // ───── Search TMDB ─────
                     const results = await lib.searchTMDB('film', tmdbKey, query);
-                    if (!results?.length) return error("No results found.");
+                    if (!results?.length) return new Notice("No results found.");
 
                     const listOptions = await Promise.all(
                         results.map(async result => ({
@@ -132,7 +143,7 @@ const button = mb.createButtonMountable(context.file.path, {
                         placeholder: 'Select a film',
                         options: listOptions
                     });
-                    if (!choice) return error("No film selected.");
+                    if (!choice) return new Notice("No film selected.");
 
                     await lib.addFilmToLibrary(basePath, choice.id, tmdbKey)
                 })();
@@ -170,13 +181,22 @@ const button = mb.createButtonMountable(context.file.path, {
             const basePath = getParentPath(context.file.path, "Letterboxd+");
             if (!basePath) return new Notice("Could not resolve Letterboxd+ path.");
 
-            const scriptPath = basePath + "/Core/Scripts/letterboxd.js";
-            const secretsPath = basePath + "/Core/Scripts/api_keys.json";
-
+            // ───── Ensure Letterboxd+ Script ─────
+            const scriptPath = basePath + "/Core/Scripts/letterboxd.js"
             const lib = await engine.importJs(scriptPath);
             if (!lib) return new Notice("Failed to load core script.");
 
-            const tmdbKey = await lib.getApiKey(secretsPath, 'tmdb');
+            // ───── Ensure TMDB API Key ─────
+            if (!(await lib.tmdbKeyFileExists(basePath))) {
+                const apiKey = await engine.prompt.text({ title: 'Enter Your TMDB API Key', content: 'This is required to fetch film and series data from TMDB.\\nYour key will be stored locally and never shared.', placeholder: 'Paste your TMDB key here...' });
+
+                if (!apiKey) return new Notice("TMDB API key is required to continue. Please enter a valid key to enable film and series data fetching.");
+                
+                await lib.createTmdbKeyFile(basePath, apiKey)
+            }
+
+            const secretsPath = basePath + "/Core/Scripts/tmdb_key.json";
+            const tmdbKey = await lib.getApiKey(secretsPath, 'apiKey');
             if (!tmdbKey) return new Notice("TMDB API key not found.");
 
             await lib.syncAllFilms(basePath, tmdbKey)
@@ -214,13 +234,24 @@ const button = mb.createButtonMountable(context.file.path, {
                     }
 
                     const basePath = getParentPath(context.file.path, "Letterboxd+");
-                    if (!basePath) return error("Could not resolve Letterboxd+ path.");
+                    if (!basePath) return new Notice("Could not resolve Letterboxd+ path.");
 
+                    // ───── Ensure Letterboxd+ Script ─────
                     const scriptPath = basePath + "/Core/Scripts/letterboxd.js"
-                    const secretsPath = basePath + "/Core/Scripts/api_keys.json";
-
                     const lib = await engine.importJs(scriptPath);
-                    const tmdbKey = await lib.getApiKey(secretsPath, 'tmdb');
+                    if (!lib) return new Notice("Failed to load core script.");
+
+                    // ───── Ensure TMDB API Key ─────
+                    if (!(await lib.tmdbKeyFileExists(basePath))) {
+                        const apiKey = await engine.prompt.text({ title: 'Enter Your TMDB API Key', content: 'This is required to fetch film and series data from TMDB.\\nYour key will be stored locally and never shared.', placeholder: 'Paste your TMDB key here...' });
+
+                        if (!apiKey) return new Notice("TMDB API key is required to continue. Please enter a valid key to enable film and series data fetching.");
+                        
+                        await lib.createTmdbKeyFile(basePath, apiKey)
+                    }
+
+                    const secretsPath = basePath + "/Core/Scripts/tmdb_key.json";
+                    const tmdbKey = await lib.getApiKey(secretsPath, 'apiKey');
 
                     // ───── Prompt for Setting Option ─────
                     const settingsOptions = [

@@ -341,16 +341,22 @@ const button = mb.createButtonMountable(context.file.path, {
             const basePath = getParentPath(context.file.path, "Letterboxd+");
             if (!basePath) return new Notice("Could not resolve Letterboxd+ path.");
 
-            // ───── Script & Secrets Paths ─────
-            const scriptPath = basePath + "/Core/Scripts/letterboxd.js";
-            const secretsPath = basePath + "/Core/Scripts/api_keys.json";
-
-            // ───── Load External Dependencies ─────
+            // ───── Ensure Letterboxd+ Script ─────
+            const scriptPath = basePath + "/Core/Scripts/letterboxd.js"
             const lib = await engine.importJs(scriptPath);
             if (!lib) return new Notice("Failed to load core script.");
 
-            const tmdbKey = await lib.getApiKey(secretsPath, 'tmdb');
-            if (!tmdbKey) return new Notice("TMDB API key not found.");
+            // ───── Ensure TMDB API Key ─────
+            if (!(await lib.tmdbKeyFileExists(basePath))) {
+                const apiKey = await engine.prompt.text({ title: 'Enter Your TMDB API Key', content: 'This is required to fetch film and series data from TMDB.\\nYour key will be stored locally and never shared.', placeholder: 'Paste your TMDB key here...' });
+
+                if (!apiKey) return new Notice("TMDB API key is required to continue. Please enter a valid key to enable film and series data fetching.");
+                
+                await lib.createTmdbKeyFile(basePath, apiKey)
+            }
+
+            const secretsPath = basePath + "/Core/Scripts/tmdb_key.json";
+            const tmdbKey = await lib.getApiKey(secretsPath, 'apiKey');
 
             // ───── Metadata ─────
             const file = app.workspace.getActiveFile();
@@ -1803,15 +1809,10 @@ const button = mb.createButtonMountable(context.file.path, {
           const basePath = getParentPath(context.file.path, "Letterboxd+");
           if (!basePath) return new Notice("Could not resolve Letterboxd+ path.");
 
-          // ──────────────── Load External Scripts and Keys ────────────────
-          const scriptPath = basePath + "/Core/Scripts/letterboxd.js";
-          const secretsPath = basePath + "/Core/Scripts/api_keys.json";
-
+          // ───── Ensure Letterboxd+ Script ─────
+          const scriptPath = basePath + "/Core/Scripts/letterboxd.js"
           const lib = await engine.importJs(scriptPath);
           if (!lib) return new Notice("Failed to load core script.");
-
-          const tmdbKey = await lib.getApiKey(secretsPath, 'tmdb');
-          if (!tmdbKey) return new Notice("TMDB API key not found.");
 
           // ──────────────── Fetch Active File & Metadata ────────────────
           const file = app.workspace.getActiveFile();
