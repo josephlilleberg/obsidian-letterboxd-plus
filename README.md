@@ -116,23 +116,23 @@ Get an at-a-glance overview of your media activity, with live summary stats orga
 ##### **🔹 Series Overview**
 
 - **Series:**
-	**0 / 0 | +0**
-	*Unique series watched this year / of those, released this year | New seasons released this year*
+	- **0 / 0 | +0**
+	- *Unique series watched this year / of those, released this year | New seasons released this year*
 
 - **Diary:**
-	**0 / 0 | 0 / 0**
-	*Diary entries of episodes watched this year / of those, from new seasons | Diary entries of episodes rewatched this year / of those, from new seasons*
+	- **0 / 0 | 0 / 0**
+	- *Diary entries of episodes watched this year / of those, from new seasons | Diary entries of episodes rewatched this year / of those, from new seasons*
 
 ---
 ##### **🔹 Films Overview**
 
 - **Films:**
-    **0 / 0**
-    *Films watched this year / of those, from films released this year*
+    - **0 / 0**
+    - *Films watched this year / of those, from films released this year*
 
 - **Diary:**    
-    **0 / 0**
-    *Diary entries this year / of those, from films released this year*
+    - **0 / 0**
+    - *Diary entries this year / of those, from films released this year*
 
 ---
 #### **🔹 Other Summaries**
