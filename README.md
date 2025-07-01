@@ -131,8 +131,8 @@ Get an at-a-glance overview of your media activity, with live summary stats orga
     *Films watched this year / of those, from films released this year*
 
 - **Diary:**    
-    **0 / 0**
-    *Diary entries this year / of those, from films released this year*
+    - **0 / 0**
+    - *Diary entries this year / of those, from films released this year*
 
 ---
 #### **🔹 Other Summaries**
