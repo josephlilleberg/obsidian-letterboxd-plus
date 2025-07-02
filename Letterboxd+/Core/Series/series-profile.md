@@ -212,6 +212,7 @@ const button = mb.createButtonMountable(context.file.path, {
                       { label: 'Sync Entire Library (Films & Series)', value: 'syncLibrary' },
                       { label: 'Import Library (Letterboxd+)', value: 'importLibrary' },
                       { label: 'Export Library (Letterboxd+)', value: 'exportLibrary' },
+                      { label: 'ℹ️ About Letterboxd+', value: 'about' },
                     ];
 
                     const selectedSetting = await engine.prompt.suggester({ placeholder: 'What would you like to do?', options: settingsOptions });
@@ -270,6 +271,17 @@ const button = mb.createButtonMountable(context.file.path, {
                             const fileName = jsonPath.split('/').pop();
                             new Notice("Letterboxd library exported as " + fileName + " in Core/Scripts.");
                             break;
+                        case 'about':
+                            const about = await engine.prompt.button({
+                                title: 'Letterboxd+',
+                                content: 'Version 1.0.0',
+                                buttons: [
+                                    {
+                                        label: 'Close',
+                                        value: null,
+                                    },
+                                ]
+                            });
                         default:
                             return new Notice("Unknown action selected.");
                     }

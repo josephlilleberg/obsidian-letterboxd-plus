@@ -858,7 +858,7 @@ export async function getAvailableListsByType(basePath, type, currentLists = [])
  * @param {boolean} [showNotice=true] - Whether to show completion or error notices.
  * @returns {Promise<{status: 'created'|'skipped'|'error', filePath: string|null, message: string}>} Status and details of the operation.
  */
-export async function addFilmToLibrary(basePath, id, apiKey, openAfterCreate = true, showNotice = true) {
+export async function addFilmToLibrary(basePath, id, apiKey, letterboxdMetadata = null, openAfterCreate = true, showNotice = true) {
   try {
     const filmDetails = await fetchDetailsById('film', id, apiKey);
     const safeTitleSlug = await formatFileName(filmDetails.title);
@@ -885,6 +885,26 @@ export async function addFilmToLibrary(basePath, id, apiKey, openAfterCreate = t
     const now = await getFormattedLocalDateTime();
 
     const metadata = await buildFilmMetadata(filmDetails, now);
+
+    if (letterboxdMetadata) {
+      const diaryDates = letterboxdMetadata.diary_dates ?? [];
+
+      Object.assign(metadata, {
+        like: !!letterboxdMetadata.like_date,
+        like_date: letterboxdMetadata.like_date ?? null,
+        
+        review: letterboxdMetadata.review ?? "",
+        review_date: letterboxdMetadata.review ? letterboxdMetadata.review_date ?? null : null,
+
+        rating: letterboxdMetadata.rating ?? null,
+        rating_date: letterboxdMetadata.rating ? letterboxdMetadata.rating_date ?? null : null,
+
+        watched: diaryDates.length > 0 ? true : false,
+        watch_date: diaryDates.length > 0 ? diaryDates[0] : null,
+        rewatch_dates: diaryDates.length > 1 ? diaryDates.slice(1) : []
+      });
+    }
+
     await app.fileManager.processFrontMatter(createdFile, fm => Object.assign(fm, metadata));
 
     const replacements = {

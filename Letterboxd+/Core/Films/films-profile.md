@@ -260,6 +260,7 @@ const button = mb.createButtonMountable(context.file.path, {
                       { label: 'Import from Letterboxd (Offical)', value: 'importOffical' },
                       { label: 'Import Library (Letterboxd+)', value: 'importLibrary' },
                       { label: 'Export Library (Letterboxd+)', value: 'exportLibrary' },
+                      { label: 'ℹ️ About Letterboxd+', value: 'about' },
                     ];
 
                     const selectedSetting = await engine.prompt.suggester({ placeholder: 'What would you like to do?', options: settingsOptions });
@@ -317,7 +318,7 @@ const button = mb.createButtonMountable(context.file.path, {
                             // Loop through each film entry, fetch TMDB details, and add to library
                             for (const [key, entry] of Object.entries(mergedExportData)) {
                               const film = await lib.fetchFilmDetailsByQuery(entry.name, tmdbKey, entry.year)
-                              const result = await lib.addFilmToLibrary(basePath, film.id, tmdbKey, openAfterCreate = false, showNotice = false)
+                              const result = await lib.addFilmToLibrary(basePath, film.id, tmdbKey, letterboxdMetadata = entry, openAfterCreate = false, showNotice = false)
 
                               switch (result.status) {
                                 case 'created':
@@ -403,6 +404,18 @@ const button = mb.createButtonMountable(context.file.path, {
                             await lib.exportLibrary(basePath);
                             const fileName = jsonPath.split('/').pop();
                             new Notice("Letterboxd library exported as " + fileName + " in Core/Scripts.");
+                            break;
+                        case 'about':
+                            const about = await engine.prompt.button({
+                                title: 'Letterboxd+',
+                                content: 'Version 1.0.0',
+                                buttons: [
+                                    {
+                                        label: 'Close',
+                                        value: null,
+                                    },
+                                ]
+                            });
                             break;
                         default:
                             return new Notice("Unknown action selected.");

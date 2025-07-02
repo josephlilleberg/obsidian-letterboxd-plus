@@ -25,18 +25,13 @@ Follow these steps to install and configure `Letterboxd+` in your Obsidian vault
 ### 1. Getting Started: Letterboxd+ Setup
 
 1. Download the ZIP file containing the `Letterboxd+` system and CSS snippets.
-	- The `Letterboxd+` folder contains the core tracking system.o style the apperance.
+	- The `Letterboxd+` folder contains the core tracking system.
 	- The `snippets` folder includes the required CSS files that style the appearance and layout of the system. 
 
-2. The `Letterboxd+` folder can be placed anywhere within your vault and it should work seamlessly out of the box without any additional setup.
+2. The `Letterboxd+` folder can be placed anywhere within your vault and should work seamlessly out of the box without any additional setup.
 
-3. The `snippets` folder should contain 3 css files:
-	- `Letterboxd.css`
-	- `MCL Multi Column.css`
-	- `MCL Wide Views.css`
+3. The `snippets` folder contains 3 css files. Two of the files — MCL Multi Column.css and MCL Wide Views.css — are part of the [Modular CSS Layout (MCL)](https://github.com/efemkay/obsidian-modular-css-layout) collection by **efemkay**.
 
-> The latter two files — MCL Multi Column.css and MCL Wide Views.css — are part of the [Modular CSS Layout (MCL)](https://github.com/efemkay/obsidian-modular-css-layout) system by **efemkay**.
->
 > 📘 For a clear walkthrough on setting up CSS snippets, refer to the [official Obsidian documentation](https://help.obsidian.md/snippets).
 
 ---
@@ -88,29 +83,29 @@ tmdb_key.json
 ---
 ### 4. ✨ Features ✨**
 
-#### **🧭 Unified Navigation Header**
+#### **4.1 🧭 Unified Navigation Header**
 ---
 Every **film** and **series** page includes a clean, consistent navigation header that lets you move between core parts of the system:
 
 - **Log Film/Series**: Quickly add a new film or series to your system
-- **Profile**: View stats and activity at a glance
+- **Profile**:  Provides a visual overview of your engagement — featuring a breakdown of favorites and likes, a recent activity feed, rating distribution graph, and total counts for entries across your Letterboxd+ library (e.g. reviews, quotes, lists, etc.).
 - **Diary**: Browse your watch history chronologically
 - **Lists**: Access or manage custom lists
 - **Watchlist**: See what you plan to watch
 - **Library**: Sync all films or series depending on the active mode (films or series), manage imports/exports, create backups, and pull data from your official Letterboxd account.
   
-> This keeps your tracking experience centralized, organized, and easy to navigate — no matter where you are in the system.
+This keeps your tracking experience centralized, organized, and easy to navigate — no matter where you are in the system.
 
-#### **🎥 Unified Film & Series Tracking**
+#### **4.2 🎥 Unified Film & Series Tracking**
 ---
 - View and manage:
     - **Favorites**, **Likes**, **Watchlist**, and **Recent activity**
     - **Ratings graph** for visualizing rating distribution
 
 ---
-#### **📊 Quick-Access Dashboards**
+#### **4.3 📊 Film & Series Dashboards**
 
-Get an at-a-glance overview of your media activity, with live summary stats organized by media type:
+Stay on top of your media journey with a dynamic, real-time dashboard that offers a clear snapshot of your film and series activity. Each dashboard offers a focused snapshot of your engagement, helping you track what you’ve watched, rewatched, logged, or added throughout the year— all in a streamlined view. 
 
 ---
 ##### **🔹 Series Overview**
@@ -121,42 +116,53 @@ Get an at-a-glance overview of your media activity, with live summary stats orga
 
 - **Diary:**
 	- **0 / 0 | 0 / 0**
-	- *Diary entries of episodes watched this year / of those, from new seasons | Diary entries of episodes rewatched this year / of those, from new seasons*
+	- *Diary entries logged of series watched this year / of those, from seasons released this year | Diary entries logged of series rewatched this year / of those, from seasons released this year*
 
 ---
 ##### **🔹 Films Overview**
 
 - **Films:**
     - **0 / 0**
-    - *Films watched this year / of those, from films released this year*
+    - *Films watched this year / of those, released this year*
 
 - **Diary:**    
     - **0 / 0**
-    - *Diary entries this year / of those, from films released this year*
+    - *Diary entries logged of films watch this year / of those, from films released this year*
+
+> Note: Diary entries for films includes the initial watch and all respective rewatches
 
 ---
-#### **🔹 Other Summaries**
+##### **🔹 Other Summaries**
 
-- **Reviews**, **Lists**, **Watchlist**, **Likes**, **Favorites:** Show total counts
-- **Quotes:** Aggregate total quotes across all entries
+- **Reviews**, **Lists**, **Watchlist**, **Likes**, **Favorites** show total counts. **Quotes**, on the other hand, shows an ggregate total quotes across all entries.
 
 ---
-#### **🧾 Individual Entry Pages**
+#### **4.4 🧾 Individual Entry Pages**
   
-Whether it’s a film or an episode, each entry supports:
-- **Rating**, **Liking**, and **Favoriting**
+Whether it’s a film or series, each entry supports:
+- **Rating**, **liking**, and **favoriting**
 - **Syncing metadata** from TMDb
-- **Logging watches** and **rewatches**, including **backlogs**.
-- **Writing reviews** and **adding quotes**
-- **Adding to custom lists**
-- **External links** to IMDb or official sites when available
+- **Logging watches**, **rewatches**, and **backlogs**
+- **Writing reviews** and **adding memorable quotes**
+- **Organizing entries into custom lists**
+- **Assigning custom genres**
 
 > 📺 For series, episodes can also track **status** (watching, waiting, on hold, etc.) and rewatches from any point in the series.
 
-#### **🗂️ Custom Lists**
+#### **4.5 🗂️ Custom Lists for Films & Series**
 ---
-- Create personalized themed lists for:
-    - **Films** (e.g., “Best of 2024”, “Cozy Horror”)        
-    - **Series** (e.g., “Comfort Shows”, “To Finish Watching”)
+- Create personalized themed lists for both films and series — whether you’re building a “Best of 2024” collection, a “Comfort Shows” playlist, or a watchlist to revisit later.
+    - Each media type has its own dedicated lists
+    - Add entries directly from the film or series page, or from the list view itself
+    - Lists display relevant metadata and link directly to each entry for quick access
+    - Perfect for tracking moods, genres, rewatches, or curated collections
 
 - Lists display relevant metadata and link directly to each entry
+
+📝 Refined Description:
+
+Create personalized themed lists for both films and series — whether you’re building a “Best of 2024” collection, a “Comfort Shows” playlist, or a watchlist to revisit later.
+	•	Each media type has its own dedicated lists
+	•	Add entries directly from the film or series page, or from the list view itself
+	•	Lists display relevant metadata and link directly to each entry for quick access
+	•	Perfect for tracking moods, genres, rewatches, or curated collections
