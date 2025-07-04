@@ -5,8 +5,6 @@
 
 # 🎞️ Letterboxd+
 
----
-
 > ***Letterboxd+ is a minimal, local-first media tracker for films and series — designed for personal use in Obsidian, inspired by Letterboxd, and thoughtfully extended to support series.***
 
 [Letterboxd](https://letterboxd.com) is a global platform for film discovery, where users log what they watch, compose reviews, and build themed lists — like Goodreads, but for films.
@@ -19,15 +17,11 @@
 
 [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/josephlilleberg)
 
-
----
-## 🚀 Setup Instructions
+# 🚀 Setup Instructions
 
 Follow these steps to install and configure `Letterboxd+` in your Obsidian vault.
 
----
-
-### 1. Getting Started: Letterboxd+ Setup
+## 1. Getting Started: Letterboxd+ Setup
 
 1. Download and unzip the Letterboxd+ repository. Inside, you’ll find two directories:
 	- `Letterboxd+`: the core tracking system.
@@ -39,8 +33,7 @@ Follow these steps to install and configure `Letterboxd+` in your Obsidian vault
 
 > 📘 For a clear walkthrough on setting up CSS snippets in Obsidian, refer to the [official Obsidian documentation](https://help.obsidian.md/snippets).
 
----
-### 2. 📦 Required Obsidian Plugins
+## 2. 📦 Required Obsidian Plugins
 
 Make sure the following Community Plugins are **installed**, **enabled**, and properly **configured**:
 
@@ -56,9 +49,7 @@ Make sure the following Community Plugins are **installed**, **enabled**, and pr
 
 > 📍 You can install these under **Settings → Community Plugins → Browse**.
 
----
-
-### 3. 🔐 TMDb API Key Setup
+## 3. 🔐 TMDb API Key Setup
 
 This system fetches film and series metadata using [The Movie Database (TMDb)](https://www.themoviedb.org/). To use it:
 
@@ -85,10 +76,7 @@ with the following structure:
 tmdb_key.json
 ```
 
-
-### 4. 👋 First-Time Setup: What to Expect
-
-
+## 4. 👋 First-Time Setup: What to Expect
 
 Before diving into all the features, here’s how to get started with Letterboxd+ in a smooth and intentional way:
 
@@ -124,12 +112,10 @@ This file will be used for all future API calls, so you won’t need to enter it
 
 Let me know if you’d like a walkthrough video or visual flowchart to accompany this!
 
+## 5. ✨ Features ✨**
 
----
-### 5. ✨ Features ✨**
+### **5.1 🧭 Unified Navigation Header**
 
-#### **5.1 🧭 Unified Navigation Header**
----
 Every **film** and **series** page includes a clean, consistent navigation header that lets you move between core parts of the system:
 
 - **Log Film/Series**: Quickly add a new film or series to your system
@@ -142,18 +128,16 @@ Every **film** and **series** page includes a clean, consistent navigation heade
 This keeps your tracking experience centralized, organized, and easy to navigate — no matter where you are in the system.
 
 #### **5.2 🎥 Unified Film & Series Tracking**
----
+
 - View and manage:
     - **Favorites**, **Likes**, **Watchlist**, and **Recent activity**
     - **Ratings graph** for visualizing rating distribution
 
----
-#### **5.3 📊 Film & Series Dashboards**
+### **5.3 📊 Film & Series Dashboards**
 
 Stay on top of your media journey with a dynamic, real-time dashboard that offers a clear snapshot of your film and series activity. Each dashboard offers a focused snapshot of your engagement, helping you track what you’ve watched, rewatched, logged, or added throughout the year— all in a streamlined view. 
 
----
-##### **🔹 Series Overview**
+#### **🔹 Series Overview**
 
 - **Series:**
 	- **0 / 0 | +0**
@@ -163,7 +147,6 @@ Stay on top of your media journey with a dynamic, real-time dashboard that offer
 	- **0 / 0 | 0 / 0**
 	- *Diary entries logged of series watched this year / of those, from seasons released this year | Diary entries logged of series rewatched this year / of those, from seasons released this year*
 
----
 ##### **🔹 Films Overview**
 
 - **Films:**
@@ -176,13 +159,11 @@ Stay on top of your media journey with a dynamic, real-time dashboard that offer
 
 > Note: Diary entries for films includes the initial watch and all respective rewatches
 
----
 ##### **🔹 Other Summaries**
 
 - **Reviews**, **Lists**, **Watchlist**, **Likes**, **Favorites** show total counts. **Quotes**, on the other hand, shows an ggregate total quotes across all entries.
 
----
-#### **5.4 🧾 Individual Entry Pages**
+### **5.4 🧾 Individual Entry Pages**
   
 Whether it’s a film or series, each entry supports:
 - **Rating**, **liking**, and **favoriting**
@@ -194,8 +175,8 @@ Whether it’s a film or series, each entry supports:
 
 > 📺 For series, episodes can also track **status** (watching, waiting, on hold, etc.) and rewatches from any point in the series.
 
-#### **5.5 🗂️ Custom Lists for Films & Series**
----
+### **5.5 🗂️ Custom Lists for Films & Series**
+
 - Create personalized themed lists for both films and series — whether you’re building a “Best of 2024” collection, a “Comfort Shows” playlist, or a watchlist to revisit later.
     - Each media type has its own dedicated lists
     - Add entries directly from the film or series page, or from the list view itself
