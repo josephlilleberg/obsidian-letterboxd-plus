@@ -15,9 +15,9 @@
 
  With support for watchlists, diaries, and more, **Letterboxd+** is your personal media journal — a centralized, flexible system for capturing your evolving taste in both films and series.
 
-> 💛 Enjoy using Letterboxd+? Consider supporting the project
->
-> [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/josephlilleberg)
+> Enjoy using Letterboxd+? Consider supporting the project 💛
+
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/josephlilleberg)
 
 
 ---
@@ -29,15 +29,15 @@ Follow these steps to install and configure `Letterboxd+` in your Obsidian vault
 
 ### 1. Getting Started: Letterboxd+ Setup
 
-1. Download the ZIP file containing the `Letterboxd+` system and CSS snippets.
-	- The `Letterboxd+` folder contains the core tracking system.
-	- The `snippets` folder includes the required CSS files that style the appearance and layout of the system. 
+1. Download and unzup the Letterboxd+ repository. Inside, you’ll find two directories:
+	- `Letterboxd+`: the core tracking system.
+	- `snippets`: required CSS for layout and styling. 
 
-2. The `Letterboxd+` folder can be placed anywhere within your vault and should work seamlessly out of the box without any additional setup.
+2. Move the `Letterboxd+` folder anywhere in your vault. It works out of the box with no additional setup required.
 
-3. The `snippets` folder contains 3 css files. Two of the files — MCL Multi Column.css and MCL Wide Views.css — are part of the [Modular CSS Layout (MCL)](https://github.com/efemkay/obsidian-modular-css-layout) collection by **efemkay**.
+3. The `snippets` folder contains 3 core css files. Two of the files — MCL Multi Column.css and MCL Wide Views.css — are part of the [Modular CSS Layout (MCL)](https://github.com/efemkay/obsidian-modular-css-layout) collection by **efemkay**.
 
-> 📘 For a clear walkthrough on setting up CSS snippets, refer to the [official Obsidian documentation](https://help.obsidian.md/snippets).
+> 📘 For a clear walkthrough on setting up CSS snippets in Obsidian, refer to the [official Obsidian documentation](https://help.obsidian.md/snippets).
 
 ---
 ### 2. 📦 Required Obsidian Plugins
