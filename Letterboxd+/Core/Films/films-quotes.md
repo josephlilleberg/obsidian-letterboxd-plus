@@ -6,12 +6,7 @@ filterDecade: Any
 filterYear: Any
 filterSearchQuery: ""
 filterLimitResults: 200
-genres_list:
-  - Drama
-  - Horror
-  - Fantasy
-  - Action
-  - Crime
+genres_list: []
 selected: []
 cssclasses:
   - hidefilename
@@ -19,7 +14,7 @@ cssclasses:
   - wide-page
 ---
 
-<!-- Note Toolbar -->
+<!-- ui: films-nav-toolbar (render) -->
 ```js-engine
 function convertFilePathToObsidianUri(filePath) {
     const vaultName = app.vault.getName();
@@ -83,7 +78,7 @@ if (isMobile) {
 <br/>
 <div class="divider"/>
 
-<!-- Sorting -->
+<!-- input: sort -->
 ```meta-bind-js-view
 {sortOption} as sortOption
 ---
@@ -115,9 +110,10 @@ if (context.bound.sortOption === 'Films Name') {
 return engine.markdown.create(str);
 ```
 
-<!-- Filters -->
+<!-- toggle: filter -->
 `VIEW[Filters][text(renderMarkdown)]` `INPUT[toggle:enableFilters]`
 
+<!-- input: release-date-filter -->
 ```meta-bind-js-view
 {enableFilters} as enableFilters
 {filterDecade} as filterDecade
@@ -164,6 +160,7 @@ if (context.bound.enableFilters) {
 return engine.markdown.create(str);
 ```
 
+<!-- input: limit-filter -->
 ```meta-bind-js-view
 {enableFilters} as enableFilters
 ---
@@ -176,6 +173,7 @@ if (context.bound.enableFilters) {
 return engine.markdown.create(str)
 ```
 
+<!-- input: search-filter -->
 ```meta-bind-js-view
 {enableFilters} as enableFilters
 ---
@@ -188,6 +186,7 @@ if (context.bound.enableFilters) {
 return engine.markdown.create(str)
 ```
 
+<!-- button: reset-filters (render) -->
 ```meta-bind-js-view
 {enableFilters} as enableFilters
 ---
@@ -200,6 +199,7 @@ if (context.bound.enableFilters) {
 return engine.markdown.create(str)
 ```
 
+<!-- button: reset-filters (config) -->
 ```meta-bind-button
 label: "Reset Filters"
 hidden: true
@@ -225,7 +225,7 @@ actions:
     value: ""
 ```
 
-<!-- Genres -->
+<!-- logic: genres-list -->
 ```js-engine
 // Update genres_list
 
@@ -266,6 +266,7 @@ app.fileManager.processFrontMatter(file, (frontmatter) => {
 
 ```
 
+<!-- button: genre-tags (render) -->
 ```js-engine
 // inlineListSuggester for Genres
 const mb = engine.getPlugin('obsidian-meta-bind-plugin').api;
@@ -345,7 +346,7 @@ const subscription = mb.subscribeToMetadata(
 
 <div class="divider"/>
 
-<!-- Render Quotes -->
+<!-- dashboard: quotes -->
 ```dataviewjs
 const mb = app.plugins.getPlugin('obsidian-meta-bind-plugin')?.api;
 

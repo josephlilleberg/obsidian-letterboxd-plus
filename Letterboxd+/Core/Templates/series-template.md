@@ -5,6 +5,8 @@ cssclasses:
 ---
 
 
+
+<!-- text: series-name-heading -->
 ```meta-bind-js-view
 {series_name} as series_name
 ---
@@ -17,6 +19,7 @@ if (context.bound.series_name) {
 return engine.markdown.create(str);
 ```
 
+<!-- text: last-modified-header -->
 ```meta-bind-js-view
 {last_updated} as last_updated
 {last_synced} as last_synced
@@ -72,6 +75,7 @@ let output = `<div class="meta-info-footer">${parts.join(" · ")}</div>`;
 return engine.markdown.create(output);
 ```
 
+<!-- ui: series-nav-toolbar (render) -->
 ```js-engine
 function convertFilePathToObsidianUri(filePath) {
     const vaultName = app.vault.getName();
@@ -134,7 +138,7 @@ if (isMobile) {
 }
 ```
 
-<!-- Rating Button -->
+<!-- button: rating (config) -->
 ```meta-bind-js-view
 {rating} as rating
 ---
@@ -198,7 +202,7 @@ const button = mb.createButtonMountable(context.file.path, {
 mb.wrapInMDRC(button, container, component);
 ```
 
-<!-- Like Button -->
+<!-- button: like (config) -->
 ```meta-bind-js-view
 {like} as like
 ---
@@ -237,7 +241,7 @@ const button = mb.createButtonMountable(context.file.path, buttonOptions);
 mb.wrapInMDRC(button, container, component);
 ```
 
-<!-- Favorite Button -->
+<!-- button: favorite (config) -->
 ```meta-bind-js-view
 {favorite} as favorite
 ---
@@ -276,7 +280,7 @@ const button = mb.createButtonMountable(context.file.path, buttonOptions);
 mb.wrapInMDRC(button, container, component);
 ```
 
-<!-- Edit Button -->
+<!-- button: edit (config) -->
 ```meta-bind-js-view
 {edit} as edit
 ---
@@ -314,7 +318,7 @@ const button = mb.createButtonMountable(context.file.path, buttonOptions);
 mb.wrapInMDRC(button, container, component);
 ```
 
-<!-- Sync Button -->
+<!-- button: sync (config) -->
 ```js-engine
 const mb = app.plugins.getPlugin('obsidian-meta-bind-plugin')?.api;
 
@@ -409,7 +413,7 @@ const button = mb.createButtonMountable(context.file.path, {
 mb.wrapInMDRC(button, container, component);
 ```
 
-<!-- Homepage Button -->
+<!-- button: homepage (render) -->
 ```meta-bind-js-view
 {homepage} as homepage
 ---
@@ -420,6 +424,7 @@ if (context.bound.homepage) {
 }
 ```
 
+<!-- button: homepage (config) -->
 ```js-engine
 // First we get an instance of the Meta Bind plugin, then we access the API.
 const mb = app.plugins.getPlugin('obsidian-meta-bind-plugin')?.api;
@@ -456,7 +461,7 @@ const button = mb.createButtonMountable(context.file.path, buttonOptions);
 mb.wrapInMDRC(button, container, component);
 ```
 
-<!-- Tagline & Overview -->
+<!-- text: tagline-overview -->
 ```meta-bind-js-view
 {series_tagline} as series_tagline
 {series_overview} as series_overview
@@ -476,7 +481,7 @@ return engine.markdown.create(str);
 
 <br/>
 
-<!-- Genres Button -->
+<!-- text: genre-tags -->
 ```meta-bind-js-view
 {genres} as genres
 ---
@@ -492,6 +497,7 @@ if (context.bound.genres) {
 }
 ```
 
+<!-- button: genre-tags (render) -->
 ```meta-bind-js-view
 {edit} as edit
 ---
@@ -504,6 +510,7 @@ if (context.bound.edit) {
 return engine.markdown.create(str);
 ```
 
+<!-- button: genre-tags (config) -->
 ```js-engine
 const mb = app.plugins.getPlugin('obsidian-meta-bind-plugin')?.api;
 
@@ -653,8 +660,10 @@ mb.wrapInMDRC(button, container, component);
 ## Logging Series
 ---
 
+<!-- input: status -->
 `INPUT[inlineSelect(option('Watchlist'), option('Watching'), option('Waiting'), option('On Hold'), option('Completed'), option('Dropped'), defaultValue('Watchlist')):status]`
 
+<!-- text: series-watch-progress -->
 ```meta-bind-js-view
 {watch_dates} as watch_dates
 {season_breakdown} as season_breakdown
@@ -683,6 +692,8 @@ for (let s = 0; s < breakdown.length; s++) {
 // If all episodes are watched
 return engine.markdown.create("`VIEW[All episodes watched][text(renderMarkdown)]`");
 ```
+
+<!-- button: log-episode (render) -->
 ```meta-bind-js-view
 {status} as status
 ---
@@ -694,6 +705,7 @@ if (context.bound.status == 'Watching') {
 return engine.markdown.create(str)
 ```
 
+<!-- button: log-episode (config)-->
 ```js-engine
 const mb = app.plugins.getPlugin('obsidian-meta-bind-plugin')?.api;
 
@@ -789,6 +801,7 @@ const button = mb.createButtonMountable(context.file.path, {
 mb.wrapInMDRC(button, container, component);
 ```
 
+<!-- text: watch-rewatch-divider -->
 ```meta-bind-js-view
 {rewatch_session_active} as rewatch_session_active
 {status} as status
@@ -803,6 +816,7 @@ let str = `<div class="log-section-divider"/>`
 return engine.markdown.create(str)
 ```
 
+<!-- text: series-watch-progress -->
 ```meta-bind-js-view
 {rewatch_dates} as rewatch_dates
 {season_breakdown} as season_breakdown
@@ -840,6 +854,7 @@ if (context.bound.rewatch_session_active && context.bound.status != 'Watchlist')
 
 ```
 
+<!-- button: rewatch-management (render) -->
 ```meta-bind-js-view
 {rewatch_session_active} as rewatch_session_active
 {status} as status
@@ -854,7 +869,7 @@ if (context.bound.rewatch_session_active && context.bound.status != 'Watchlist')
 
 return engine.markdown.create(str)
 ```
-
+<!-- button: start-rewatch (config) -->
 ```js-engine
 const mb = app.plugins.getPlugin('obsidian-meta-bind-plugin')?.api;
 
@@ -1092,6 +1107,7 @@ const button = mb.createButtonMountable(context.file.path, {
 mb.wrapInMDRC(button, container, component);
 ```
 
+<!-- button: log-rewatch (config) -->
 ```js-engine
 const mb = app.plugins.getPlugin('obsidian-meta-bind-plugin')?.api;
 
@@ -1186,6 +1202,7 @@ const button = mb.createButtonMountable(context.file.path, {
 mb.wrapInMDRC(button, container, component);
 ```
 
+<!-- button: end-rewatch (config) -->
 ```js-engine
 const mb = app.plugins.getPlugin('obsidian-meta-bind-plugin')?.api;
 
@@ -1242,7 +1259,7 @@ mb.wrapInMDRC(button, container, component);
 ## Lists
 ---
 
-
+<!-- text: lists -->
 ```meta-bind-js-view
 {lists} as lists
 ---
@@ -1288,6 +1305,7 @@ if (context.bound.lists.length > 0) {
 }
 ```
 
+<!-- button: lists (render) -->
 ```meta-bind-js-view
 {edit} as edit
 ---
@@ -1300,6 +1318,7 @@ if (context.bound.edit) {
 return engine.markdown.create(str);
 ```
 
+<!-- button: lists (config) -->
 ```js-engine
 const mb = app.plugins.getPlugin('obsidian-meta-bind-plugin')?.api;
 
@@ -1428,35 +1447,12 @@ mb.wrapInMDRC(button, container, component);
 
 ---
 
-```js-engine
-function getParentPath(fullPath, targetFolder) {
-    const index = fullPath.indexOf(targetFolder);
-    if (index === -1) return null;
-
-    return fullPath.substring(0, index + targetFolder.length);
-}
-
-const basePath = getParentPath(context.file.path, 'Letterboxd+')
-
-const listFolderPath = `${basePath}/Core/Films/Lists`; // Set your folder path
-const listFolder = app.vault.getAbstractFileByPath(listFolderPath);
-
-const filesInFolder = app.vault.getFiles().filter(file => file.path.startsWith(listFolderPath));
-
-let str = ''
-if (filesInFolder.length === 0) {
-    str = `\`VIEW[No available lists.][text(renderMarkdown)]\``
-}
-
-return engine.markdown.create(str)
-```
-
 <br/>
 
 ## Review
 ---
 
-
+<!-- text: review -->
 ```meta-bind-js-view
 {review} as review
 ---
@@ -1471,6 +1467,7 @@ if (context.bound.review?.trim()) {
 return engine.markdown.create(str)
 ```
 
+<!-- button: review (render) -->
 ```meta-bind-js-view
 {edit} as edit
 ---
@@ -1483,6 +1480,7 @@ if (context.bound.edit) {
 return engine.markdown.create(str);
 ```
 
+<!-- button: review (config) -->
 ```js-engine
 const mb = app.plugins.getPlugin('obsidian-meta-bind-plugin')?.api;
 
@@ -1564,6 +1562,7 @@ mb.wrapInMDRC(button, container, component);
 ## Quotes
 ---
 
+<!-- text: quotes -->
 ```meta-bind-js-view
 {quotes} as quotes
 ---
@@ -1607,6 +1606,7 @@ let str = output.length
 return engine.markdown.create(str);
 ```
 
+<!-- button: quotes (render) -->
 ```meta-bind-js-view
 {edit} as edit
 ---
@@ -1619,6 +1619,7 @@ if (context.bound.edit) {
 return engine.markdown.create(str);
 ```
 
+<!-- button: quotes (config) -->
 ```js-engine
 const mb = app.plugins.getPlugin('obsidian-meta-bind-plugin')?.api;
 
@@ -2104,145 +2105,7 @@ mb.wrapInMDRC(button, container, component);
 
 ---
 
-```meta-bind-js-view
-{last_updated} as last_updated
-{last_synced} as last_synced
----
-
-function formatDateTime(dateString) {
-  const date = new Date(dateString);
-  const options = {
-    year: 'numeric',
-    month: 'long',
-    day: 'numeric',
-    hour: 'numeric',
-    minute: '2-digit',
-    hour12: true,
-  };
-  return new Intl.DateTimeFormat('en-US', options).format(date);
-}
-
-let parts = [];
-
-if (context.bound.last_updated) {
-  parts.push(`Last Updated: ${formatDateTime(context.bound.last_updated)}`);
-}
-
-if (context.bound.last_synced) {
-  parts.push(`Last Synced: ${formatDateTime(context.bound.last_synced)}`);
-}
-
-let output = `<div class="meta-info-footer">${parts.join(" · ")}</div>`;
-
-return engine.markdown.create(output);
-```
-
-```meta-bind-js-view
-{edit} as edit
----
-
-if (!context.bound.edit) {
-  return null;
-}
-
-
-let str = '`BUTTON[delete-series]`';
-
-return engine.markdown.create(str)
-```
-
-```js-engine
-const mb = app.plugins.getPlugin('obsidian-meta-bind-plugin')?.api;
-
-const button = mb.createButtonMountable(context.file.path, {
-  declaration: {
-    label: '',
-    style: 'default',
-    icon: 'trash-2',
-    id: 'delete-series',
-    class: 'center-button',
-    hidden: true,
-    action: {
-      type: 'inlineJS',
-      code: `
-        (async () => {
-          // Get the base "Letterboxd+" directory from the full file path
-          function getParentPath(fullPath, targetFolder) {
-            const index = fullPath.indexOf(targetFolder);
-            return index === -1 ? null : fullPath.substring(0, index + targetFolder.length);
-          }
-
-          const basePath = getParentPath(context.file.path, "Letterboxd+");
-          if (!basePath) return error("Could not resolve Letterboxd+ path.");
-
-          const file = app.workspace.getActiveFile();
-          if (!file) {
-            new Notice("No active file.");
-            return;
-          }
-
-          const filename = file.basename; 
-          const frontmatter = app.metadataCache.getFileCache(file)?.frontmatter || {};
-          const title = frontmatter.series_name || filename;
-
-          const jsonPath = \`\${basePath}/Core/Scripts/letterboxd-quotes.json\`;
-          const fallbackFile = await app.vault.getFileByPath(\`\${basePath}/Core/Series/series-profile.md\`);
-
-          // Confirm deletion
-          const choice = await engine.prompt.yesNo({
-            title: 'Confirm Deletion',
-            content: \`This will permanently delete "\${title}". Are you sure?\`,
-          });
-          if (!choice) return;
-
-          // Open fallback page
-          if (fallbackFile) {
-            const leaf = app.workspace.getLeaf();
-            await leaf.openFile(fallbackFile);
-            const view = leaf.view;
-            if (view?.setViewState) {
-              await view.setViewState({
-                ...view.getState(),
-                mode: 'preview',
-              });
-            }
-          } else {
-            new Notice("Fallback file not found.");
-          }
-
-          try {
-            // Remove from JSON if present
-            if (await app.vault.adapter.exists(jsonPath)) {
-              const contents = await app.vault.adapter.read(jsonPath);
-              const jsonData = JSON.parse(contents);
-
-              if (jsonData.series && jsonData.series[filename]) {
-                delete jsonData.series[filename];
-                await app.vault.adapter.write(jsonPath, JSON.stringify(jsonData, null, 2));
-              }
-            } else {
-              new Notice("quotes.json not found.");
-            }
-
-            // Finally, delete the file
-            await app.vault.delete(file);
-            new Notice(\`Deleted series: "\${title}".\`);
-
-          } catch (err) {
-            console.error(err);
-            new Notice("Error deleting series or updating quotes.");
-          }
-
-        })(); 
-      `,
-    },
-  },
-  isPreview: false,
-});
-
-mb.wrapInMDRC(button, container, component);
-```
-
+<!-- logic: meta-bind state manager -->
 ```js-engine
 const mb = engine.getPlugin('obsidian-meta-bind-plugin').api;
 

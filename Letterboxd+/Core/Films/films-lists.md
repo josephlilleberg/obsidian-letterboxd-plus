@@ -8,7 +8,7 @@ cssclasses:
   - wide-page
 ---
 
-<!-- Note Toolbar -->
+<!-- ui: films-nav-toolbar (render) -->
 ```js-engine
 function convertFilePathToObsidianUri(filePath) {
     const vaultName = app.vault.getName();
@@ -71,280 +71,7 @@ if (isMobile) {
 }
 ```
 
-# Lists
-
-<br/>
-<div class="divider"/>
-
-<!-- Sorting -->
-```meta-bind-js-view
-{sortOption} as sortOption
----
-// Sorting
-const sorting = ['Activity', 'Title', 'Entries', 'Added']
-const sortingOldestNewest = [['Oldest First', 'Newest First'], ["asc", "desc"]]
-const sortingAlphaetical = [['A to Z', 'Z to A'], ["asc", "desc"]]
-const sortingFewestMost = [['Fewest First', 'Most First'], ["asc", "desc"]]
-const sortingEarliestLatest = [['Earliest First', 'Latest First'], ["asc", "desc"]]
-
-const sortOptions = sorting.map(x => `option(${x})`).join(", ");
-const sortingOldestNewestOptions = sortingOldestNewest[0]
-    .map((x, i) => `option(${sortingOldestNewest[1][i]}, ${x})`) 
-    .join(", ");
-    
-const sortingAlphaeticalOptions = sortingAlphaetical[0]
-    .map((x, i) => `option(${sortingAlphaetical[1][i]}, ${x})`) 
-    .join(", ");
-    
-const sortingFewestMostOptions = sortingFewestMost[0]
-    .map((x, i) => `option(${sortingFewestMost[1][i]}, ${x})`) 
-    .join(", ");
-
-const sortingEarliestLatestOptions = sortingEarliestLatest[0]
-    .map((x, i) => `option(${sortingEarliestLatest[1][i]}, ${x})`) 
-    .join(", ");
-    
-let str = '';
-if (context.bound.sortOption === 'Activity') {
-    str = `\`INPUT[inlineSelect(${sortOptions}):sortOption]\` \`INPUT[inlineSelect(${sortingOldestNewestOptions}):sortOrder]\``
-} else if (context.bound.sortOption === 'Title') {
-    str = `\`INPUT[inlineSelect(${sortOptions}):sortOption]\` \`INPUT[inlineSelect(${sortingAlphaeticalOptions}):sortOrder]\``
-} else if (context.bound.sortOption === 'Entries') {
-    str = `\`INPUT[inlineSelect(${sortOptions}):sortOption]\` \`INPUT[inlineSelect(${sortingFewestMostOptions}):sortOrder]\``
-} else if (context.bound.sortOption === 'Added') {
-    str = `\`INPUT[inlineSelect(${sortOptions}):sortOption]\` \`INPUT[inlineSelect(${sortingEarliestLatestOptions}):sortOrder]\``
-} 
-
-return engine.markdown.create(str);
-```
-
-<!-- Query Search -->
-`INPUT[text(placeholder(Search lists...)):filterSearchQuery]`
-
-<!-- Display Show/Hidden Lists -->
-```js-engine
-const dv = engine.getPlugin("dataview")?.api;
-
-function getParentPath(fullPath, targetFolder) {
-    const index = fullPath.indexOf(targetFolder);
-    if (index === -1) return null; // Target folder not found
-
-    const subPath = fullPath.substring(0, index + targetFolder.length);
-    return subPath;
-}
-
-const filePath = context.file.path;
-const basePath = getParentPath(filePath, 'Letterboxd+');
-const filmsBasePath = `${basePath}/Films`;
-const filmsListsBasePath = `${basePath}/Core/Films/Lists`;
-
-// Step 1: Initialize the listCount dictionary from list files
-let listCount = {};
-let listPages = dv.pages(`"${filmsListsBasePath}"`);
-listPages.forEach(p => {
-    if (p.title && !(p.title in listCount)) {
-        listCount[p.title] = 0;
-    }
-});
-
-// Step 2: Iterate over all film files and count list usage
-let filmPages = dv.pages(`"${filmsBasePath}"`);
-filmPages.forEach(p => {
-    if (Array.isArray(p.lists)) {
-        p.lists.forEach(list => {
-            const title = list.title;
-            if (title && title in listCount) {
-                listCount[title]++;
-            }
-        });
-    }
-});
-
-let shown = 0;
-let hidden = 0;
-
-for (const [title, count] of Object.entries(listCount)) {
-    if (count > 0) {
-        shown++;
-    } else if (count === 0) {
-        hidden++;
-    }
-}
-
-let str = `\`VIEW[**Lists** · ${shown} shown · ${hidden} hidden][text(renderMarkdown)]\``
-
-return engine.markdown.create(str);
-```
-
-<div class="divider"/>
-
-<!-- Render Lists -->
-```dataviewjs
-function getObsidianURI(filePath) {
-    const vaultName = app.vault.getName(); 
-    const encodedFilePath = encodeURIComponent(filePath); // Encode file path
-
-    return `obsidian://open?vault=${encodeURIComponent(vaultName)}&file=${encodedFilePath}`;
-}
-
-function sanitizeListName(str) {
-
-  // Must start with alphanumeric
-  if (!/^[a-zA-Z0-9]/.test(str)) {
-    new Notice("Invalid name: must start with a letter or number.");
-    return null;
-  }
-
-  // Normalize accents and strip diacritics
-  str = str.normalize("NFKD").replace(/[\u0300-\u036f]/g, "");
-
-  // Convert to lowercase
-  str = str.toLowerCase();
-
-  // Replace illegal characters with space
-  str = str.replace(/[/\\?%*:|"<>$\x00-\x1F]/g, ' ');
-
-  // Collapse multiple spaces into a single hyphen
-  str = str.trim().split(/\\s+/).join('-');
-
-  // Reduce multiple hyphens to one
-  str = str.replace(/-+/g, '-');
-
-  // Trim leading/trailing hyphens
-  str = str.replace(/^-+|-+$/g, '');
-
-  return str;
-}
-
-function getParentPath(fullPath, targetFolder) {
-    const index = fullPath.indexOf(targetFolder);
-    if (index === -1) return null; // Target folder not found
-
-    const subPath = fullPath.substring(0, index + targetFolder.length);
-    return subPath;
-}
-
-const filePath = dv.current().file.path
-const basePath = getParentPath(filePath, 'Letterboxd+')
-const listFolderPath = `"${basePath}/Core/Films/Lists"`; 
-
-// Build collections (poster arrays for each list)
-let collections = {};
-
-const films = dv.pages(`"${basePath}/Films"`);
-
-films.forEach(s => {
-    if (Array.isArray(s.lists)) {
-        s.lists.forEach(list => {
-            const listTitle = list.title?.toLowerCase(); // Normalize for consistent keys
-            if (!listTitle) return;
-
-            if (!collections[listTitle]) {
-                collections[listTitle] = [];
-            }
-            collections[listTitle].push(s.poster);
-        });
-    }
-});
-
-// Metadata
-const metadata = dv.current();
-
-// Fetch list files
-let pages = dv.pages(listFolderPath);
-
-// Filter: Search Query
-if (metadata.filterSearchQuery) {
-    const query = metadata.filterSearchQuery.toLowerCase();
-    pages = pages.filter(file => file.title.toLowerCase().includes(query));
-}
-
-// Sorting
-const sortOrder = metadata.sortOrder;
-
-if (metadata.sortOption === 'Activity') {
-    pages = pages.sort(l => l.updated, sortOrder)
-} else if (metadata.sortOption === 'Title') {
-    pages = pages.sort(l => l.title, sortOrder)
-} else if (metadata.sortOption === 'Entries') {
-    pages = pages.filter(l => collections[l.title?.toLowerCase()]).sort(l => collections[l.title?.toLowerCase()].length, sortOrder)
-} else if (metadata.sortOption === 'Added') {
-    pages = pages.sort(l => l.created_on, sortOrder)
-}
-
-let listsTableDesktop = [];
-let listsTableMobile = [];
-
-pages.forEach(list => {
-
-
-    const title = list.title?.toLowerCase()
-    let posterUrls = collections[title] ? collections[title].reverse() : [];
-
-    // Only show populated lists
-    if (posterUrls.length === 0) {
-        return;
-    }
-
-    // Fetch the first 5 poster urls
-    let posterUrlsDesktop = posterUrls.slice(0, 5);
-    let posterUrlsMobile = posterUrls.slice(0, 8);
-    
-    // Dynamically generate image elements
-    if (posterUrlsDesktop.length > 0) {
-        posterUrlsDesktop.unshift(posterUrlsDesktop[0]); // Prepend placeholder image
-    }
-    const imageElementsDesktop = posterUrlsDesktop.map(url => `<img src="${url}" alt="Poster">`).join('');
-    const imageElementsMobile = posterUrlsMobile.map(url => `<img src="${url}" alt="Poster">`).join('');    
-
-    const listFilePath = `${basePath}/Core/Films/Lists/${list.file.name}.md`
-    const listObsidianURI = getObsidianURI(listFilePath)
-    
-    listsTableDesktop.push([
-        `<a href="${listObsidianURI}" class="no-decoration">
-            <div class="letterboxd-films-lists-item-container-desktop">
-                <div class="letterboxd-films-lists-item-poster-container-desktop">
-                    <div class="letterboxd-films-lists-item-poster-wrapper-desktop">
-                        ${imageElementsDesktop}
-                    </div>
-                </div>
-                <div class="letterboxd-films-lists-item-content-container-desktop">
-                    <div class="letterboxd-films-lists-item-content-title-desktop no-decoration">${list.title}</div>
-                    <div class="letterboxd-films-lists-item-content-details-desktop">${posterUrlsDesktop.length - 1} films</div>
-                    <div class="letterboxd-films-lists-item-content-description-desktop"><span>${list.description ? list.description : ''}</span></div>
-                </div>
-            </div>
-        </a>
-        `
-    ]);
-
-    listsTableMobile.push([
-        `<a href="${listObsidianURI}" class="no-decoration">
-            <div class="letterboxd-films-lists-item-container-mobile">
-                <div class="letterboxd-films-lists-item-content-mobile">
-                    <div class="letterboxd-films-lists-item-content-title-mobile">${list.title}</div>
-                    <div class="letterboxd-films-lists-item-content-count-mobile">${posterUrlsMobile.length - 1} films</div>
-                </div>
-                <div class="letterboxd-films-lists-item-posters-mobile">
-                    ${imageElementsMobile}
-                </div>
-                <div class="letterboxd-films-lists-item-description-mobile">${list.description ? list.description : ''}</div>
-            </div>
-        </a>`
-    ])
-
-})
-
-// Render the table
-if (document.body.hasClass("is-mobile")) {
-	dv.table([""], listsTableMobile);
-} else {
-	dv.table([""], listsTableDesktop);
-}
-```
----
-
-<!-- Button: Lists -->
+<!-- button: lists-manage -->
 ```js-engine
 // First we get an instance of the Meta Bind plugin, then we access the API.
 const mb = app.plugins.getPlugin('obsidian-meta-bind-plugin')?.api;
@@ -744,3 +471,277 @@ const button = mb.createButtonMountable(context.file.path, {
 // Mount the button to the DOM and make sure it gets unmounted when the component is destroyed.
 mb.wrapInMDRC(button, container, component);
 ```
+
+# Lists
+
+<br/>
+<div class="divider"/>
+
+<!-- input: sort -->
+```meta-bind-js-view
+{sortOption} as sortOption
+---
+// Sorting
+const sorting = ['Activity', 'Title', 'Entries', 'Added']
+const sortingOldestNewest = [['Oldest First', 'Newest First'], ["asc", "desc"]]
+const sortingAlphaetical = [['A to Z', 'Z to A'], ["asc", "desc"]]
+const sortingFewestMost = [['Fewest First', 'Most First'], ["asc", "desc"]]
+const sortingEarliestLatest = [['Earliest First', 'Latest First'], ["asc", "desc"]]
+
+const sortOptions = sorting.map(x => `option(${x})`).join(", ");
+const sortingOldestNewestOptions = sortingOldestNewest[0]
+    .map((x, i) => `option(${sortingOldestNewest[1][i]}, ${x})`) 
+    .join(", ");
+    
+const sortingAlphaeticalOptions = sortingAlphaetical[0]
+    .map((x, i) => `option(${sortingAlphaetical[1][i]}, ${x})`) 
+    .join(", ");
+    
+const sortingFewestMostOptions = sortingFewestMost[0]
+    .map((x, i) => `option(${sortingFewestMost[1][i]}, ${x})`) 
+    .join(", ");
+
+const sortingEarliestLatestOptions = sortingEarliestLatest[0]
+    .map((x, i) => `option(${sortingEarliestLatest[1][i]}, ${x})`) 
+    .join(", ");
+    
+let str = '';
+if (context.bound.sortOption === 'Activity') {
+    str = `\`INPUT[inlineSelect(${sortOptions}):sortOption]\` \`INPUT[inlineSelect(${sortingOldestNewestOptions}):sortOrder]\``
+} else if (context.bound.sortOption === 'Title') {
+    str = `\`INPUT[inlineSelect(${sortOptions}):sortOption]\` \`INPUT[inlineSelect(${sortingAlphaeticalOptions}):sortOrder]\``
+} else if (context.bound.sortOption === 'Entries') {
+    str = `\`INPUT[inlineSelect(${sortOptions}):sortOption]\` \`INPUT[inlineSelect(${sortingFewestMostOptions}):sortOrder]\``
+} else if (context.bound.sortOption === 'Added') {
+    str = `\`INPUT[inlineSelect(${sortOptions}):sortOption]\` \`INPUT[inlineSelect(${sortingEarliestLatestOptions}):sortOrder]\``
+} 
+
+return engine.markdown.create(str);
+```
+
+<!-- input: search-query -->
+`INPUT[text(placeholder(Search lists...)):filterSearchQuery]`
+
+<!-- text: lists-visibility-stats -->
+```js-engine
+const dv = engine.getPlugin("dataview")?.api;
+
+function getParentPath(fullPath, targetFolder) {
+    const index = fullPath.indexOf(targetFolder);
+    if (index === -1) return null; // Target folder not found
+
+    const subPath = fullPath.substring(0, index + targetFolder.length);
+    return subPath;
+}
+
+const filePath = context.file.path;
+const basePath = getParentPath(filePath, 'Letterboxd+');
+const filmsBasePath = `${basePath}/Films`;
+const filmsListsBasePath = `${basePath}/Core/Films/Lists`;
+
+// Step 1: Initialize the listCount dictionary from list files
+let listCount = {};
+let listPages = dv.pages(`"${filmsListsBasePath}"`);
+listPages.forEach(p => {
+    if (p.title && !(p.title in listCount)) {
+        listCount[p.title] = 0;
+    }
+});
+
+// Step 2: Iterate over all film files and count list usage
+let filmPages = dv.pages(`"${filmsBasePath}"`);
+filmPages.forEach(p => {
+    if (Array.isArray(p.lists)) {
+        p.lists.forEach(list => {
+            const title = list.title;
+            if (title && title in listCount) {
+                listCount[title]++;
+            }
+        });
+    }
+});
+
+let shown = 0;
+let hidden = 0;
+
+for (const [title, count] of Object.entries(listCount)) {
+    if (count > 0) {
+        shown++;
+    } else if (count === 0) {
+        hidden++;
+    }
+}
+
+let str = `\`VIEW[**Lists** · ${shown} shown · ${hidden} hidden][text(renderMarkdown)]\``
+
+return engine.markdown.create(str);
+```
+
+<div class="divider"/>
+
+<!-- dashboard: films-lists -->
+```dataviewjs
+function getObsidianURI(filePath) {
+    const vaultName = app.vault.getName(); 
+    const encodedFilePath = encodeURIComponent(filePath); // Encode file path
+
+    return `obsidian://open?vault=${encodeURIComponent(vaultName)}&file=${encodedFilePath}`;
+}
+
+function sanitizeListName(str) {
+
+  // Must start with alphanumeric
+  if (!/^[a-zA-Z0-9]/.test(str)) {
+    new Notice("Invalid name: must start with a letter or number.");
+    return null;
+  }
+
+  // Normalize accents and strip diacritics
+  str = str.normalize("NFKD").replace(/[\u0300-\u036f]/g, "");
+
+  // Convert to lowercase
+  str = str.toLowerCase();
+
+  // Replace illegal characters with space
+  str = str.replace(/[/\\?%*:|"<>$\x00-\x1F]/g, ' ');
+
+  // Collapse multiple spaces into a single hyphen
+  str = str.trim().split(/\\s+/).join('-');
+
+  // Reduce multiple hyphens to one
+  str = str.replace(/-+/g, '-');
+
+  // Trim leading/trailing hyphens
+  str = str.replace(/^-+|-+$/g, '');
+
+  return str;
+}
+
+function getParentPath(fullPath, targetFolder) {
+    const index = fullPath.indexOf(targetFolder);
+    if (index === -1) return null; // Target folder not found
+
+    const subPath = fullPath.substring(0, index + targetFolder.length);
+    return subPath;
+}
+
+const filePath = dv.current().file.path
+const basePath = getParentPath(filePath, 'Letterboxd+')
+const listFolderPath = `"${basePath}/Core/Films/Lists"`; 
+
+// Build collections (poster arrays for each list)
+let collections = {};
+
+const films = dv.pages(`"${basePath}/Films"`);
+
+films.forEach(s => {
+    if (Array.isArray(s.lists)) {
+        s.lists.forEach(list => {
+            const listTitle = list.title?.toLowerCase(); // Normalize for consistent keys
+            if (!listTitle) return;
+
+            if (!collections[listTitle]) {
+                collections[listTitle] = [];
+            }
+            collections[listTitle].push(s.poster);
+        });
+    }
+});
+
+// Metadata
+const metadata = dv.current();
+
+// Fetch list files
+let pages = dv.pages(listFolderPath);
+
+// Filter: Search Query
+if (metadata.filterSearchQuery) {
+    const query = metadata.filterSearchQuery.toLowerCase();
+    pages = pages.filter(file => file.title.toLowerCase().includes(query));
+}
+
+// Sorting
+const sortOrder = metadata.sortOrder;
+
+if (metadata.sortOption === 'Activity') {
+    pages = pages.sort(l => l.updated, sortOrder)
+} else if (metadata.sortOption === 'Title') {
+    pages = pages.sort(l => l.title, sortOrder)
+} else if (metadata.sortOption === 'Entries') {
+    pages = pages.filter(l => collections[l.title?.toLowerCase()]).sort(l => collections[l.title?.toLowerCase()].length, sortOrder)
+} else if (metadata.sortOption === 'Added') {
+    pages = pages.sort(l => l.created_on, sortOrder)
+}
+
+let listsTableDesktop = [];
+let listsTableMobile = [];
+
+pages.forEach(list => {
+
+
+    const title = list.title?.toLowerCase()
+    let posterUrls = collections[title] ? collections[title].reverse() : [];
+
+    // Only show populated lists
+    if (posterUrls.length === 0) {
+        return;
+    }
+
+    // Fetch the first 5 poster urls
+    let posterUrlsDesktop = posterUrls.slice(0, 5);
+    let posterUrlsMobile = posterUrls.slice(0, 8);
+    
+    // Dynamically generate image elements
+    if (posterUrlsDesktop.length > 0) {
+        posterUrlsDesktop.unshift(posterUrlsDesktop[0]); // Prepend placeholder image
+    }
+    const imageElementsDesktop = posterUrlsDesktop.map(url => `<img src="${url}" alt="Poster">`).join('');
+    const imageElementsMobile = posterUrlsMobile.map(url => `<img src="${url}" alt="Poster">`).join('');    
+
+    const listFilePath = `${basePath}/Core/Films/Lists/${list.file.name}.md`
+    const listObsidianURI = getObsidianURI(listFilePath)
+    
+    listsTableDesktop.push([
+        `<a href="${listObsidianURI}" class="no-decoration">
+            <div class="letterboxd-films-lists-item-container-desktop">
+                <div class="letterboxd-films-lists-item-poster-container-desktop">
+                    <div class="letterboxd-films-lists-item-poster-wrapper-desktop">
+                        ${imageElementsDesktop}
+                    </div>
+                </div>
+                <div class="letterboxd-films-lists-item-content-container-desktop">
+                    <div class="letterboxd-films-lists-item-content-title-desktop no-decoration">${list.title}</div>
+                    <div class="letterboxd-films-lists-item-content-details-desktop">${posterUrlsDesktop.length - 1} films</div>
+                    <div class="letterboxd-films-lists-item-content-description-desktop"><span>${list.description ? list.description : ''}</span></div>
+                </div>
+            </div>
+        </a>
+        `
+    ]);
+
+    listsTableMobile.push([
+        `<a href="${listObsidianURI}" class="no-decoration">
+            <div class="letterboxd-films-lists-item-container-mobile">
+                <div class="letterboxd-films-lists-item-content-mobile">
+                    <div class="letterboxd-films-lists-item-content-title-mobile">${list.title}</div>
+                    <div class="letterboxd-films-lists-item-content-count-mobile">${posterUrlsMobile.length - 1} films</div>
+                </div>
+                <div class="letterboxd-films-lists-item-posters-mobile">
+                    ${imageElementsMobile}
+                </div>
+                <div class="letterboxd-films-lists-item-description-mobile">${list.description ? list.description : ''}</div>
+            </div>
+        </a>`
+    ])
+
+})
+
+// Render the table
+if (document.body.hasClass("is-mobile")) {
+	dv.table([""], listsTableMobile);
+} else {
+	dv.table([""], listsTableDesktop);
+}
+```
+---
+

@@ -15,7 +15,7 @@ cssclasses:
   - wide-page
 ---
 
-<!-- Note Toolbar -->
+<!-- ui: film-nav-toolbar (render) -->
 ```js-engine
 function convertFilePathToObsidianUri(filePath) {
     const vaultName = app.vault.getName();
@@ -79,7 +79,7 @@ if (isMobile) {
 <br/>
 <div class="divider"/>
 
-<!-- Sorting -->
+<!-- input: sort -->
  ```meta-bind-js-view
 {sortOption} as sortOption
 ---
@@ -117,9 +117,10 @@ if (context.bound.sortOption === 'Film Name') {
 return engine.markdown.create(str);
 ```
 
-<!-- Filters -->
+<!-- toggle: filter -->
 `VIEW[Filters][text(renderMarkdown)]` `INPUT[toggle:enableFilters]`
 
+<!-- input: release-date-filter -->
 ```meta-bind-js-view
 {enableFilters} as enableFilters
 {filterDecade} as filterDecade
@@ -166,6 +167,7 @@ if (context.bound.enableFilters) {
 return engine.markdown.create(str);
 ```
 
+<!-- input: rewatch-status-filter -->
 ```meta-bind-js-view
 {enableFilters} as enableFilters
 ---
@@ -182,6 +184,7 @@ if (context.bound.enableFilters) {
 return engine.markdown.create(str);
 ```
 
+<!-- input: limit-filter -->
 ```meta-bind-js-view
 {enableFilters} as enableFilters
 ---
@@ -194,6 +197,7 @@ if (context.bound.enableFilters) {
 return engine.markdown.create(str)
 ```
 
+<!-- input: search-filter -->
 ```meta-bind-js-view
 {enableFilters} as enableFilters
 ---
@@ -206,6 +210,7 @@ if (context.bound.enableFilters) {
 return engine.markdown.create(str)
 ```
 
+<!-- button: reset-filters (render) -->
 ```meta-bind-js-view
 {enableFilters} as enableFilters
 ---
@@ -218,6 +223,7 @@ if (context.bound.enableFilters) {
 return engine.markdown.create(str)
 ```
 
+<!-- button: reset-filters (config) -->
 ```meta-bind-button
 label: "Reset Filters"
 hidden: true
@@ -247,10 +253,8 @@ actions:
     value: ""
 ```
 
-<!-- Genres -->
+<!-- logic: genres-list -->
 ```js-engine
-// Update genres_list
-
 // Efficiently updates the frontmatter in a single call instead of making multiple updates.
 // This reduces redundant operations, ensuring better performance and preventing race conditions.
 const mb = engine.getPlugin('obsidian-meta-bind-plugin').api;
@@ -288,6 +292,7 @@ app.fileManager.processFrontMatter(file, (frontmatter) => {
 
 ```
 
+<!-- button: genre-tags (render) -->
 ```js-engine
 // inlineListSuggester for Genres
 const mb = engine.getPlugin('obsidian-meta-bind-plugin').api;
@@ -368,7 +373,7 @@ return reactive;
 
 <div class="divider"/>
 
-<!-- Global Render Function -->
+<!-- logic: global-reviews-render-function -->
 ```js-engine
 const o = engine.getObsidianModule();
 
@@ -383,7 +388,7 @@ async function renderMarkdownToHTML(markdownText, app, sourcePath = '') {
 window.__renderMarkdownToHTML = renderMarkdownToHTML
 ```
 
-<!-- Render Reviews -->
+<!-- dashboard: reviews -->
 ```dataviewjs
 function getRating(rating) {
 	const full_stars = Math.trunc(rating); 

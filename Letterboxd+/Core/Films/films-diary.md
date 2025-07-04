@@ -1,4 +1,4 @@
-f---
+---
 enableFilters: false
 filterRewatches: false
 filterLimitResults: 200
@@ -8,7 +8,7 @@ cssclasses:
   - wide-page
 ---
 
-<!-- Note Toolbar -->
+<!-- ui: films-nav-toolbar (render) -->
 ```js-engine
 function convertFilePathToObsidianUri(filePath) {
     const vaultName = app.vault.getName();
@@ -72,9 +72,10 @@ if (isMobile) {
 <br/>
 <div class="divider"/>
 
-<!-- Filters -->
+<!-- toggle: filter -->
 `VIEW[Filters][text(renderMarkdown)]` `INPUT[toggle:enableFilters]`
 
+<!-- input: rewatch-status-filter -->
 ```meta-bind-js-view
 {enableFilters} as enableFilters
 ---
@@ -91,6 +92,7 @@ if (context.bound.enableFilters) {
 return engine.markdown.create(str);
 ```
 
+<!-- input: limit-filter -->
 ```meta-bind-js-view
 {enableFilters} as enableFilters
 ---
@@ -103,6 +105,7 @@ if (context.bound.enableFilters) {
 return engine.markdown.create(str)
 ```
 
+<!-- input: reset-filters -->
 ```meta-bind-js-view
 {enableFilters} as enableFilters
 ---
@@ -115,6 +118,7 @@ if (context.bound.enableFilters) {
 return engine.markdown.create(str)
 ```
 
+<!-- input: reset-filters -->
 ```meta-bind-button
 label: "Reset Filters"
 hidden: true
@@ -134,7 +138,7 @@ actions:
 
 <div class="divider"/>
 
-<!-- Render Diary -->
+<!-- dashboard: diary-entires -->
 ```dataviewjs
 const iconWidth = 24;
 const iconHeight = 24;

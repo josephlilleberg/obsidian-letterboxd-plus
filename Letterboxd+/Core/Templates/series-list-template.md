@@ -23,7 +23,8 @@ cssclasses:
   - hidefilename
   - letterboxd
 ---
-<!-- Note Toolbar -->
+
+<!-- ui: list-toolbar -->
 ```js-engine
 function convertFilePathToObsidianUri(filePath) {
     const vaultName = app.vault.getName();
@@ -86,7 +87,7 @@ if (isMobile) {
 }
 ```
 
-<!-- Manage List -->
+<!-- button: list-manage (config) -->
 ```js-engine
 const mb = app.plugins.getPlugin('obsidian-meta-bind-plugin')?.api;
 
@@ -137,7 +138,7 @@ const button = mb.createButtonMountable(context.file.path, {
             // --- Prompts ---
             const listsOption = await engine.prompt.button({
               title: 'Manage Lists',
-              content: 'Would you like to add, rename or remove lists?',
+              content: 'Would you like to add or remove a series?',
               buttons: [
                   {
                       label: 'Add',
@@ -257,6 +258,7 @@ const button = mb.createButtonMountable(context.file.path, {
 mb.wrapInMDRC(button, container, component);
 ```
 
+<!-- text: list-title -->
 ```meta-bind-js-view
 {title} as title
 ---
@@ -273,6 +275,7 @@ return engine.markdown.create(str);
 <br/>
 <div class="divider"/>
 
+<!-- input: sort -->
 ```meta-bind-js-view
 {sortOption} as sortOption
 ---
@@ -314,8 +317,10 @@ if (context.bound.sortOption === 'Series Name') {
 return engine.markdown.create(str);
 ```
 
+<!-- toggle: filter -->
 `VIEW[Filters][text(renderMarkdown)]` `INPUT[toggle:enableFilters]`
 
+<!-- input: status-filter -->
 ```meta-bind-js-view
 {enableFilters} as enableFilters
 ---
@@ -329,6 +334,7 @@ if (context.bound.enableFilters) {
 return engine.markdown.create(str);
 ```
 
+<!-- input: release-date-filter -->
 ```meta-bind-js-view
 {enableFilters} as enableFilters
 {filterDecade} as filterDecade
@@ -375,6 +381,7 @@ if (context.bound.enableFilters) {
 return engine.markdown.create(str);
 ```
 
+<!-- input: rating-filter -->
 ```meta-bind-js-view
 {enableFilters} as enableFilters
 ---
@@ -388,6 +395,7 @@ if (context.bound.enableFilters) {
 return engine.markdown.create(str);
 ```
 
+<!-- input: rewatch-status-filter -->
 ```meta-bind-js-view
 {enableFilters} as enableFilters
 ---
@@ -404,6 +412,7 @@ if (context.bound.enableFilters) {
 return engine.markdown.create(str);
 ```
 
+<!-- input: limit-filter -->
 ```meta-bind-js-view
 {enableFilters} as enableFilters
 ---
@@ -416,6 +425,7 @@ if (context.bound.enableFilters) {
 return engine.markdown.create(str)
 ```
 
+<!-- input: search-filter -->
 ```meta-bind-js-view
 {enableFilters} as enableFilters
 ---
@@ -428,6 +438,7 @@ if (context.bound.enableFilters) {
 return engine.markdown.create(str)
 ```
 
+<!-- button: reset-filters (render) -->
 ```meta-bind-js-view
 {enableFilters} as enableFilters
 ---
@@ -440,6 +451,7 @@ if (context.bound.enableFilters) {
 return engine.markdown.create(str)
 ```
 
+<!-- button: reset-filters (config) -->
 ```meta-bind-button
 label: "Reset Filters"
 hidden: true
@@ -481,6 +493,7 @@ actions:
     value: ""
 ```
 
+<!-- logic: genres-list -->
 ```js-engine
 // Update genres_list
 
@@ -521,6 +534,7 @@ app.fileManager.processFrontMatter(file, (frontmatter) => {
 
 ```
 
+<!-- button: genre-tags (render) -->
 ```js-engine
 // inlineListSuggester for Genres
 const mb = engine.getPlugin('obsidian-meta-bind-plugin').api;
@@ -602,6 +616,7 @@ return reactive;
 
 <div class="divider"/>
 
+<!-- dashboard: series-cards -->
 ```dataviewjs
 // Extract the parent path of a given folder
 function getParentPath(fullPath, targetFolder) {

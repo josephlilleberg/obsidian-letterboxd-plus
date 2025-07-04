@@ -4,6 +4,7 @@ cssclasses:
   - hidefilename
 ---
 
+<!-- text: film-title-heading -->
 ```meta-bind-js-view
 {film_title} as film_title
 ---
@@ -16,6 +17,7 @@ if (context.bound.film_title) {
 return engine.markdown.create(str);
 ```
 
+<!-- text: last-modified-header -->
 ```meta-bind-js-view
 {last_updated} as last_updated
 {last_synced} as last_synced
@@ -71,6 +73,7 @@ let output = `<div class="meta-info-footer">${parts.join(" · ")}</div>`;
 return engine.markdown.create(output);
 ```
 
+<!-- ui: film-nav-toolbar (render) -->
 ```js-engine
 function convertFilePathToObsidianUri(filePath) {
     const vaultName = app.vault.getName();
@@ -134,7 +137,7 @@ if (isMobile) {
 }
 ```
 
-<!-- Rating Button -->
+<!-- button: rating -->
 ```meta-bind-js-view
 {rating} as rating
 ---
@@ -198,7 +201,7 @@ const button = mb.createButtonMountable(context.file.path, {
 mb.wrapInMDRC(button, container, component);
 ```
 
-<!-- Like Button -->
+<!-- button: like -->
 ```meta-bind-js-view
 {like} as like
 ---
@@ -237,7 +240,7 @@ const button = mb.createButtonMountable(context.file.path, buttonOptions);
 mb.wrapInMDRC(button, container, component);
 ```
 
-<!-- Favorite Button -->
+<!-- button: favorite -->
 ```meta-bind-js-view
 {favorite} as favorite
 ---
@@ -276,7 +279,7 @@ const button = mb.createButtonMountable(context.file.path, buttonOptions);
 mb.wrapInMDRC(button, container, component);
 ```
 
-<!-- Edit Button -->
+<!-- button: edit -->
 ```meta-bind-js-view
 {edit} as edit
 ---
@@ -314,7 +317,7 @@ const button = mb.createButtonMountable(context.file.path, buttonOptions);
 mb.wrapInMDRC(button, container, component);
 ```
 
-<!-- Sync Button -->
+<!-- button: sync -->
 ```js-engine
 const mb = app.plugins.getPlugin('obsidian-meta-bind-plugin')?.api;
 
@@ -410,7 +413,7 @@ const button = mb.createButtonMountable(context.file.path, {
 mb.wrapInMDRC(button, container, component);
 ```
 
-<!-- Homepage & IMDB Button -->
+<!-- button: homepage-imdb (render) -->
 ```meta-bind-js-view
 {imdb_id} as imdb_id
 {homepage} as homepage
@@ -426,23 +429,7 @@ if (context.bound.imdb_id && context.bound.homepage) {
 }
 ```
 
-```meta-bind-js-view
-{film_tagline} as film_tagline
-{film_overview} as film_overview
----
-let str = '';
-
-if (context.bound.film_tagline) {
-  str += `**${context.bound.film_tagline}**\n\n`;
-}
-
-if (context.bound.film_overview) {
-  str += `${context.bound.film_overview}`;
-}
-
-return engine.markdown.create(str);
-```
-
+<!-- button: imdb (config) -->
 ```js-engine
 // First we get an instance of the Meta Bind plugin, then we access the API.
 const mb = app.plugins.getPlugin('obsidian-meta-bind-plugin')?.api;
@@ -481,6 +468,7 @@ const button = mb.createButtonMountable(context.file.path, buttonOptions);
 mb.wrapInMDRC(button, container, component);
 ```
 
+<!-- Homepage Button: Config -->
 ```js-engine
 // First we get an instance of the Meta Bind plugin, then we access the API.
 const mb = app.plugins.getPlugin('obsidian-meta-bind-plugin')?.api;
@@ -516,9 +504,28 @@ const button = mb.createButtonMountable(context.file.path, buttonOptions);
 // Mount the button to the DOM and make sure it gets unmounted when the component is destroyed.
 mb.wrapInMDRC(button, container, component);
 ```
+
+<!-- text: tagline-overview -->
+```meta-bind-js-view
+{film_tagline} as film_tagline
+{film_overview} as film_overview
+---
+let str = '';
+
+if (context.bound.film_tagline) {
+  str += `**${context.bound.film_tagline}**\n\n`;
+}
+
+if (context.bound.film_overview) {
+  str += `${context.bound.film_overview}`;
+}
+
+return engine.markdown.create(str);
+```
+
 <br/>
 
-<!-- Genres Button -->
+<!-- text: genre-tags -->
 ```meta-bind-js-view
 {genres} as genres
 ---
@@ -534,6 +541,7 @@ if (context.bound.genres) {
 }
 ```
 
+<!-- button: genre-tags (render) -->
 ```meta-bind-js-view
 {edit} as edit
 ---
@@ -545,6 +553,8 @@ if (context.bound.edit) {
 
 return engine.markdown.create(str);
 ```
+
+<!-- button: genre-tags (config) -->
 ```js-engine
 const mb = app.plugins.getPlugin('obsidian-meta-bind-plugin')?.api;
 
@@ -692,7 +702,7 @@ mb.wrapInMDRC(button, container, component);
 ## Logging Film
 ---
 
-<!-- Log Film: Watch Progress -->
+<!-- text: watched-boolean -->
 ```meta-bind-js-view
 {watched} as watched
 ---
@@ -704,7 +714,7 @@ const square = '<svg xmlns="http://www.w3.org/2000/svg" width="18" height="18" v
 return engine.markdown.create(`<div class="letterboxd-film-watch-history-container"><div>Logged</div><div>${context.bound.watched ? square_checked : square}</div></div>`)
 ```
 
-<!-- Log Film: Date -->
+<!-- text: film-watch-progress -->
 ```meta-bind-js-view
 {watched} as watched
 {watch_date} as watch_date
@@ -732,7 +742,7 @@ if (context.bound.watched) {
 return engine.markdown.create(str)
 ```
 
-<!-- Log Film: Render Watch Button -->
+<!-- button: log-film (render) -->
 ```meta-bind-js-view
 {watched} as watched
 ---
@@ -747,31 +757,7 @@ if (!context.bound.watched) {
 return engine.markdown.create(str)
 ```
 
-<!-- Log Film: Rewatch Progress -->
-```meta-bind-js-view
-{watched} as watched
-{rewatch_dates} as rewatch_dates
----
-// Rewatch: Status
-let str = ''
-if (context.bound.watched) {
-    return engine.markdown.create(`<div class="letterboxd-film-watch-history-container"><div>Rewatches</div><div>${context.bound.rewatch_dates ? context.bound.rewatch_dates.length : 0}</div></div>`)
-}
-```
-
-<!-- Log Film: Render Rewatch Button -->
-```meta-bind-js-view
-{watched} as watched
-
----
-// Rewatch: Buttons
-let str = ''
-if (context.bound.watched) {
-    return engine.markdown.create(`\`BUTTON[log-film-rewatch]\``)
-}
-```
-
-<!-- Log Film: Watch -->
+<!-- button: log-film (config)-->
 ```js-engine
 const mb = app.plugins.getPlugin('obsidian-meta-bind-plugin')?.api;
 
@@ -1029,7 +1015,31 @@ const button = mb.createButtonMountable(context.file.path, {
 mb.wrapInMDRC(button, container, component);
 ```
 
-<!-- Log Film: Rewatch -->
+<!-- text: film-rewatch-progress (render) -->
+```meta-bind-js-view
+{watched} as watched
+{rewatch_dates} as rewatch_dates
+---
+// Rewatch: Status
+let str = ''
+if (context.bound.watched) {
+    return engine.markdown.create(`<div class="letterboxd-film-watch-history-container"><div>Rewatches</div><div>${context.bound.rewatch_dates ? context.bound.rewatch_dates.length : 0}</div></div>`)
+}
+```
+
+<!-- button: log-rewatch (render) -->
+```meta-bind-js-view
+{watched} as watched
+
+---
+// Rewatch: Buttons
+let str = ''
+if (context.bound.watched) {
+    return engine.markdown.create(`\`BUTTON[log-film-rewatch]\``)
+}
+```
+
+<!-- button: log-rewatch (config) -->
 ```js-engine
 const mb = app.plugins.getPlugin('obsidian-meta-bind-plugin')?.api;
 
@@ -1095,7 +1105,7 @@ mb.wrapInMDRC(button, container, component);
 ## Lists
 ---
 
-
+<!-- text: lists -->
 ```meta-bind-js-view
 {lists} as lists
 ---
@@ -1141,6 +1151,7 @@ if (context.bound.lists.length > 0) {
 }
 ```
 
+<!-- button: lists (render) -->
 ```meta-bind-js-view
 {edit} as edit
 ---
@@ -1153,6 +1164,7 @@ if (context.bound.edit) {
 return engine.markdown.create(str);
 ```
 
+<!-- button: lists (config) -->
 ```js-engine
 const mb = app.plugins.getPlugin('obsidian-meta-bind-plugin')?.api;
 
@@ -1281,35 +1293,12 @@ mb.wrapInMDRC(button, container, component);
 
 ---
 
-```js-engine
-function getParentPath(fullPath, targetFolder) {
-    const index = fullPath.indexOf(targetFolder);
-    if (index === -1) return null;
-
-    return fullPath.substring(0, index + targetFolder.length);
-}
-
-const basePath = getParentPath(context.file.path, 'Letterboxd+')
-
-const listFolderPath = `${basePath}/Core/Films/Lists`; // Set your folder path
-const listFolder = app.vault.getAbstractFileByPath(listFolderPath);
-
-const filesInFolder = app.vault.getFiles().filter(file => file.path.startsWith(listFolderPath));
-
-let str = ''
-if (filesInFolder.length === 0) {
-    str = `\`VIEW[No available lists.][text(renderMarkdown)]\``
-}
-
-return engine.markdown.create(str)
-```
-
 <br/>
 
 ## Review
 ---
 
-
+<!-- text: review -->
 ```meta-bind-js-view
 {review} as review
 ---
@@ -1324,6 +1313,7 @@ if (context.bound.review?.trim()) {
 return engine.markdown.create(str)
 ```
 
+<!-- button: review (render) -->
 ```meta-bind-js-view
 {edit} as edit
 ---
@@ -1336,6 +1326,7 @@ if (context.bound.edit) {
 return engine.markdown.create(str);
 ```
 
+<!-- button: review (config) -->
 ```js-engine
 const mb = app.plugins.getPlugin('obsidian-meta-bind-plugin')?.api;
 
@@ -1418,6 +1409,7 @@ mb.wrapInMDRC(button, container, component);
 ## Quotes
 ---
 
+<!-- text: quotes -->
 ```meta-bind-js-view
 {quotes} as quotes
 ---
@@ -1460,6 +1452,7 @@ let str = output.length
 return engine.markdown.create(str);
 ```
 
+<!-- button: quotes (render) -->
 ```meta-bind-js-view
 {edit} as edit
 ---
@@ -1472,6 +1465,7 @@ if (context.bound.edit) {
 return engine.markdown.create(str);
 ```
 
+<!-- button: quotes (config) -->
 ```js-engine
 const mb = app.plugins.getPlugin('obsidian-meta-bind-plugin')?.api;
 
@@ -1776,114 +1770,7 @@ const button = mb.createButtonMountable(context.file.path, {
 mb.wrapInMDRC(button, container, component);
 ```
 
----
-
-```meta-bind-js-view
-{edit} as edit
----
-
-if (!context.bound.edit) {
-  return null;
-}
-
-
-let str = '`BUTTON[delete-film]`';
-
-return engine.markdown.create(str)
-```
-
-```js-engine
-const mb = app.plugins.getPlugin('obsidian-meta-bind-plugin')?.api;
-
-const button = mb.createButtonMountable(context.file.path, {
-  declaration: {
-    label: '',
-    style: 'default',
-    icon: 'trash-2',
-    id: 'delete-film',
-    class: 'center-button',
-    hidden: true,
-    action: {
-      type: 'inlineJS',
-      code: `
-        (async () => {
-          // Get the base "Letterboxd+" directory from the full file path
-          function getParentPath(fullPath, targetFolder) {
-            const index = fullPath.indexOf(targetFolder);
-            return index === -1 ? null : fullPath.substring(0, index + targetFolder.length);
-          }
-
-          const basePath = getParentPath(context.file.path, "Letterboxd+");
-          if (!basePath) return error("Could not resolve Letterboxd+ path.");
-
-          const file = app.workspace.getActiveFile();
-          if (!file) {
-            new Notice("No active file.");
-            return;
-          }
-
-          const filename = file.basename; 
-          const frontmatter = app.metadataCache.getFileCache(file)?.frontmatter || {};
-          const title = frontmatter.film_title || filename;
-
-          const jsonPath = \`\${basePath}/Core/Scripts/letterboxd-quotes.json\`;
-          const fallbackFile = await app.vault.getFileByPath(\`\${basePath}/Core/Films/films-profile.md\`);
-
-          // Confirm deletion
-          const choice = await engine.prompt.yesNo({
-            title: 'Confirm Deletion',
-            content: \`This will permanently delete "\${title}". Are you sure?\`,
-          });
-          if (!choice) return;
-
-          // Open fallback page
-          if (fallbackFile) {
-            const leaf = app.workspace.getLeaf();
-            await leaf.openFile(fallbackFile);
-            const view = leaf.view;
-            if (view?.setViewState) {
-              await view.setViewState({
-                ...view.getState(),
-                mode: 'preview',
-              });
-            }
-          } else {
-            new Notice("Fallback file not found.");
-          }
-
-          try {
-            // Remove from JSON if present
-            if (await app.vault.adapter.exists(jsonPath)) {
-              const contents = await app.vault.adapter.read(jsonPath);
-              const jsonData = JSON.parse(contents);
-
-              if (jsonData.films && jsonData.films[filename]) {
-                delete jsonData.films[filename];
-                await app.vault.adapter.write(jsonPath, JSON.stringify(jsonData, null, 2));
-              }
-            } else {
-              new Notice("quotes.json not found.");
-            }
-
-            // Finally, delete the file
-            await app.vault.delete(file);
-            new Notice(\`Deleted film: "\${title}".\`);
-
-          } catch (err) {
-            console.error(err);
-            new Notice("Error deleting film or updating quotes.");
-          }
-
-        })(); 
-      `,
-    },
-  },
-  isPreview: false,
-});
-
-mb.wrapInMDRC(button, container, component);
-```
-
+<!-- logic: meta-bind state manager -->
 ```js-engine
 const mb = engine.getPlugin('obsidian-meta-bind-plugin').api;
 

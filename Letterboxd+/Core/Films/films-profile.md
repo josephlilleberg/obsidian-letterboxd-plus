@@ -7,7 +7,7 @@ cssclasses:
   - wide-page
 ---
 
-<!-- Note Toolbar -->
+<!-- ui: films-nav-toolbar (render) -->
 ```js-engine
 function convertFilePathToObsidianUri(filePath) {
     const vaultName = app.vault.getName();
@@ -80,7 +80,7 @@ if (isMobile) {
 }
 ```
 
-<!-- Button: Log Film -->
+<!-- button: log-film (config) -->
 ```js-engine
 const mb = app.plugins.getPlugin('obsidian-meta-bind-plugin')?.api;
 
@@ -156,7 +156,7 @@ const button = mb.createButtonMountable(context.file.path, {
 mb.wrapInMDRC(button, container, component);
 ```
 
-<!-- Button: Sync -->
+<!-- button: sync (config) -->
 ```js-engine
 const mb = app.plugins.getPlugin('obsidian-meta-bind-plugin')?.api;
 
@@ -210,7 +210,7 @@ const button = mb.createButtonMountable(context.file.path, {
 mb.wrapInMDRC(button, container, component);
 ```
 
-<!-- Button: Settings -->
+<!-- button: library-management (config) -->
 ```js-engine
 const mb = app.plugins.getPlugin('obsidian-meta-bind-plugin')?.api;
 
@@ -236,6 +236,10 @@ const button = mb.createButtonMountable(context.file.path, {
                     const basePath = getParentPath(context.file.path, "Letterboxd+");
                     if (!basePath) return new Notice("Could not resolve Letterboxd+ path.");
 
+                    const aboutPath = basePath + "/Core/letterboxd-plus-about.md"
+                    const aboutFile = app.vault.getAbstractFileByPath(aboutPath);
+                    if (!aboutFile) return new Notice("Could not resolve Letterboxd+ about path.");
+
                     // ───── Ensure Letterboxd+ Script ─────
                     const scriptPath = basePath + "/Core/Scripts/letterboxd.js"
                     const lib = await engine.importJs(scriptPath);
@@ -260,7 +264,7 @@ const button = mb.createButtonMountable(context.file.path, {
                       { label: 'Import from Letterboxd (Offical)', value: 'importOffical' },
                       { label: 'Import Library (Letterboxd+)', value: 'importLibrary' },
                       { label: 'Export Library (Letterboxd+)', value: 'exportLibrary' },
-                      { label: 'ℹ️ About Letterboxd+', value: 'about' },
+                      { label: 'About & Release Notes', value: 'aboutAndUpdates' }
                     ];
 
                     const selectedSetting = await engine.prompt.suggester({ placeholder: 'What would you like to do?', options: settingsOptions });
@@ -405,17 +409,37 @@ const button = mb.createButtonMountable(context.file.path, {
                             const fileName = jsonPath.split('/').pop();
                             new Notice("Letterboxd library exported as " + fileName + " in Core/Scripts.");
                             break;
-                        case 'about':
-                            const about = await engine.prompt.button({
-                                title: 'Letterboxd+',
-                                content: 'Version 1.0.0',
-                                buttons: [
-                                    {
-                                        label: 'Close',
-                                        value: null,
-                                    },
-                                ]
-                            });
+                        case 'aboutAndUpdates':
+                            const cache = app.metadataCache.getFileCache(aboutFile);
+                            if (cache?.frontmatter) {
+                                const frontmatter = cache.frontmatter;
+
+                                const viewReleaseNotes = await engine.prompt.button({
+                                    title: 'Letterboxd+ About & Changelog',
+                                    content: \`Version \${frontmatter.version} · Updated: \${frontmatter.updated}\`,
+                                    buttons: [
+                                        {
+                                            label: 'View Release Notes',
+                                            value: true,
+                                        },
+                                        {
+                                            label: 'Cancel',
+                                            value: false,
+                                        },
+                                    ]
+                                });
+
+                                if (viewReleaseNotes) {
+                                    const leaf = app.workspace.getMostRecentLeaf()
+                                    await leaf.openFile(aboutFile);
+                                    const view = leaf.view;
+                                    if (view?.setViewState) {
+                                      await view.setViewState({ ...view.getState(), mode: 'preview' });
+                                    }
+                                }
+                            } else {
+                                new Notice("No metadata found.");
+                            }
                             break;
                         default:
                             return new Notice("Unknown action selected.");
@@ -435,7 +459,7 @@ mb.wrapInMDRC(button, container, component);
 <br/>
 <div class="divider" />
 
-<!-- Favorites -->
+<!-- text: favorite-films-header -->
 ```js-engine
 function convertFilePathToObsidianUri(filePath) {
     const vaultName = app.vault.getName();
@@ -465,8 +489,8 @@ return engine.markdown.create(`
 `);
 ```
 
+<!-- dashboard: favorite-films -->
 ```dataviewjs
-// Section: Favorite Films
 function getParentPath(fullPath, targetFolder) {
     const index = fullPath.indexOf(targetFolder);
     if (index === -1) return null; // Target folder not found
@@ -501,7 +525,7 @@ dv.table(["Poster"], films.map(film => [
 
 <div class="divider" />
 
-<!-- Likes -->
+<!-- text: recently-liked-films-header -->
 ```js-engine
 function convertFilePathToObsidianUri(filePath) {
     const vaultName = app.vault.getName();
@@ -530,6 +554,7 @@ return engine.markdown.create(`
 `);
 ```
 
+<!-- dashboard: recently-liked-films -->
 ```dataviewjs
 // Section: Recent Likes
 function getParentPath(fullPath, targetFolder) {
@@ -567,7 +592,7 @@ dv.table(["Poster"], films.map(film => [
 
 <div class="divider" />
 
-<!-- Recent Activity -->
+<!-- text: recent-activity-header -->
 ```js-engine
 function convertFilePathToObsidianUri(filePath) {
     const vaultName = app.vault.getName();
@@ -596,6 +621,7 @@ return engine.markdown.create(`
 `);
 ```
 
+<!-- dashboard: recent-activity -->
 ```dataviewjs
 function getParentPath(fullPath, targetFolder) {
     const index = fullPath.indexOf(targetFolder);
@@ -626,7 +652,7 @@ dv.table(["Poster"], films.map(f => [
 
 <div class="divider" />
 
-<!-- Ratings -->
+<!-- dashboard: ratings-visualization -->
 ```dataviewjs
 function getParentPath(fullPath, targetFolder) {
     const index = fullPath.indexOf(targetFolder);
@@ -722,7 +748,7 @@ this.container.classList.add("letterboxd-film-chart-height");
 window.renderChart(chartData, this.container);
 ```
 
-<!-- Navigation -->
+<!-- ui: films-nav-secondary (render) -->
 ```dataviewjs
 function convertFilePathToObsidianUri(filePath) {
     const vaultName = app.vault.getName();
