@@ -79,7 +79,7 @@ tmdb_key.json
 
 Before diving into all the features, here’s how to get started with Letterboxd+ in a smooth and intentional way:
 
-### 🔗 Accessing Your Film & Series Dashboards
+### 4.1 🔗 Accessing Your Film & Series Dashboards
 
 Once installed, you’ll find two key entry points into the system:
 	•	Letterboxd+/Core/Films/films-profile.md
@@ -89,13 +89,13 @@ These are your main dashboards — they act as central hubs for navigating your 
 
 > 💡 Tip: Link to one or both of these profiles somewhere convenient in your vault — perhaps from a Home note or a personal hub — so they’re always within reach.
 
-### 🧩 Check Your Plugins & CSS
+### 4.2 🧩 Check Your Plugins & CSS
 
 Before you begin exploring, make sure all the required plugins (and their settings) are properly configured. Don’t forget to enable the CSS snippets — they’re responsible for the clean layout and styling you’ll see throughout the system.
 
 If you haven’t already, you’ll find the required plugins listed just above in this README, along with instructions on which settings to toggle.
 
-### 🔐 API Key? Only Once
+### 4.3 🔐 API Key? Only Once
 
 The first time you trigger a feature that needs data from TMDb — like logging a film or syncing metadata — the system will prompt you for your TMDb API key. Just paste it in once, and Letterboxd+ will handle it from there.
 
