@@ -79,7 +79,7 @@ tmdb_key.json
 
 Before diving into all the features, here’s how to get started with Letterboxd+ in a smooth and intentional way:
 
-🔗 Accessing Your Film & Series Dashboards
+### 🔗 Accessing Your Film & Series Dashboards
 
 Once installed, you’ll find two key entry points into the system:
 	•	Letterboxd+/Core/Films/films-profile.md
@@ -87,27 +87,28 @@ Once installed, you’ll find two key entry points into the system:
 
 These are your main dashboards — they act as central hubs for navigating your film and series collections. You can flip between them seamlessly, and they’re designed to be fast and intuitive.
 
-💡 Pro Tip: Link to one or both of these profiles somewhere convenient in your vault — perhaps from a Home note or a personal hub — so they’re always within reach.
+> 💡 Tip: Link to one or both of these profiles somewhere convenient in your vault — perhaps from a Home note or a personal hub — so they’re always within reach.
 
-🧩 Check Your Plugins & CSS
+### 🧩 Check Your Plugins & CSS
 
 Before you begin exploring, make sure all the required plugins (and their settings) are properly configured. Don’t forget to enable the CSS snippets — they’re responsible for the clean layout and styling you’ll see throughout the system.
 
 If you haven’t already, you’ll find the required plugins listed just above in this README, along with instructions on which settings to toggle.
 
-🔐 API Key? Only Once
+### 🔐 API Key? Only Once
 
 The first time you trigger a feature that needs data from TMDb — like logging a film or syncing metadata — the system will prompt you for your TMDb API key. Just paste it in once, and Letterboxd+ will handle it from there.
 
 It will store your key locally in:
 
+```
 Letterboxd+/Core/Scripts/tmdb_key.json
+```
 
 This file will be used for all future API calls, so you won’t need to enter it again.
 
-⚠️ If you plan to share your vault or push it to GitHub, be sure to include tmdb_key.json in your .gitignore file — your key is private.
+> ⚠️ If you plan to share your vault or push it to GitHub, be sure to include tmdb_key.json in your .gitignore file — your key is private.
 
-⸻
 
 Let me know if you’d like a walkthrough video or visual flowchart to accompany this!
 
