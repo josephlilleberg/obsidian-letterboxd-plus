@@ -29,32 +29,32 @@ Follow these steps to install and configure `Letterboxd+` in your Obsidian vault
 
 ### 1. Getting Started: Letterboxd+ Setup
 
-1. Download and unzup the Letterboxd+ repository. Inside, you’ll find two directories:
+1. Download and unzip the Letterboxd+ repository. Inside, you’ll find two directories:
 	- `Letterboxd+`: the core tracking system.
 	- `snippets`: required CSS for layout and styling. 
 
-2. Move the `Letterboxd+` folder anywhere in your vault. It works out of the box with no additional setup required.
+2. Move the `Letterboxd+` directory anywhere in your vault. It works out of the box with no additional setup required.
 
-3. The `snippets` folder contains 3 core css files. Two of the files — MCL Multi Column.css and MCL Wide Views.css — are part of the [Modular CSS Layout (MCL)](https://github.com/efemkay/obsidian-modular-css-layout) collection by **efemkay**.
+3. The `snippets` directory contains 3 core css files. Two of the files — MCL Multi Column.css and MCL Wide Views.css — are part of the [Modular CSS Layout (MCL)](https://github.com/efemkay/obsidian-modular-css-layout) collection by **efemkay**.
 
 > 📘 For a clear walkthrough on setting up CSS snippets in Obsidian, refer to the [official Obsidian documentation](https://help.obsidian.md/snippets).
 
 ---
 ### 2. 📦 Required Obsidian Plugins
 
-Make sure the following **Community Plugins** are installed and enabled:
+Make sure the following Community Plugins are **installed**, **enabled**, and properly **configured**:
 
-- [Charts](https://github.com/phibr0/obsidian-charts)
-- [Dataview](https://blacksmithgu.github.io/obsidian-dataview/)
+- [Charts](https://github.com/phibr0/obsidian-charts) by *phibr0*
+- [Dataview](https://blacksmithgu.github.io/obsidian-dataview/) by *Michael Brenan*
 	- Enable Javascript queries
 	- Enable inline Javascript queries
-- [Iconize](https://github.com/FlorianWoelki/obsidian-iconize)
-- [JS Engine](https://www.moritzjung.dev/obsidian-js-engine-plugin-docs/)
-- [Meta Bind](https://github.com/mProjectsCode/obsidian-meta-bind-plugin)
+- [Iconize](https://github.com/FlorianWoelki/obsidian-iconize) by *Florian Woelki*
+- [JS Engine](https://www.moritzjung.dev/obsidian-js-engine-plugin-docs/) by *Moritz Jung*
+- [Meta Bind](https://github.com/mProjectsCode/obsidian-meta-bind-plugin) by *Moritz Jung*
 	- Enable Javascript
-- [Note Toolbar](https://github.com/chrisgurney/obsidian-note-toolbar)
+- [Note Toolbar](https://github.com/chrisgurney/obsidian-note-toolbar) by *Chris Gurney*
 
-> You can find these under **Settings → Community Plugins → Browse**.
+> 📍 You can install these under **Settings → Community Plugins → Browse**.
 
 ---
 
@@ -85,10 +85,50 @@ with the following structure:
 tmdb_key.json
 ```
 
----
-### 4. ✨ Features ✨**
 
-#### **4.1 🧭 Unified Navigation Header**
+### 4. 👋 First-Time Setup: What to Expect
+
+
+
+Before diving into all the features, here’s how to get started with Letterboxd+ in a smooth and intentional way:
+
+🔗 Accessing Your Film & Series Dashboards
+
+Once installed, you’ll find two key entry points into the system:
+	•	Letterboxd+/Core/Films/films-profile.md
+	•	Letterboxd+/Core/Series/series-profile.md
+
+These are your main dashboards — they act as central hubs for navigating your film and series collections. You can flip between them seamlessly, and they’re designed to be fast and intuitive.
+
+💡 Pro Tip: Link to one or both of these profiles somewhere convenient in your vault — perhaps from a Home note or a personal hub — so they’re always within reach.
+
+🧩 Check Your Plugins & CSS
+
+Before you begin exploring, make sure all the required plugins (and their settings) are properly configured. Don’t forget to enable the CSS snippets — they’re responsible for the clean layout and styling you’ll see throughout the system.
+
+If you haven’t already, you’ll find the required plugins listed just above in this README, along with instructions on which settings to toggle.
+
+🔐 API Key? Only Once
+
+The first time you trigger a feature that needs data from TMDb — like logging a film or syncing metadata — the system will prompt you for your TMDb API key. Just paste it in once, and Letterboxd+ will handle it from there.
+
+It will store your key locally in:
+
+Letterboxd+/Core/Scripts/tmdb_key.json
+
+This file will be used for all future API calls, so you won’t need to enter it again.
+
+⚠️ If you plan to share your vault or push it to GitHub, be sure to include tmdb_key.json in your .gitignore file — your key is private.
+
+⸻
+
+Let me know if you’d like a walkthrough video or visual flowchart to accompany this!
+
+
+---
+### 5. ✨ Features ✨**
+
+#### **5.1 🧭 Unified Navigation Header**
 ---
 Every **film** and **series** page includes a clean, consistent navigation header that lets you move between core parts of the system:
 
@@ -101,14 +141,14 @@ Every **film** and **series** page includes a clean, consistent navigation heade
   
 This keeps your tracking experience centralized, organized, and easy to navigate — no matter where you are in the system.
 
-#### **4.2 🎥 Unified Film & Series Tracking**
+#### **5.2 🎥 Unified Film & Series Tracking**
 ---
 - View and manage:
     - **Favorites**, **Likes**, **Watchlist**, and **Recent activity**
     - **Ratings graph** for visualizing rating distribution
 
 ---
-#### **4.3 📊 Film & Series Dashboards**
+#### **5.3 📊 Film & Series Dashboards**
 
 Stay on top of your media journey with a dynamic, real-time dashboard that offers a clear snapshot of your film and series activity. Each dashboard offers a focused snapshot of your engagement, helping you track what you’ve watched, rewatched, logged, or added throughout the year— all in a streamlined view. 
 
@@ -142,7 +182,7 @@ Stay on top of your media journey with a dynamic, real-time dashboard that offer
 - **Reviews**, **Lists**, **Watchlist**, **Likes**, **Favorites** show total counts. **Quotes**, on the other hand, shows an ggregate total quotes across all entries.
 
 ---
-#### **4.4 🧾 Individual Entry Pages**
+#### **5.4 🧾 Individual Entry Pages**
   
 Whether it’s a film or series, each entry supports:
 - **Rating**, **liking**, and **favoriting**
@@ -154,7 +194,7 @@ Whether it’s a film or series, each entry supports:
 
 > 📺 For series, episodes can also track **status** (watching, waiting, on hold, etc.) and rewatches from any point in the series.
 
-#### **4.5 🗂️ Custom Lists for Films & Series**
+#### **5.5 🗂️ Custom Lists for Films & Series**
 ---
 - Create personalized themed lists for both films and series — whether you’re building a “Best of 2024” collection, a “Comfort Shows” playlist, or a watchlist to revisit later.
     - Each media type has its own dedicated lists
