@@ -1,5 +1,4 @@
 ![version](https://img.shields.io/github/v/tag/josephlilleberg/obsidian-letterboxd-plus?label=version)
-![GitHub License](https://img.shields.io/github/license/josephlilleberg/obsidian-letterboxd-plus)
 [![obsidian](https://img.shields.io/badge/Obsidian-4E3A8C?style=flat&logo=obsidian&logoColor=white)](https://obsidian.md/)
 ![downloads](https://img.shields.io/github/downloads/josephlilleberg/obsidian-letterboxd-plus/latest/total)
 
