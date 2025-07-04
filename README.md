@@ -109,7 +109,7 @@ This file will be used for all future API calls, so you won’t need to enter it
 
 > ⚠️ If you plan to share your vault or push it to GitHub, be sure to include tmdb_key.json in your .gitignore file — your key is private.
 
-## 5. ✨ Features ✨**
+## 5. ✨ Features ✨
 
 ### **5.1 🧭 Unified Navigation Header**
 
