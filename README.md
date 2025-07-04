@@ -2,7 +2,6 @@
 ![license](https://img.shields.io/github/license/josephlilleberg/obsidian-letterboxd-plus)
 [![obsidian](https://img.shields.io/badge/Obsidian-4E3A8C?style=flat&logo=obsidian&logoColor=white)](https://obsidian.md/)
 ![downloads](https://img.shields.io/github/downloads/josephlilleberg/obsidian-letterboxd-plus/latest/total)
-[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/josephlilleberg)
 
 # 🎞️ Letterboxd+
 
@@ -16,7 +15,9 @@
 
  With support for watchlists, diaries, and more, **Letterboxd+** is your personal media journal — a centralized, flexible system for capturing your evolving taste in both films and series.
 
-> 💛 Enjoy using Letterboxd+? Consider supporting the project on [Ko-fi](https://ko-fi.com/josephlilleberg)
+> 💛 Enjoy using Letterboxd+? Consider supporting the project
+>
+> [![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/josephlilleberg)
 
 
 ---
