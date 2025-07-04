@@ -2,6 +2,7 @@
 ![license](https://img.shields.io/github/license/josephlilleberg/obsidian-letterboxd-plus)
 [![obsidian](https://img.shields.io/badge/Obsidian-4E3A8C?style=flat&logo=obsidian&logoColor=white)](https://obsidian.md/)
 ![downloads](https://img.shields.io/github/downloads/josephlilleberg/obsidian-letterboxd-plus/latest/total)
+[![ko-fi](https://ko-fi.com/img/githubbutton_sm.svg)](https://ko-fi.com/josephlilleberg)
 
 # 🎞️ Letterboxd+
 
@@ -14,6 +15,9 @@
 **Letterboxd+** brings that experience into Obsidian, giving you full control over how you log, explore, and reflect on what you watch. Whether you’re keeping a watchlist, logging rewatches, or collecting favorite quotes, everything stays local, customizable, and yours.
 
  With support for watchlists, diaries, and more, **Letterboxd+** is your personal media journal — a centralized, flexible system for capturing your evolving taste in both films and series.
+
+> 💛 Enjoy using Letterboxd+? Consider supporting the project on [Ko-fi](https://ko-fi.com/josephlilleberg)
+
 
 ---
 ## 🚀 Setup Instructions
@@ -158,11 +162,3 @@ Whether it’s a film or series, each entry supports:
     - Perfect for tracking moods, genres, rewatches, or curated collections
 
 - Lists display relevant metadata and link directly to each entry
-
-📝 Refined Description:
-
-Create personalized themed lists for both films and series — whether you’re building a “Best of 2024” collection, a “Comfort Shows” playlist, or a watchlist to revisit later.
-	•	Each media type has its own dedicated lists
-	•	Add entries directly from the film or series page, or from the list view itself
-	•	Lists display relevant metadata and link directly to each entry for quick access
-	•	Perfect for tracking moods, genres, rewatches, or curated collections
