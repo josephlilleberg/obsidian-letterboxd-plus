@@ -144,7 +144,7 @@ Stay on top of your media journey with a dynamic, real-time dashboard that offer
 	- **0 / 0 | 0 / 0**
 	- *Diary entries logged of series watched this year / of those, from seasons released this year | Diary entries logged of series rewatched this year / of those, from seasons released this year*
 
-##### **🔹 Films Overview**
+#### **🔹 Films Overview**
 
 - **Films:**
     - **0 / 0**
@@ -156,7 +156,7 @@ Stay on top of your media journey with a dynamic, real-time dashboard that offer
 
 > Note: Diary entries for films includes the initial watch and all respective rewatches
 
-##### **🔹 Other Summaries**
+#### **🔹 Other Summaries**
 
 - **Reviews**, **Lists**, **Watchlist**, **Likes**, **Favorites** show total counts. **Quotes**, on the other hand, shows an ggregate total quotes across all entries.
 
