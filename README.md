@@ -126,7 +126,7 @@ Every **film** and **series** page includes a clean, consistent navigation heade
   
 This keeps your tracking experience centralized, organized, and easy to navigate — no matter where you are in the system.
 
-#### **5.2 🎥 Unified Film & Series Tracking**
+### **5.2 🎥 Unified Film & Series Tracking**
 
 - View and manage:
     - **Favorites**, **Likes**, **Watchlist**, and **Recent activity**
