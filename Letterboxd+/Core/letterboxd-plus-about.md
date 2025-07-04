@@ -14,13 +14,13 @@ updated: 2025-07-04
 - **Version**: 1.0.0
 - **License**: MIT
 - **Last Updated**: 2025-07-04
-- **Repository**: [github.com/lilleai/letterboxd-plus](https://github.com/lilleai/letterboxd-plus)
+- **Repository**: [github.com/josephlilleberg/obsidian-letterboxd-plus](https://github.com/josephlilleberg/obsidian-letterboxd-plus)
 
 ## **📜 Changelog** 
 ---
-### **v1.0.0 — 2025-07-03**
+### **v1.0.0 — 2025-07-04**
 
-🎉 _First official release of Letterboxd+ — your personal media journal in Obsidian!_
+🎉 *First official release of Letterboxd+ — your personal media journal in Obsidian!*
 
 ---
 
