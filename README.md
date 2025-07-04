@@ -97,7 +97,7 @@ If you haven’t already, you’ll find the required plugins listed just above i
 
 ### 4.3 🔐 API Key? Only Once
 
-The first time you trigger a feature that needs data from TMDb — like logging a film or syncing metadata — the system will prompt you for your TMDb API key. Just paste it in once, and Letterboxd+ will handle it from there.
+The first time you trigger a feature that needs data from TMDb — like logging a film or syncing metadata — the system will prompt you for your TMDb API key. Just paste it in once, and Letterboxd+ will handle it from there as stated previously.
 
 It will store your key locally in:
 
@@ -108,9 +108,6 @@ Letterboxd+/Core/Scripts/tmdb_key.json
 This file will be used for all future API calls, so you won’t need to enter it again.
 
 > ⚠️ If you plan to share your vault or push it to GitHub, be sure to include tmdb_key.json in your .gitignore file — your key is private.
-
-
-Let me know if you’d like a walkthrough video or visual flowchart to accompany this!
 
 ## 5. ✨ Features ✨**
 
