@@ -1,2 +1,5 @@
 # API Keys
 tmdb_key.json
+
+# macOS system files
+.DS_Store
