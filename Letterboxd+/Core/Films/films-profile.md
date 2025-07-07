@@ -320,7 +320,7 @@ const button = mb.createButtonMountable(context.file.path, {
                             new Notice("📦 Importing " + totalFiles + " films from Letterboxd export...", 5000);
 
                             // Loop through each film entry, fetch TMDB details, and add to library
-                            for (const [key, entry] of Object.entries(mergedExportData)) {
+                            for (const [key, entry] of Object.entries(mergedLetterboxdExportData)) {
                               const film = await lib.fetchFilmDetailsByQuery(entry.name, tmdbKey, entry.year)
                               const result = await lib.addFilmToLibrary(basePath, film.id, tmdbKey, letterboxdMetadata = entry, openAfterCreate = false, showNotice = false)
 
