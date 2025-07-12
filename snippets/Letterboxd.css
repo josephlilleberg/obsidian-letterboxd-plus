@@ -152,12 +152,12 @@ div.js-engine-execution-stats-button {
 }
 
 /* Center Headers */
-.markdown-preview-view h1,
-.markdown-preview-view h2,
-.markdown-preview-view h3,
-.markdown-preview-view h4,
-.markdown-preview-view h5,
-.markdown-preview-view h6 {
+.letterboxd.markdown-preview-view h1,
+.letterboxd.markdown-preview-view h2,
+.letterboxd.markdown-preview-view h3,
+.letterboxd.markdown-preview-view h4,
+.letterboxd.markdown-preview-view h5,
+.letterboxd.markdown-preview-view h6 {
     text-align: center;
     pointer-events: none;
 }
