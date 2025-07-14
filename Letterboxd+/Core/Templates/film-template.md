@@ -189,7 +189,7 @@ const button = mb.createButtonMountable(context.file.path, {
 
 
         await app.fileManager.processFrontMatter(file, fm => {
-          fm.rating = ratingOption;
+          fm.rating = ratingOption ?? fm.rating;
         });
       })();
       `,
@@ -1386,8 +1386,8 @@ const button = mb.createButtonMountable(context.file.path, {
 
         const review_date = await lib.getFormattedLocalDateTime();
         await app.fileManager.processFrontMatter(file, fm => {
-          fm.review = review ?? '';
-          fm.review_date = review_date ?? null;
+          fm.review = review ?? fm.review;
+          fm.review_date = review_date ?? fm.review_date;
 
         });
 
@@ -1717,9 +1717,10 @@ const button = mb.createButtonMountable(context.file.path, {
           }
 
           const newQuotes = await lib.addAndSortQuotes(quotes, newQuote)
+          (!newQuotes) return new Notice('Unable to process new quotes')
 
           await app.fileManager.processFrontMatter(file, fm => {
-              fm.quotes = newQuotes;
+              fm.quotes = newQuotes ?? fm.quotes;
             });
           } else if (promptOption == 'remove') {
             // ──────────────── Prompt: Character & Actor Selector ────────────────
@@ -1753,7 +1754,7 @@ const button = mb.createButtonMountable(context.file.path, {
 
             quotes.splice(selectedIdx, 1);
             await app.fileManager.processFrontMatter(file, fm => {
-                fm.quotes = quotes;
+                fm.quotes = quotes ?? fm.quotes;
             });
 
             new Notice("Quote deleted.");
