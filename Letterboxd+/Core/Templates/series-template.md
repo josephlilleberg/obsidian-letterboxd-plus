@@ -1540,8 +1540,8 @@ const button = mb.createButtonMountable(context.file.path, {
 
         const review_date = await lib.getFormattedLocalDateTime();
         await app.fileManager.processFrontMatter(file, fm => {
-          fm.review = review
-          fm.review_date = review_date
+          fm.review = review ?? '';
+          fm.review_date = review_date ?? null;
 
         });
 
