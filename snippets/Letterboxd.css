@@ -113,7 +113,7 @@
   padding: 0 40px;
 }
 
-.mb-button-group-inline {
+.letterboxd .mb-button-group-inline {
   display: flex;
   justify-content: flex-start; /* or space-between */
   gap: 8px; /* optional spacing */
