@@ -2,7 +2,7 @@
 cssclasses:
   - letterboxd
   - hidefilename
-version: 1.0.0
+version: 1.0.1
 updated: 2025-07-04
 ---
 ## 📝 About Letterboxd+
@@ -18,6 +18,17 @@ updated: 2025-07-04
 
 ## **📜 Changelog** 
 ---
+### **v1.0.1 — 2025-9-18**
+
+🎉 *Patch Notes*
+
+- Updated Offical Letterboxd+ Import: Fixed an issue where the import script would exit upon encountering a series. When the script now encounters a series, it'll attempt to fetch the series information and create an note for it. If both film and series queries fail, it'll log the error in the console and continue to the next entry. 
+
+- Updated Github README for instructions on how to import data from the offical Letterboxd 
+
+
+---
+
 ### **v1.0.0 — 2025-07-04**
 
 🎉 *First official release of Letterboxd+ — your personal media journal in Obsidian!*

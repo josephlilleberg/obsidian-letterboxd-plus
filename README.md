@@ -108,6 +108,17 @@ This file will be used for all future API calls, so you won’t need to enter it
 
 > ⚠️ If you plan to share your vault or push it to GitHub, be sure to include tmdb_key.json in your .gitignore file — your key is private.
 
+### 4.4 📥 Importing Data from Letterboxd
+1. On [Letterboxd](https://letterboxd.com), go to **Profile → Settings → Data → EXPORT YOUR DATA**.
+2. Download the archive of your personal data. You’ll get a folder named something like `letterboxd-2025-09-18` (the date will vary).
+3. Place this extracted folder directly within your Letterboxd+ directory: `<letterboxd-path-in-vault>/Letterboxd+/Core/Scripts/`
+5.	Make sure the CSV files (watchlist.csv, watched.csv, reviews.csv, ratings.csv, diary.csv) remain inside the extracted folder — don’t rename or move them individually. 
+6.	Run the import script from `Letterboxd+/Core/Films/Profile.md`. It will detect the CSV files automatically and process them.
+
+⸻
+
+Do you also want me to phrase this so users know whether they should replace the folder when they re-export from Letterboxd, or if they can keep multiple dated export folders?
+
 ## 5. ✨ Features ✨
 
 ### **5.1 🧭 Unified Navigation Header**
@@ -180,3 +191,5 @@ Whether it’s a film or series, each entry supports:
     - Perfect for tracking moods, genres, rewatches, or curated collections
 
 - Lists display relevant metadata and link directly to each entry
+
+###  

@@ -321,21 +321,64 @@ const button = mb.createButtonMountable(context.file.path, {
 
                             // Loop through each film entry, fetch TMDB details, and add to library
                             for (const [key, entry] of Object.entries(mergedLetterboxdExportData)) {
-                              const film = await lib.fetchFilmDetailsByQuery(entry.name, tmdbKey, entry.year)
-                              const result = await lib.addFilmToLibrary(basePath, film.id, tmdbKey, letterboxdMetadata = entry, openAfterCreate = false, showNotice = false)
+                              //const film = await lib.fetchFilmDetailsByQuery(entry.name, tmdbKey, entry.year)
+
+                              let media; // could be film or series
+                              let mediaType = "film";
+
+                              try {
+                                  // Try fetching as a film
+                                  media = await lib.fetchFilmDetailsByQuery(entry.name, tmdbKey, entry.year);
+                                } catch (filmErr) {
+                                  console.warn(\`Film fetch failed for \${entry.name} (\${entry.year}), trying as series...\`);
+
+                                  try {
+                                    // Try fetching as a series instead
+                                    media = await lib.fetchSeriesDetailsByQuery(entry.name, tmdbKey, entry.year);
+                                    mediaType = "series";
+                                    console.log(\`Series fetched successfully for \${entry.name} (\${entry.year}) \`)
+                                  } catch (seriesErr) {
+                                    console.error(\`Skipping \${entry.name} — neither film nor series found.\`, seriesErr);
+                                    failed++;
+                                    failedFilms.push(\`\${entry.name} — not found as film or series\`);
+                                    processedFiles++;
+                                    continue;
+                                  }
+                                }
+
+                              let result;
+                                if (mediaType === "film") {
+                                  result = await lib.addFilmToLibrary(
+                                    basePath,
+                                    media.id,
+                                    tmdbKey,
+                                    (letterboxdMetadata = entry),
+                                    (openAfterCreate = false),
+                                    (showNotice = false)
+                                  );
+                                } else {
+                                  result = await lib.addSeriesToLibrary(
+                                    basePath,
+                                    media.id,
+                                    tmdbKey,
+                                    (letterboxdMetadata = entry),
+                                    (openAfterCreate = false),
+                                    (showNotice = false)
+                                  );
+                                }
 
                               switch (result.status) {
                                 case 'created':
                                   added++;
-                                  addedFilms.push(film.title);
+                                  addedFilms.push(media.title);
                                   break;
                                 case 'skipped':
                                   skipped++;
-                                  skippedFilms.push(film.title);
+                                  skippedFilms.push(media.title);
                                   break;
                                 case 'error':
                                   failed++;
-                                  failedFilms.push(\`\${film.title} — \${result.message}\`);
+                                  failedFilms.push(\`\${media.title} — \${result.message}\`);
                                   break;
                               }
 

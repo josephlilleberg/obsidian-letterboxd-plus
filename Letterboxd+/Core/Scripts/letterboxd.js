@@ -61,6 +61,7 @@
 // 📤 Import & Export Utilities
 // ─────────────────────────────────────────────────────
 // - addFilmToLibrary
+// - addSeriesToLibrary
 // - exportLibrary
 // - fetchLetterboxdExportFolders
 // - fetchLetterboxdPlusJsonExports
@@ -769,6 +770,32 @@ export async function fetchFilmDetailsByQuery(query, apiKey, year = null) {
 }
 
 /**
+ * Searches TMDB for a film by query (and optionally year), returning full details of the best match.
+ *
+ * @param {string} query - Film title or keywords to search.
+ * @param {string} apiKey - TMDB API key.
+ * @param {number|null} [year=null] - Optional release year to narrow search.
+ * @returns {Promise<object>} Full TMDB film details of the best match.
+ * @throws {Error} If the query is invalid or no results are found.
+ */
+export async function fetchSeriesDetailsByQuery(query, apiKey, year = null) {
+  if (!query || !apiKey) {
+    throw new Error("Missing query or API key.");
+  }
+
+  // Use the extended searchTMDB function with optional year
+  const results = await searchTMDB("series", apiKey, query, year ? { year } : undefined);
+
+  if (!results || results.length === 0) {
+    throw new Error(`No series found for query "${query}"${year ? ` in ${year}` : ''}.`);
+  }
+
+  // Pick the first match (most relevant)
+  const bestMatch = results[0];
+  return await fetchDetailsById("series", bestMatch.id, apiKey);
+}
+
+/**
  * Retrieves all genres used across either film or series files in the vault,
  * excluding any genres already assigned to the current item.
  *
@@ -948,7 +975,7 @@ export async function addFilmToLibrary(basePath, id, apiKey, letterboxdMetadata 
  * @param {boolean} [showNotice=true] - Whether to show user-facing notifications.
  * @returns {Promise<{status: 'created'|'skipped'|'error', filePath: string|null, message: string}>}
  */
-export async function addSeriesToLibrary(basePath, id, apiKey, openAfterCreate = true, showNotice = true) {
+export async function addSeriesToLibrary(basePath, id, apiKey, letterboxdMetadata = null, openAfterCreate = true, showNotice = true) {
   try {
     const seriesDetails = await fetchDetailsById('series', id, apiKey);
     const safeTitleSlug = await formatFileName(seriesDetails.name);
