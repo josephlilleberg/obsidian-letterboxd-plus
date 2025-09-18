@@ -115,10 +115,6 @@ This file will be used for all future API calls, so you won’t need to enter it
 5.	Make sure the CSV files (watchlist.csv, watched.csv, reviews.csv, ratings.csv, diary.csv) remain inside the extracted folder — don’t rename or move them individually. 
 6.	Run the import script from `Letterboxd+/Core/Films/Profile.md`. It will detect the CSV files automatically and process them.
 
-⸻
-
-Do you also want me to phrase this so users know whether they should replace the folder when they re-export from Letterboxd, or if they can keep multiple dated export folders?
-
 ## 5. ✨ Features ✨
 
 ### **5.1 🧭 Unified Navigation Header**
