@@ -113,7 +113,7 @@ This file will be used for all future API calls, so you won’t need to enter it
 2. Download the archive of your personal data. You’ll get a folder named something like `letterboxd-2025-09-18` (the date will vary).
 3. Place this extracted folder directly within your Letterboxd+ directory: `<letterboxd-path-in-vault>/Letterboxd+/Core/Scripts/`
 5.	Make sure the CSV files (watchlist.csv, watched.csv, reviews.csv, ratings.csv, diary.csv) remain inside the extracted folder — don’t rename or move them individually. 
-6.	Run the import script from `Letterboxd+/Core/Films/Profile.md`. It will detect the CSV files automatically and process them.
+6.	Run the import script from `Letterboxd+/Core/Films/films-profile.md`. It will detect the CSV files automatically and process them.
 
 ## 5. ✨ Features ✨
 
