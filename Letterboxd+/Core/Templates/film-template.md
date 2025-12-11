@@ -1717,7 +1717,7 @@ const button = mb.createButtonMountable(context.file.path, {
           }
 
           const newQuotes = await lib.addAndSortQuotes(quotes, newQuote)
-          (!newQuotes) return new Notice('Unable to process new quotes')
+          if (!newQuotes) return new Notice('Unable to process new quotes')
 
           await app.fileManager.processFrontMatter(file, fm => {
               fm.quotes = newQuotes ?? fm.quotes;
